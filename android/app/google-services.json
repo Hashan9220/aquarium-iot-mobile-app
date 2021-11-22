@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "65925423296",
+    "firebase_url": "https://aquarium-iot-9dbcb-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "aquarium-iot-9dbcb",
+    "storage_bucket": "aquarium-iot-9dbcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65925423296:android:affe7ceedc8b2e5f760d25",
+        "android_client_info": {
+          "package_name": "com.smart_aqua"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65925423296-m0e31767rmvc6ekke8qlt0v46i8c8alp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzFJ6v3jKewhzCtD5RKXFOqkZGD-Wdhhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65925423296-m0e31767rmvc6ekke8qlt0v46i8c8alp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
