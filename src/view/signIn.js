@@ -1,16 +1,66 @@
 import React, {Component} from 'react'
-import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image} from 'react-native'
+import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, Alert} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
 import RadioForm from 'react-native-simple-radio-button';
+import auth from "@react-native-firebase/auth";
+
 
 //Common---------------------------------------------------
 import {BasicInput} from "../common/BasicInput";
+
 
 const radio_props = [
     {label: 'Remember the account ?', value: 0},
 ];
 
 export default class signIn extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+            emailError: false,
+            passwordError:false
+        }
+    }
+
+    //User Login -----------------------------------------------------------------------------
+    userLogin = () => {
+        auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                Alert.alert("Success !");
+            })
+            .catch(error => {
+                Alert.alert("Not Login ");
+            });
+    }
+
+    //Validate -----------------------------------------------------------------------------------
+    emailValidate = (text) => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+            this.setState({emailError: true});
+            this.setState({email: text})
+            return false;
+        } else {
+            this.setState({email: text})
+            this.setState({emailError: false});
+        }
+    }
+    passwordValidate = (text) => {
+        let pwReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        if (pwReg.test(text) === false) {
+            this.setState({passwordError: true});
+            this.setState({password: text})
+            return false;
+        } else {
+            this.setState({password: text})
+            this.setState({passwordError: false});
+        }
+    }
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container}>
@@ -35,8 +85,27 @@ export default class signIn extends Component {
                     </Text>
 
                     {/*---------------------------Common --------------------------------*/}
-                    <BasicInput viewLabel='User Name'/>
-                    <BasicInput viewLabel='Password'/>
+                    <BasicInput viewLabel='Email'
+                                valuData={this.state.email}
+                                txtEntry={false}
+                                valueSet={
+                                    text => this.emailValidate(text)
+                                }
+                                autoCorrect={false}
+                                autoCap="none"
+                    />
+                    {this.state.emailError ? <Text style={styles.txtError}> Invalid Email Address </Text> : <></>}
+
+                    <BasicInput viewLabel='Password'
+                                valuData={this.state.password}
+                                txtEntry={true}
+                                valueSet={
+                                    text => this.passwordValidate(text)
+                                }
+                                autoCorrect={false}
+                                autoCap="none"
+                    />
+                    {this.state.passwordError ? <Text style={styles.txtPwError}> Invalid Password Format </Text> : <></>}
 
                     {/*-------------------------- Radio Button ---------------------------*/}
                     <RadioForm
@@ -49,7 +118,7 @@ export default class signIn extends Component {
                     />
 
                     {/*----------------Sign In Button-----------*/}
-                    <TouchableOpacity style={styles.btnSignIn}>
+                    <TouchableOpacity style={styles.btnSignIn} onPress={this.userLogin}>
                         <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                     </TouchableOpacity>
 
@@ -65,7 +134,6 @@ export default class signIn extends Component {
                     <TouchableOpacity style={styles.btnReg}>
                         <Text style={styles.btnRegTxt}>{'Register'}</Text>
                     </TouchableOpacity>
-
 
                 </LinearGradient>
             </KeyboardAvoidingView>
@@ -100,6 +168,18 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat',
         color: '#ffffff',
         marginTop: '-15%'
+    },
+    txtError: {
+        color: "#ff2020",
+        fontSize: 15,
+        marginLeft: "-38%",
+        marginTop: "-2%"
+    },
+    txtPwError: {
+        color: "#ff2020",
+        fontSize: 15,
+        marginLeft: "-31%",
+        marginTop: "-2%"
     },
     signInCircle: {
         width: 160,
