@@ -5,7 +5,6 @@ import LinearGradient from "react-native-linear-gradient";
 
 const Dots = ({selected}) => {
     let backgroundColor;
-
     backgroundColor = selected ? 'rgb(255,255,255)' : 'rgb(134, 164, 197)';
 
     return (
@@ -20,7 +19,6 @@ const Dots = ({selected}) => {
         />
     );
 }
-
 
 const Skip = ({...props}) => (
     <TouchableOpacity
