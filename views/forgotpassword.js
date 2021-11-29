@@ -13,7 +13,7 @@ export default class forgotpassword extends Component {
 
                     {/*----------------------------Back Button----------------------------*/}
                     <TouchableOpacity style={styles.btnBack}>
-                        <Image source={require('../assets/icon/left_arrow.png')} style={styles.imgBack}>
+                        <Image source={require('../assets/icons/left_arrow.png')} style={styles.imgBack}>
                         </Image>
                     </TouchableOpacity>
 

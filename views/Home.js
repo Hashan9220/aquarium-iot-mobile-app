@@ -36,12 +36,10 @@ export default function Home(){
                     </Card>
                 </Card>
             </View>
-
             <View style={styles.tempSection}>
                 <Text style={{fontSize:25, color:'white', }}>
                     Current Temperature
                 </Text>
-
                 <View progressBarContainer>
                     <Progress.Circle color={'#fff'} size={300} style = {{marginTop:40, }} indeterminate={false} />
                     <View style={styles.midCircle}>

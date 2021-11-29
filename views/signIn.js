@@ -1,45 +1,43 @@
-import React, {Component} from "react";
+import React, {Component} from 'react'
 import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, Alert} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
 import RadioForm from 'react-native-simple-radio-button';
-import auth from '@react-native-firebase/auth';
+import auth from "@react-native-firebase/auth";
 
-//Common
+
+//Common---------------------------------------------------
 import {BasicInput} from "../common/BasicInput";
 
+
 const radio_props = [
-    {label: 'Agree to Terms & Conditions', value: 0},
+    {label: 'Remember the account ?', value: 0},
 ];
 
-export default class register extends Component {
+export default class signIn extends Component {
 
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            fullname: '',
             email: '',
             password: '',
-            confirmpassword: '',
-            nameError: false,
             emailError: false,
-            passwordError: false,
-            confirmPasswordError: false
-        };
-
-    }
-
-    //Validation---------------------------------------------------
-    fullNameValidate = (text) => {
-        let nameReg = /^[a-zA-Z ]{2,40}$/;
-        if (nameReg.test(text) === false) {
-            this.setState({nameError: true});
-            this.setState({fullname: text})
-            return false;
-        } else {
-            this.setState({fullname: text})
-            this.setState({nameError: false});
+            passwordError:false
         }
     }
+
+    //User Login -----------------------------------------------------------------------------
+    userLogin = () => {
+        auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                Alert.alert("Success !");
+            })
+            .catch(error => {
+                Alert.alert("Not Login ");
+            });
+    }
+
+    //Validate -----------------------------------------------------------------------------------
     emailValidate = (text) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
@@ -63,95 +61,51 @@ export default class register extends Component {
         }
     }
 
-    //User Register------------------------------------------------
-    registerUser = () => {
-        if (this.state.password == this.state.confirmpassword) {
-            auth()
-                .createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.fullname, this.state.confirmpassword)
-                .then(() => {
-                    this.setState({confirmPasswordError: false});
-                    Alert.alert("Success !");
-                })
-                .catch(error => {
-                    if (error.code === 'auth/email-already-in-use') {
-                        Alert.alert("That email address is already in use!");
-                    }
-                    if (error.code === 'auth/invalid-email') {
-                        Alert.alert("That email address is invalid!");
-                    }
-                    console.error(error);
-                });
-        } else {
-            this.setState({confirmPasswordError: true});
-        }
-    }
-
     render() {
-
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
                     {/*----------------------------Back Button----------------------------*/}
                     <TouchableOpacity style={styles.btnBack}>
-                        <Image source={require('../assets/icon/left_arrow.png')} style={styles.imgBack}>
+                        <Image source={require('../assets/icons/left_arrow.png')} style={styles.imgBack}>
                         </Image>
                     </TouchableOpacity>
 
                     {/*----------------------------Back Title----------------------------*/}
-                    <Text style={styles.backTitle}>Register</Text>
+                    <Text style={styles.backTitle}>Sign In</Text>
 
                     {/*----------------------------Head Image----------------------------*/}
-                    <View style={styles.registerCircle}>
+                    <View style={styles.signInCircle}>
                     </View>
 
                     {/*----------------------------Head Title----------------------------*/}
-                    <Text style={styles.registerHeadTitle}>
+                    <Text style={styles.signInHeadTitle}>
                         Smart {"\n"} Aquarium
                     </Text>
 
                     {/*---------------------------Common --------------------------------*/}
-                    <BasicInput viewLabel='Full Name'
-                                valuData={this.state.fullname}
-                                valueSet={
-                                    text => this.fullNameValidate(text)
-                                }
-                                txtEntry={false}
-                    />
-                    {this.state.nameError ? <Text style={styles.txtUserError}> Invalid Full Name </Text> : <></>}
-
                     <BasicInput viewLabel='Email'
                                 valuData={this.state.email}
+                                txtEntry={false}
                                 valueSet={
                                     text => this.emailValidate(text)
                                 }
-                                txtEntry={false}
+                                autoCorrect={false}
+                                autoCap="none"
                     />
-
                     {this.state.emailError ? <Text style={styles.txtError}> Invalid Email Address </Text> : <></>}
 
                     <BasicInput viewLabel='Password'
                                 valuData={this.state.password}
+                                txtEntry={true}
                                 valueSet={
                                     text => this.passwordValidate(text)
                                 }
-                                txtEntry={true}
+                                autoCorrect={false}
+                                autoCap="none"
                     />
                     {this.state.passwordError ? <Text style={styles.txtPwError}> Invalid Password Format </Text> : <></>}
-
-                    <BasicInput viewLabel='Confirm Password'
-                                valuData={this.state.confirmpassword}
-                                valueSet={
-                                    text => this.setState({
-                                        confirmpassword: text
-                                    })
-                                }
-                                txtEntry={true}
-
-                    />
-                    {this.state.confirmPasswordError ?
-                        <Text style={styles.txtCPWError}> Password Different </Text> : <></>}
-
 
                     {/*-------------------------- Radio Button ---------------------------*/}
                     <RadioForm
@@ -163,11 +117,23 @@ export default class register extends Component {
                         labelStyle={{fontSize: 15, color: '#ffffff'}}
                     />
 
-                    {/*----------------Register Button-----------*/}
-                    <TouchableOpacity style={styles.btnRegister} onPress={this.registerUser}>
-                        <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+                    {/*----------------Sign In Button-----------*/}
+                    <TouchableOpacity style={styles.btnSignIn} onPress={this.userLogin}>
+                        <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                     </TouchableOpacity>
 
+                    {/*----------------Forgot Password----------------*/}
+                    <TouchableOpacity style={styles.btnForgotPassword}>
+                        <Text style={styles.btnForgotPasswordTxt}>{'Forgot Password ?'}</Text>
+                    </TouchableOpacity>
+
+                    <View style={styles.separator}>
+                    </View>
+
+                    {/*----------------Register----------------*/}
+                    <TouchableOpacity style={styles.btnReg}>
+                        <Text style={styles.btnRegTxt}>{'Register'}</Text>
+                    </TouchableOpacity>
 
                 </LinearGradient>
             </KeyboardAvoidingView>
@@ -197,6 +163,12 @@ const styles = StyleSheet.create({
         marginTop: '-55%',
         marginLeft: '20%'
     },
+    backTitle: {
+        fontSize: 17,
+        fontFamily: 'Montserrat',
+        color: '#ffffff',
+        marginTop: '-15%'
+    },
     txtError: {
         color: "#ff2020",
         fontSize: 15,
@@ -209,25 +181,7 @@ const styles = StyleSheet.create({
         marginLeft: "-31%",
         marginTop: "-2%"
     },
-    txtUserError:{
-        color: "#ff2020",
-        fontSize: 15,
-        marginLeft: "-45%",
-        marginTop: "-2%"
-    },
-    txtCPWError:{
-        color: "#ff2020",
-        fontSize: 15,
-        marginLeft: "-40%",
-        marginTop: "-2%"
-    },
-    backTitle: {
-        fontSize: 17,
-        fontFamily: 'Montserrat',
-        color: '#ffffff',
-        marginTop: '-15%'
-    },
-    registerCircle: {
+    signInCircle: {
         width: 160,
         height: 160,
         backgroundColor: '#ffffff',
@@ -235,7 +189,7 @@ const styles = StyleSheet.create({
         elevation: 8,
         marginTop: '5%'
     },
-    registerHeadTitle: {
+    signInHeadTitle: {
         fontSize: 30,
         fontFamily: 'Montserrat',
         color: '#ffffff',
@@ -246,7 +200,39 @@ const styles = StyleSheet.create({
         marginLeft: '-17%',
         marginTop: '3%'
     },
-    btnRegister: {
+    btnForgotPassword: {
+        width: '40%',
+        height: '4%',
+        backgroundColor: 'rgba(255,0,0,0)',
+        textAlign: "center",
+        marginTop: '5%'
+    },
+    btnForgotPasswordTxt: {
+        fontSize: 17,
+        color: "#ffffff",
+        alignSelf: "center",
+        marginTop: '2%'
+    },
+    separator: {
+        width: '80%',
+        height: 1,
+        backgroundColor: 'rgb(255,255,255)',
+        marginTop: '5%'
+    },
+    btnReg: {
+        width: '40%',
+        height: '4%',
+        backgroundColor: 'rgba(255,0,0,0)',
+        textAlign: "center",
+        marginTop: '5%'
+    },
+    btnRegTxt: {
+        fontSize: 19,
+        color: "#ffffff",
+        alignSelf: "center",
+        fontWeight: 'bold'
+    },
+    btnSignIn: {
         width: 280,
         height: 50,
         elevation: 8,
@@ -256,7 +242,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: '6%'
     },
-    btnRegisterTxt: {
+
+    btnSignInTxt: {
         fontSize: 25,
         color: "#ffffff",
         alignSelf: "center",
