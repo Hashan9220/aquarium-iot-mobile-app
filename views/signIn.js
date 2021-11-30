@@ -27,14 +27,13 @@ export default class signIn extends Component {
 
     //User Login -----------------------------------------------------------------------------
     userLogin = () => {
+
         auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(() => {
-                Alert.alert("Success !");
                 this.props.navigation.navigate('Dashboard');
             })
             .catch(error => {
-                Alert.alert("Not Login ");
             });
     }
 

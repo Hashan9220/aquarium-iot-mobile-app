@@ -23,7 +23,7 @@ const App = ()  => {
     })
 
   return(
-      <NavigationContainer>
+      <NavigationContainer independent={true}>
           <Stack.Navigator
               shifting="true"
               screenOptions={() => ({
