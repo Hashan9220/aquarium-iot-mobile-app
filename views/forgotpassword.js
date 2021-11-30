@@ -12,7 +12,11 @@ export default class forgotpassword extends Component {
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
                     {/*----------------------------Back Button----------------------------*/}
-                    <TouchableOpacity style={styles.btnBack}>
+                    <TouchableOpacity style={styles.btnBack}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('Welcome');
+                                      }}
+                    >
                         <Image source={require('../assets/icons/left_arrow.png')} style={styles.imgBack}>
                         </Image>
                     </TouchableOpacity>
@@ -41,7 +45,6 @@ export default class forgotpassword extends Component {
                     <TouchableOpacity style={styles.btnForgotPassword}>
                         <Text style={styles.btnForgotPasswordTxt}>{'Forgot Password'}</Text>
                     </TouchableOpacity>
-
 
                 </LinearGradient>
             </KeyboardAvoidingView>
@@ -111,7 +114,6 @@ const styles = StyleSheet.create({
         marginTop: '10%',
         marginBottom: "40%"
     },
-
     btnForgotPasswordTxt: {
         fontSize: 23,
         color: "#ffffff",

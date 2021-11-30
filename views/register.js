@@ -70,6 +70,7 @@ export default class register extends Component {
                 .then(() => {
                     this.setState({confirmPasswordError: false});
                     Alert.alert("Success !");
+                    this.props.navigation.navigate('SignIn');
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
@@ -92,7 +93,11 @@ export default class register extends Component {
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
                     {/*----------------------------Back Button----------------------------*/}
-                    <TouchableOpacity style={styles.btnBack}>
+                    <TouchableOpacity style={styles.btnBack}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('Welcome');
+                                      }}
+                    >
                         <Image source={require('../assets/icons/left_arrow.png')} style={styles.imgBack}>
                         </Image>
                     </TouchableOpacity>

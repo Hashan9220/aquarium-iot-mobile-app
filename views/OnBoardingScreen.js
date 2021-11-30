@@ -40,14 +40,15 @@ const Next = ({...props}) => (
 
 const Done = ({...props}) => (
     <TouchableOpacity
-        style={{marginHorizontal:70}}
         {...props}
+        style={{marginHorizontal:70}}
     >
         <Text style={{fontSize:16, color: '#F4F5FF'}}>Done</Text>
     </TouchableOpacity>
 );
 
-export default function OnBoardingScreen({}){
+export default function OnBoardingScreen({navigation}){
+
     return (
         <LinearGradient
             colors={['#a6d4ff','#1E90FF' ]}
@@ -61,8 +62,8 @@ export default function OnBoardingScreen({}){
                 NextButtonComponent={Next}
                 DoneButtonComponent={Done}
                 DotComponent={Dots}
-                onSkip={() => console.log("Skipped")}
-                onDone={() => console.log("Done")}
+                onSkip={() => navigation.navigate('Welcome')}
+                onDone={() => navigation.navigate('Welcome')}
                 pages={[
                     {
                         image: <Image style={styles.onBoard_1_Image} source={require('../assets/logos/slide3_logo.png')} />,
@@ -132,36 +133,37 @@ const styles=StyleSheet.create({
         color: '#F4F5FF'
     },
     onBoard_2_Image:{
-        marginLeft:78,
+        marginLeft:50,
         marginTop:-200
     },
     onBoard_2_Title:{
         fontSize:35,
         color:'white',
         marginTop: -40,
-        marginLeft:100
+        marginLeft:30
     },
     onBoard_2_SubTitle: {
         fontSize:18,
         color:'white',
         marginTop: 10,
-        marginLeft:100,
+        marginLeft:40,
         textAlign: 'center',
     },
     onBoard_3_Image:{
-        marginLeft:-25,
+        marginLeft:-80,
         marginTop:-200
     },
     onBoard_3_Title:{
         fontSize:35,
         color:'white',
         marginTop: -40,
-        marginLeft:-40},
+        marginLeft:-80
+    },
     onBoard_3_SubTitle: {
         fontSize:18,
         color:'white',
         marginTop: 10,
-        marginLeft:-40,
+        marginLeft:-70,
         textAlign: 'center'
     }
 })

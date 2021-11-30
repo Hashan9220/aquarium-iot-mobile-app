@@ -21,7 +21,7 @@ export default class signIn extends Component {
             email: '',
             password: '',
             emailError: false,
-            passwordError:false
+            passwordError: false
         }
     }
 
@@ -31,6 +31,7 @@ export default class signIn extends Component {
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(() => {
                 Alert.alert("Success !");
+                this.props.navigation.navigate('Dashboard');
             })
             .catch(error => {
                 Alert.alert("Not Login ");
@@ -67,7 +68,11 @@ export default class signIn extends Component {
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
                     {/*----------------------------Back Button----------------------------*/}
-                    <TouchableOpacity style={styles.btnBack}>
+                    <TouchableOpacity style={styles.btnBack}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('Welcome');
+                                      }}
+                    >
                         <Image source={require('../assets/icons/left_arrow.png')} style={styles.imgBack}>
                         </Image>
                     </TouchableOpacity>
@@ -105,7 +110,8 @@ export default class signIn extends Component {
                                 autoCorrect={false}
                                 autoCap="none"
                     />
-                    {this.state.passwordError ? <Text style={styles.txtPwError}> Invalid Password Format </Text> : <></>}
+                    {this.state.passwordError ?
+                        <Text style={styles.txtPwError}> Invalid Password Format </Text> : <></>}
 
                     {/*-------------------------- Radio Button ---------------------------*/}
                     <RadioForm
@@ -123,7 +129,11 @@ export default class signIn extends Component {
                     </TouchableOpacity>
 
                     {/*----------------Forgot Password----------------*/}
-                    <TouchableOpacity style={styles.btnForgotPassword}>
+                    <TouchableOpacity style={styles.btnForgotPassword}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('ForgotPassword');
+                                      }}
+                    >
                         <Text style={styles.btnForgotPasswordTxt}>{'Forgot Password ?'}</Text>
                     </TouchableOpacity>
 
@@ -131,7 +141,11 @@ export default class signIn extends Component {
                     </View>
 
                     {/*----------------Register----------------*/}
-                    <TouchableOpacity style={styles.btnReg}>
+                    <TouchableOpacity style={styles.btnReg}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('Register');
+                                      }}
+                    >
                         <Text style={styles.btnRegTxt}>{'Register'}</Text>
                     </TouchableOpacity>
 

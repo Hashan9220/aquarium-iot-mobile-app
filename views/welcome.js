@@ -27,12 +27,20 @@ export default class welcome extends Component {
                     </Text>
 
                     {/*----------------Sign In Button-----------*/}
-                    <TouchableOpacity style={styles.btnSignIn}>
+                    <TouchableOpacity style={styles.btnSignIn}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('SignIn');
+                                      }}
+                    >
                         <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                     </TouchableOpacity>
 
                     {/*----------------Register Button-----------*/}
-                    <TouchableOpacity style={styles.btnRegister}>
+                    <TouchableOpacity style={styles.btnRegister}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('Register');
+                                      }}
+                    >
                         <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
                     </TouchableOpacity>
 
