@@ -31,7 +31,7 @@ const Skip = ({...props}) => (
 
 const Next = ({...props}) => (
     <TouchableOpacity
-        style={{marginHorizontal:50}}
+        style={{marginHorizontal:'24%'}}
         {...props}
     >
         <Text style={{fontSize:16, color: '#FFF'}}>Next</Text>
@@ -56,7 +56,6 @@ export default function OnBoardingScreen({navigation}){
         >
             <StatusBar backgroundColor={'#a6d4ff'}/>
             <Image style={styles.header} source={require('../assets/logos/logo.png')} />
-
             <Onboarding titleStyles={{color: '#F4F5FF'}}
                 SkipButtonComponent={Skip}
                 NextButtonComponent={Next}
@@ -81,7 +80,7 @@ export default function OnBoardingScreen({navigation}){
                     },
                     {
                         image: <Image style={styles.onBoard_3_Image} source={require('../assets/logos/slide3_logo.png')} />,
-                        title: <Text style={styles.onBoard_3_Title}>Title 2</Text>,
+                        title: <Text style={styles.onBoard_3_Title}>Title 3</Text>,
                         subtitle: <Text style={styles.onBoard_3_SubTitle}>
                                     A fish is an animal which {'\n'} lives and breathes in water. {'\n'} All fish are vertebrates {'\n'} (have a backbone) and {'\n'} most breathe through gills {'\n'} and have fins and scales.
                                   </Text>,
@@ -116,8 +115,8 @@ const styles=StyleSheet.create({
         textDecorationLine: 'none'
     },
     onBoard_1_Image:{
-        marginLeft:30,
-        marginTop:-150
+        marginLeft:'5%',
+        marginTop:'-50%'
     },
     onBoard_1_Title:{
         fontSize:35,
@@ -128,42 +127,42 @@ const styles=StyleSheet.create({
     onBoard_1_SubTitle: {
         fontSize:18,
         marginTop: 10,
-        marginLeft:30,
+        marginLeft:'10%',
         textAlign: 'center',
         color: '#F4F5FF'
     },
     onBoard_2_Image:{
-        marginLeft:50,
+        marginLeft:'30%',
         marginTop:-200
     },
     onBoard_2_Title:{
         fontSize:35,
         color:'white',
-        marginTop: -40,
-        marginLeft:30
+        marginTop: '-10%',
+        marginLeft:'30%'
     },
     onBoard_2_SubTitle: {
         fontSize:18,
         color:'white',
         marginTop: 10,
-        marginLeft:40,
+        marginLeft:'27%',
         textAlign: 'center',
     },
     onBoard_3_Image:{
-        marginLeft:-80,
+        marginLeft:'-15%',
         marginTop:-200
     },
     onBoard_3_Title:{
         fontSize:35,
         color:'white',
-        marginTop: -40,
-        marginLeft:-80
+        marginTop: '-10%',
+        marginLeft:'-10%'
     },
     onBoard_3_SubTitle: {
         fontSize:18,
         color:'white',
         marginTop: 10,
-        marginLeft:-70,
+        marginLeft:'-10%',
         textAlign: 'center'
     }
 })
