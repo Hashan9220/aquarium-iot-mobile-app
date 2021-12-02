@@ -41,7 +41,7 @@ export default function Home(){
                     Current Temperature
                 </Text>
                 <View progressBarContainer>
-                    <Progress.Circle color={'#fff'} size={300} style = {{marginTop:40, }} indeterminate={false} />
+                    <Progress.Circle progress={0.25} color={'#fff'} size={300} style = {{marginTop:40, }} indeterminate={false} />
                     <View style={styles.midCircle}>
                         <Text style={styles.temperature}>
                             25.0 °C

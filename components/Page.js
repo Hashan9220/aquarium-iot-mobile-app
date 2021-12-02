@@ -2,8 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
-const Page = ({image, title, subTitle }) => {
-
+const Page = ({title, subTitle }) => {
     return (
         <LinearGradient
             colors={['#a6d4ff','#1E90FF' ]}
