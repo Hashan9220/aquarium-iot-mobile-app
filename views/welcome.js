@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity} from 'react-native'
+import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
 
 export default class welcome extends Component {
@@ -13,6 +13,7 @@ export default class welcome extends Component {
 
                     {/*----------------Image Circle------------*/}
                     <View style={styles.imgCircle}>
+                        <Image style={styles.logo} source={require('../assets/logos/main_logo.png')}/>
                     </View>
 
                     {/*----------------Head Title ------------*/}
@@ -71,6 +72,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 230,
         elevation: 8,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     headTitle: {
         fontSize: 35,
@@ -119,5 +122,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         marginTop: '1%'
+    },
+    logo: {
+        width: 250,
+        height:250,
+        marginLeft: -10,
+        marginTop: -10
     }
 })
