@@ -5,7 +5,7 @@ import ViewPager from '@react-native-community/viewpager';
 import Page from '../components/Page'
 import Footer from "../components/Footer";
 
-export default function OnBoarding(){
+export default function OnBoarding({navigation}){
     const pagerRef = useRef(null);
 
     const handlePageChange = pageNumber => {
@@ -16,9 +16,8 @@ export default function OnBoarding(){
         <View style={{ flex: 1 }}>
             <StatusBar backgroundColor={'#a6d4ff'}/>
             <View style={{backgroundColor: '#a6d4ff'}}>
-                <Image source={require('../assets/logos/logo.png')} style={{marginLeft: '5%', marginTop:'2%'}} />
                 <TouchableOpacity
-
+                    onPress={() => navigation.navigate('Welcome')}
                 >
                     <Text  style={{marginLeft:'85%', marginTop:'-12%', color: '#fff'}} >Skip</Text>
                 </TouchableOpacity>
@@ -30,29 +29,11 @@ export default function OnBoarding(){
                         title="Title 1 "
                         subTitle="A fish is an animal which  lives and breathes in water. All fish are vertebrates (have a backbone) and  most breathe through gills and have fins and scales."
                     />
-                    <Footer
-                        backgroundColor="#1E90FF"
-                        rightButtonLabel="Next"
-                        rightButtonPress={() => {
-                            handlePageChange(1);
-                        }}
-                    />
                 </View>
                 <View key="2">
                     <Page
                         title="Title 2 "
                         subTitle="A fish is an animal which  lives and breathes in water. All fish are vertebrates (have a backbone) and  most breathe through gills and have fins and scales."
-                    />
-                    <Footer
-                        backgroundColor="#1E90FF"
-                        leftButtonLabel="Back"
-                        leftButtonPress={() => {
-                            handlePageChange(0);
-                        }}
-                        rightButtonLabel="Next"
-                        rightButtonPress={() => {
-                            handlePageChange(2);
-                        }}
                     />
                 </View>
                 <View key="3">
@@ -60,17 +41,23 @@ export default function OnBoarding(){
                         title="Title 3 "
                         subTitle="A fish is an animal which  lives and breathes in water. All fish are vertebrates (have a backbone) and  most breathe through gills and have fins and scales."
                     />
-                    <Footer
-                        backgroundColor="#1E90FF"
-                        rightButtonLabel="Done"
-                        leftButtonLabel="Back"
-                        leftButtonPress={() => {
-                            handlePageChange(0);
-                        }}
-                        rightButtonPress={() => navigation.navigate("Dashboard")}
-                    />
                 </View>
             </ViewPager>
+
+            <Footer
+                backgroundColor="#1E90FF"
+                rightButtonLabel="Next"
+                leftButtonLabel="Skip"
+                rightButtonPress={() => {
+                    if (View.key == 3){
+                        handlePageChange(1);
+                    }else{
+                        handlePageChange(3);
+
+                    }
+                }}
+                leftButtonPress={() => navigation.navigate('Welcome')}
+            />
         </View>
     )
 }

@@ -3,9 +3,6 @@ import { View, useWindowDimensions } from 'react-native';
 
 import RoundedButton from './RoundedButton';
 
-
-
-
 const Footer = ({
                     backgroundColor,
                     leftButtonLabel = false,

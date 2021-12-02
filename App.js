@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //Screens---------------------------------------------------------------------------------------------------------------
-import OnBoardingScreen from "./views/OnBoardingScreen";
+import OnBoarding from "./views/OnBoarding";
 import Welcome from './views/welcome';
 import SignIn from './views/signIn';
 import Register from './views/register';
@@ -33,7 +33,7 @@ const App = ()  => {
                   cardOverlayEnabled: false,
                   gestureDirection: 'horizontal'
               })}>
-              <Stack.Screen name="OnBoardingScreen" component={OnBoardingScreen}/>
+              <Stack.Screen name="OnBoarding" component={OnBoarding}/>
               <Stack.Screen name="Welcome" component={Welcome} />
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="Register" component={Register} />
