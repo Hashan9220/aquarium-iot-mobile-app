@@ -1,8 +1,9 @@
 import React from "react";
-import {Image, StyleSheet, View} from "react-native";
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { Image, StyleSheet, View } from "react-native";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from "../routes/DrawerContent";
 import BottomTab from "../routes/BottomTab";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
@@ -14,7 +15,7 @@ export default function Dashboard() {
                     options={{
                         headerTintColor: '#FFFFFF',
                         title: 'Title',
-                        headerTitleStyle: {color: '#fff'},
+                        headerTitleStyle: { color: '#fff' },
 
                         drawerStyle: {
                             width: 320,
@@ -23,10 +24,10 @@ export default function Dashboard() {
                             borderTopRightRadius: 40,
                             borderBottomRightRadius: 40
                         },
-                        headerStyle: {backgroundColor: '#a6d4ff'},
+                        headerStyle: { backgroundColor: '#a6d4ff' },
 
-                        drawerIcon: ({focused, size}) => (
-                            <Image source={require('../assets/logos/notification_icon.png')}/>
+                        drawerIcon: ({ focused, size }) => (
+                            <Image source={require('../assets/logos/notification_icon.png')} />
                         ),
                     }}
                     name="BottomTab" component={BottomTab}
