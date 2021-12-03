@@ -28,7 +28,6 @@ const App = ()  => {
             if (value === null){
                 AsyncStorage.setItem('alreadyLaunched', 'true');
                 setIsFirstLaunch(true);
-
             }else {
                 setIsFirstLaunch(false);
             }

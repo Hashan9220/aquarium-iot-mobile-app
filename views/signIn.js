@@ -3,6 +3,7 @@ import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, A
 import LinearGradient from "react-native-linear-gradient";
 import RadioForm from 'react-native-simple-radio-button';
 import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 //Common---------------------------------------------------
@@ -20,6 +21,7 @@ export default class signIn extends Component {
         this.state = {
             email: '',
             password: '',
+            userData: {},
             emailError: false,
             passwordError: false
         }
@@ -27,14 +29,34 @@ export default class signIn extends Component {
 
     //User Login -----------------------------------------------------------------------------
     userLogin = () => {
-
         auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
+            .then(res => {
                 this.props.navigation.navigate('Dashboard');
-            })
+                this.storeToken(JSON.stringify(res.user));            })
             .catch(error => {
             });
+    }
+
+    componentDidMount() {
+        this.getToken();
+    }
+
+    async storeToken(user) {
+        try {
+            await AsyncStorage.setItem("userData", JSON.stringify(user));
+        } catch (error) {
+            console.log("Something went wrong", error);
+        }
+    }
+    async getToken(user) {
+        try {
+            let userData = await AsyncStorage.getItem("userData");
+            let data = JSON.parse(userData);
+            console.log(data);
+        } catch (error) {
+            console.log("Something went wrong", error);
+        }
     }
 
     //Validate -----------------------------------------------------------------------------------
