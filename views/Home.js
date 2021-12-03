@@ -6,7 +6,7 @@ import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 
 export default function Home() {
-    
+
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0)
 
@@ -29,7 +29,7 @@ export default function Home() {
             <StatusBar backgroundColor='#a6d4ff' />
             <View>
                 <View style={styles.cardSection}>
-                    <Card style={{...styles.leftCard, 
+                    <Card style={{...styles.leftCard,
                         borderColor: ph > 7.5 ? '#ff0a0a' : '#fff',
                         borderWidth: ph > 7.5 ? 3 : 0}}>
                         <Card.Content style={styles.cardContent}>
@@ -59,8 +59,8 @@ export default function Home() {
                         Current Temperature
                     </Text>
                     <View progressBarContainer>
-                        <Progress.Circle progress={temp/50} 
-                        color={temp >= 30 ? '#e61405' : temp >= 27 ? '#1bff0a' : '#fff421'} 
+                        <Progress.Circle progress={temp/50}
+                        color={temp >= 30 ? '#e61405' : temp >= 27 ? '#1bff0a' : '#fff421'}
                         size={300} style={{ marginTop: 40, }} indeterminate={false} />
                         <View style={styles.midCircle}>
                             <Text style={styles.temperature}>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         width: 170,
         height: 170,
         borderRadius: 30,
-        marginLeft: 190,
+        marginLeft: '53%',
         marginTop: -170,
         elevation: 10,
         shadowColor: 'black',
