@@ -10,7 +10,6 @@ export default function Home() {
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0)
 
-
     useEffect(() => {
         const onValueChange = database()
             .ref('/AQ-001/')

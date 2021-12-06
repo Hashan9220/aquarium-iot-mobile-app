@@ -5,12 +5,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //Screens---------------------------------------------------------------------------------------------------------------
-import OnBoarding from "./views/OnBoarding";
-import Welcome from './views/welcome';
-import SignIn from './views/signIn';
-import Register from './views/register';
-import ForgotPassword from "./views/forgotpassword";
 import Dashboard from "./views/Dashboard";
+import StackNav from "./routes/StackNav";
+import OnBoarding from "./views/OnBoarding";
+import Welcome from "./views/welcome";
+import SignIn from "./views/signIn";
+import Register from "./views/register";
+import ForgotPassword from "./views/forgotpassword";
+
 
 const Stack = createStackNavigator();
 
@@ -20,7 +22,6 @@ const App = ()  => {
     useEffect(() => {
 
         setTimeout(() => {
-            console.log("hello");
             SplashScreen.hide();
         },1000)
 
@@ -33,7 +34,6 @@ const App = ()  => {
             }
         })
     }, [])
-
     if (isFirstLaunch === null){
         return null
     }else if (isFirstLaunch === true){
@@ -76,30 +76,6 @@ const App = ()  => {
             </NavigationContainer>
         )
     }
-
-    // useEffect(() => {
-    //     const init = async () => {
-    //         let userToken = null;
-    //         try {
-    //             userToken = await AsyncStorage.getItem('userToken');
-    //             setToken(userToken);
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     };
-    //     init().finally(async () => {
-    //         await SplashScreen.hide();
-    //     });
-    // }, []);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         console.log("hello");
-    //         SplashScreen.hide();
-    //     },2000)
-    // })
-
-
 };
 
 export default App;

@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet,  } from "react-native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from "../routes/DrawerContent";
 import BottomTab from "../routes/BottomTab";
 import { NavigationContainer } from "@react-navigation/native";
+import StackNav from "../routes/StackNav";
 
 const Drawer = createDrawerNavigator();
 
@@ -32,6 +33,7 @@ export default function Dashboard() {
                     }}
                     name="BottomTab" component={BottomTab}
                 />
+                <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>
             </Drawer.Navigator>
         </NavigationContainer>
     )
