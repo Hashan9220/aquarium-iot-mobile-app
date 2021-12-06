@@ -54,7 +54,7 @@ export default function Home() {
                     </Card>
                 </View>
                 <View style={styles.tempSection}>
-                    <Text style={{ fontSize: 25, color: 'white', }}>
+                    <Text style={{ fontSize: 25, color: 'white', marginBottom:'5%'}}>
                         Current Temperature
                     </Text>
                     <View progressBarContainer>
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 20,
-        marginLeft: 90,
-        marginTop: -130,
+        marginLeft: '50%',
+        marginTop: '-65%',
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
         marginLeft: -2
     },
     tempSection: {
+        marginTop: '5%',
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center',

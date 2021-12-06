@@ -31,15 +31,26 @@ export default class signIn extends Component {
     userLogin = () => {
         auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(res => {
+            .then( json => {
+                this.storeData(json.data);
                 this.props.navigation.navigate('Dashboard');
-                this.storeToken(JSON.stringify(res.user));            })
+            })
             .catch(error => {
             });
     }
 
     componentDidMount() {
         this.getToken();
+    }
+
+    storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('loggedUser', jsonValue)
+            console.log('Data saved in Async storage');
+        } catch (e) {
+            alert('user saved in async storage !')
+        }
     }
 
     async storeToken(user) {

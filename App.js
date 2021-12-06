@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //Screens---------------------------------------------------------------------------------------------------------------
 import Dashboard from "./views/Dashboard";
-import StackNav from "./routes/StackNav";
 import OnBoarding from "./views/OnBoarding";
 import Welcome from "./views/welcome";
 import SignIn from "./views/signIn";
@@ -67,10 +66,6 @@ const App = ()  => {
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal'
                     })}>
-                    <Stack.Screen name="Welcome" component={Welcome} />
-                    <Stack.Screen name="SignIn" component={SignIn} />
-                    <Stack.Screen name="Register" component={Register} />
-                    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                     <Stack.Screen name="Dashboard" component={Dashboard} />
                 </Stack.Navigator>
             </NavigationContainer>
