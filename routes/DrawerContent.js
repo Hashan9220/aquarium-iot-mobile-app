@@ -8,13 +8,13 @@ export default function DrawerContent({navigation}){
 
     const signOut = async () => {
         try {
-            await AsyncStorage.removeItem('userData');
-            await AsyncStorage.removeItem('userToken');
+            await AsyncStorage.removeItem('alreadyLaunched');
             navigation.navigate('StackNav');
         } catch (e) {
 
         }
     }
+
 
     const [active, setActive] = React.useState('');
 
@@ -55,7 +55,19 @@ export default function DrawerContent({navigation}){
                        label="Sign Out"
                        active={active === 'fourth'}
                        onPress={() => {
-                           signOut();
+                           // signOut();
+                           Alert.alert(
+                               "Logging Out",
+                               "Are you sure?",
+                               [
+                                   {
+                                       text: "Cancel",
+                                       onPress: () => console.log("Cancel Pressed"),
+                                       style: "cancel"
+                                   },
+                                   { text: "OK", onPress: () => signOut()}
+                               ]
+                           );
                        }}
                    />
                </Drawer.Section>

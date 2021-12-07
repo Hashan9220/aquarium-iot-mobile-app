@@ -39,34 +39,15 @@ export default class signIn extends Component {
             });
     }
 
-    componentDidMount() {
-        this.getToken();
-    }
+
 
     storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('loggedUser', jsonValue)
+            await AsyncStorage.setItem('alreadyLaunched', jsonValue)
             console.log('Data saved in Async storage');
         } catch (e) {
             alert('user saved in async storage !')
-        }
-    }
-
-    async storeToken(user) {
-        try {
-            await AsyncStorage.setItem("userData", JSON.stringify(user));
-        } catch (error) {
-            console.log("Something went wrong", error);
-        }
-    }
-    async getToken(user) {
-        try {
-            let userData = await AsyncStorage.getItem("userData");
-            let data = JSON.parse(userData);
-            console.log(data);
-        } catch (error) {
-            console.log("Something went wrong", error);
         }
     }
 
