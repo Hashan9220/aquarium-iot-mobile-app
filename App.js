@@ -11,6 +11,8 @@ import SignIn from './views/signIn';
 import Register from './views/register';
 import ForgotPassword from "./views/forgotpassword";
 import Dashboard from "./views/Dashboard";
+import QrCode from "./views/QrCode";
+
 
 const Stack = createStackNavigator();
 
@@ -39,6 +41,7 @@ const App = ()  => {
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
               <Stack.Screen name="Dashboard" component={Dashboard} />
+              <Stack.Screen name="QrCode" component={QrCode} />
           </Stack.Navigator>
       </NavigationContainer>
   );
