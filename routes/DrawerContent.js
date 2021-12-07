@@ -1,10 +1,20 @@
 import React from "react";
-import {View, Text, Image,StyleSheet, TouchableOpacity} from "react-native";
+import {View, Image, StyleSheet, TouchableOpacity, Alert} from "react-native";
 import {DrawerContentScrollView,} from "@react-navigation/drawer";
-import { Drawer } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Text, Drawer} from 'react-native-paper';
 
+export default function DrawerContent({navigation}){
 
-export default function DrawerContent(){
+    const signOut = async () => {
+        try {
+            await AsyncStorage.removeItem('alreadyLaunched');
+            navigation.navigate('StackNav');
+        } catch (e) {
+
+        }
+    }
+
 
     const [active, setActive] = React.useState('');
 
@@ -35,7 +45,7 @@ export default function DrawerContent(){
                    <Drawer.Item
                        label="Support"
                        active={active === 'third'}
-                       onPress={() => setActive('second')}
+                       onPress={() => setActive("second")}
                    />
                </Drawer.Section>
 
@@ -44,11 +54,23 @@ export default function DrawerContent(){
                        style={styles.signOutSection}
                        label="Sign Out"
                        active={active === 'fourth'}
-                       onPress={() => setActive('fourth')}
+                       onPress={() => {
+                           // signOut();
+                           Alert.alert(
+                               "Logging Out",
+                               "Are you sure?",
+                               [
+                                   {
+                                       text: "Cancel",
+                                       onPress: () => console.log("Cancel Pressed"),
+                                       style: "cancel"
+                                   },
+                                   { text: "OK", onPress: () => signOut()}
+                               ]
+                           );
+                       }}
                    />
                </Drawer.Section>
-
-
            </DrawerContentScrollView>
        </View>
     )
@@ -89,6 +111,5 @@ const styles =StyleSheet.create({
         marginTop:-10,
         marginLeft:-10
     }
-
 })
 

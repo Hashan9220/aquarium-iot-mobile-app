@@ -3,6 +3,7 @@ import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, A
 import LinearGradient from "react-native-linear-gradient";
 import RadioForm from 'react-native-simple-radio-button';
 import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 //Common---------------------------------------------------
@@ -20,6 +21,7 @@ export default class signIn extends Component {
         this.state = {
             email: '',
             password: '',
+            userData: {},
             emailError: false,
             passwordError: false
         }
@@ -27,14 +29,26 @@ export default class signIn extends Component {
 
     //User Login -----------------------------------------------------------------------------
     userLogin = () => {
-
         auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
+            .then( json => {
+                this.storeData(json.data);
                 this.props.navigation.navigate('Dashboard');
             })
             .catch(error => {
             });
+    }
+
+
+
+    storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('alreadyLaunched', jsonValue)
+            console.log('Data saved in Async storage');
+        } catch (e) {
+            alert('user saved in async storage !')
+        }
     }
 
     //Validate -----------------------------------------------------------------------------------
