@@ -57,15 +57,15 @@ export default function DrawerContent({navigation}){
                        onPress={() => {
                            // signOut();
                            Alert.alert(
-                               "Logging Out",
+                               "Signing Out",
                                "Are you sure?",
                                [
                                    {
-                                       text: "Cancel",
+                                       text: "No",
                                        onPress: () => console.log("Cancel Pressed"),
                                        style: "cancel"
                                    },
-                                   { text: "OK", onPress: () => signOut()}
+                                   { text: "Yes", onPress: () => signOut()}
                                ]
                            );
                        }}

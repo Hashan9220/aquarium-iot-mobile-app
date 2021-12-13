@@ -47,8 +47,10 @@ export default class signIn extends Component {
             await AsyncStorage.setItem('alreadyLaunched', jsonValue)
             console.log('Data saved in Async storage');
         } catch (e) {
-            alert('user saved in async storage !')
-        }
+            Alert.alert(
+                "Welcome!",
+                "You have Successfully Signed In to Smart Aquarium",
+            );        }
     }
 
     //Validate -----------------------------------------------------------------------------------

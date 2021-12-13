@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
     },
     temperature: {
-        fontSize: 30
+        fontSize: 30,
+        color: '#000'
     }
 })

@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
         marginTop: '6%'
     },
     btnRegisterTxt: {
-        fontSize: 25,
+        fontSize: 24,
         color: "#ffffff",
         alignSelf: "center",
         marginTop: '-1%'

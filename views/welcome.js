@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image} from 'react-native'
+import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, StatusBar} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
 export default class welcome extends Component {
@@ -7,6 +7,7 @@ export default class welcome extends Component {
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
+                    <StatusBar backgroundColor='#a6d4ff'/>
 
                     {/*----------------Title Name------------*/}
                     <Text style={styles.titleName}> Smart Aquarium </Text>

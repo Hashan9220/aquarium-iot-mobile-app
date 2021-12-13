@@ -3,6 +3,7 @@ import { BottomNavigation, Text,  } from 'react-native-paper';
 import Home from "../views/Home";
 import Article from "../views/Article";
 import QrCode from "../views/QrCode";
+import UpCommingScreen from '../views/UpCommingScreen';
 
 export default function BottomTab(){
     const [index, setIndex] = React.useState(0);
@@ -16,10 +17,10 @@ export default function BottomTab(){
 
     const renderScene = BottomNavigation.SceneMap({
         home: Home,
-        history: Article,
+        history: UpCommingScreen,
         scan: QrCode,
-        manage: Article,
-        profile: Article
+        manage: UpCommingScreen,
+        profile: UpCommingScreen
     });
 
     return(
