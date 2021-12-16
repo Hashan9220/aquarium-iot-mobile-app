@@ -27,7 +27,6 @@ class QrCode extends Component {
         }
     }
 
-
     render() {
         return (
             <QRCodeScanner
@@ -46,7 +45,6 @@ class QrCode extends Component {
                             <Text style={styles.txtGo}>Go</Text>
                         </TouchableOpacity>
                     </View>
-
                 }
             />
         );

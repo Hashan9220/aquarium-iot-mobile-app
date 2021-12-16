@@ -76,11 +76,12 @@ const App = () => {
         <Stack.Navigator
           shifting="true"
           screenOptions={() => ({
-            headerShown: false,
-            gestureEnabled: true,
-            cardOverlayEnabled: false,
-            gestureDirection: 'horizontal',
-          })}>
+              headerShown: false,
+              gestureEnabled: true,
+              cardOverlayEnabled: false,
+              gestureDirection: 'horizontal',
+          })}
+        >
           <Stack.Screen name="Dashboard" component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>

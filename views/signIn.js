@@ -5,10 +5,8 @@ import RadioForm from 'react-native-simple-radio-button';
 import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 //Common---------------------------------------------------
 import {BasicInput} from "../common/BasicInput";
-
 
 const radio_props = [
     {label: 'Remember the account ?', value: 0},
@@ -39,8 +37,6 @@ export default class signIn extends Component {
             });
     }
 
-
-
     storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value)
@@ -50,7 +46,8 @@ export default class signIn extends Component {
             Alert.alert(
                 "Welcome!",
                 "You have Successfully Signed In to Smart Aquarium",
-            );        }
+            );
+        }
     }
 
     //Validate -----------------------------------------------------------------------------------
@@ -274,9 +271,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: '6%'
     },
-
     btnSignInTxt: {
-        fontSize: 25,
+        fontSize: 24,
         color: "#ffffff",
         alignSelf: "center",
         marginTop: '-1%'

@@ -9,12 +9,13 @@ export default function DrawerContent({navigation}){
     const signOut = async () => {
         try {
             await AsyncStorage.removeItem('alreadyLaunched');
+            await AsyncStorage.removeItem('@device_id');
+
             navigation.navigate('StackNav');
         } catch (e) {
 
         }
     }
-
 
     const [active, setActive] = React.useState('');
 
@@ -23,6 +24,7 @@ export default function DrawerContent({navigation}){
            <DrawerContentScrollView>
                <View style={styles.userInfoSection}>
                    <View style={styles.profilePicSection}>
+                       <Image style={styles.dummyPic} source={require('../assets/icons/dummy-profile.png')}/>
                    </View>
                    <Text style={{marginLeft:100, marginTop: -65, fontSize: 20}}>User Name</Text>
                    <View style={styles.editBtnSection}>
@@ -45,7 +47,7 @@ export default function DrawerContent({navigation}){
                    <Drawer.Item
                        label="Support"
                        active={active === 'third'}
-                       onPress={() => setActive("second")}
+                       onPress={() => setActive("third")}
                    />
                </Drawer.Section>
 
@@ -93,10 +95,16 @@ const styles =StyleSheet.create({
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    dummyPic: {
+        width:80,
+        height: 80,
     },
     editBtnSection:{
-        width:30,
-        height: 30,
+        width:40,
+        height: 40,
         borderRadius:50,
         backgroundColor: '#fff',
         marginLeft: 245,
@@ -107,9 +115,9 @@ const styles =StyleSheet.create({
     signOutSection: {
         marginTop: 150,
     },
-    edit_icon:{
-        marginTop:-10,
-        marginLeft:-10
+    edit_icon: {
+        marginTop: '10%',
+        marginLeft: '15%'
     }
 })
 

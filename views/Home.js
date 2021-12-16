@@ -1,36 +1,62 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, StatusBar, Image, Button,} from "react-native";
+import {View, Text, StyleSheet, StatusBar, Image, Alert} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
-import {Card, Title, Paragraph} from 'react-native-paper';
+import {Card, Title, Paragraph, Button} from 'react-native-paper';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { riskyPhValueNotification } from '../services/LocalPushController'
+import { riskyTemperatureNotification } from '../services/LocalPushController'
 
 
 export default function Home() {
 
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0);
-    const [id, setId] = useState("")
+    const [id, setId] = useState()
 
     useEffect(() => {
         getData()
-        const onValueChange = database()
-            .ref('/AQ-001/')
-            .on('value', snapshot => {
-                console.log('User data: ', snapshot.val().PH_Value);
-                setPh(snapshot.val().PH_Value.toFixed(2));
-                setTemp(snapshot.val().Temp.toFixed(2));
+        if (id !== undefined){
+            const onValueChange = database()
+                .ref('/'+id+'/')
+                .on('value', snapshot => {
+                    console.log('User data: ', snapshot.val().PH_Value);
+                    console.log(snapshot.val().PH_Value);
+                    setPh(snapshot.val().PH_Value.toFixed(2));
+                    setTemp(snapshot.val().Temp.toFixed(2));
+                });
+        }
+    }, [id])
 
-            });
-    }, [])
+    const riskyPH = () => {
+        riskyPhValueNotification()
+    };
+
+    const riskyTemp = () => {
+      riskyTemperatureNotification()
+    }
 
     const getData = async () => {
         const value = await AsyncStorage.getItem('@device_id')
         if (value !== null) {
             setId(value)
+            console.log(value + " dude");
         }
     }
+
+    var count = 0;
+
+    const reset = () => {
+        count = 0;
+    }
+
+    const checkTemp = () => {
+        if(ph >= 7.5 && count == 0) {
+            count++;
+            riskyTemp();
+        }
+    };
 
     return (
         <LinearGradient
@@ -45,7 +71,7 @@ export default function Home() {
                 <View style={styles.cardSection}>
                     <Card style={{
                         ...styles.leftCard,
-                        borderColor: ph > 7.5 ? '#ff0a0a' : '#fff',
+                        borderColor: ph > 7.5 ? '#ff0a0a' && riskyPH(): ph < 6.5 ? '#27ae60' : '#fff' ,
                         borderWidth: ph > 7.5 ? 3 : 0
                     }}>
                         <Card.Content style={styles.cardContent}>
@@ -76,7 +102,7 @@ export default function Home() {
                     </Text>
                     <View progressBarContainer>
                         <Progress.Circle progress={temp / 50}
-                                         color={temp >= 30 ? '#e61405' : temp >= 27 ? '#1bff0a' : '#fff421'}
+                                         color={temp >= 32 ? '#e61405' && riskyTemp() : temp >= 27 ? '#1bff0a' : temp < 24 ? '#27ae60' && riskyTemp() : '#fff421' }
                                          size={300} style={{marginTop: 40,}} indeterminate={false}/>
                         <View style={styles.midCircle}>
                             <Text style={styles.temperature}>
@@ -102,7 +128,6 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     txtDeviceId: {
-        // color:"#1E90FF",
         color: "#ffffff",
         fontSize: 20,
         fontWeight: "500"
@@ -135,7 +160,7 @@ const styles = StyleSheet.create({
         height: 70,
         borderRadius: 20,
         marginLeft: 90,
-        marginTop: -130,
+        marginTop: -120,
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -146,8 +171,9 @@ const styles = StyleSheet.create({
         marginTop: 60,
     },
     card_logo: {
+        width: 50,
+        height: 50,
         marginTop: -65,
-        marginLeft: -2
     },
     tempSection: {
         padding: 20,
