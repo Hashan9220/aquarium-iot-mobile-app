@@ -34,21 +34,9 @@ const App = () => {
     });
   }, []);
   if (isFirstLaunch === null) {
-      return (
-          <NavigationContainer independent={true}>
-              <Stack.Navigator
-                  shifting="true"
-                  screenOptions={() => ({
-                      headerShown: false,
-                      gestureEnabled: true,
-                      cardOverlayEnabled: false,
-                      gestureDirection: 'horizontal',
-                  })}>
-                  <Stack.Screen name="OnBoarding" component={OnBoarding} />
-                  <Stack.Screen name="Welcome" component={Welcome} />
-              </Stack.Navigator>
-          </NavigationContainer>
-      );
+      return(
+          null
+      )
   } else if (isFirstLaunch === true) {
     return (
       <NavigationContainer independent={true}>

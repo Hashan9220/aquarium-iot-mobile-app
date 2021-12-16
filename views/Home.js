@@ -8,12 +8,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { riskyPhValueNotification } from '../services/LocalPushController'
 import { riskyTemperatureNotification } from '../services/LocalPushController'
 
-
 export default function Home() {
 
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0);
-    const [id, setId] = useState()
+    const [id, setId] = useState();
+
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         getData()
@@ -45,18 +46,25 @@ export default function Home() {
         }
     }
 
-    var count = 0;
-
     const reset = () => {
-        count = 0;
+        if(count != 0) {
+            setCount(0);
+        }
+        console.log("reset method ", count)
     }
 
-    const checkTemp = () => {
-        if(ph >= 7.5 && count == 0) {
-            count++;
-            riskyTemp();
+    const checkPH = () => {
+        console.log('chek');
+        if(ph >= 6.60 && count != 0) {
+            // setCount(1);
+            riskyPH();
         }
     };
+
+    function setPhCardColor() {
+        console.log('setPhCardColor==========================================================');
+        return '#ff0a0a';
+    }
 
     return (
         <LinearGradient
@@ -71,7 +79,8 @@ export default function Home() {
                 <View style={styles.cardSection}>
                     <Card style={{
                         ...styles.leftCard,
-                        borderColor: ph > 7.5 ? '#ff0a0a' && riskyPH(): ph < 6.5 ? '#27ae60' : '#fff' ,
+                        // borderColor: ph > 7.5 ? '#ff0a0a' && checkPH(): ph < 6.5 ? '#27ae60' : '#fff',
+                        borderColor: ph >= 5 ? '#ff0a0a' && riskyPH() :  '#fff',
                         borderWidth: ph > 7.5 ? 3 : 0
                     }}>
                         <Card.Content style={styles.cardContent}>
@@ -102,7 +111,7 @@ export default function Home() {
                     </Text>
                     <View progressBarContainer>
                         <Progress.Circle progress={temp / 50}
-                                         color={temp >= 32 ? '#e61405' && riskyTemp() : temp >= 27 ? '#1bff0a' : temp < 24 ? '#27ae60' && riskyTemp() : '#fff421' }
+                                         color={temp >= 32 ? '#e61405' && riskyTemp() : temp >= 27 ? '#1bff0a' : temp < 24 ? '#27ae60': '#fff421' }
                                          size={300} style={{marginTop: 40,}} indeterminate={false}/>
                         <View style={styles.midCircle}>
                             <Text style={styles.temperature}>
