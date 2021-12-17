@@ -29,13 +29,13 @@ export default function Home() {
     },[id])
 
     useEffect(() => {
-        ph >= 7.5 ? checkHighPH() : reset()
-        ph <= 6.5 ? checkLowPH() : reset()
+        ph >= 7.5 && ph <= 30.5 ? checkHighPH() : reset()
+        ph <= 6.5 && ph > 0 ? checkLowPH() : reset()
     }, [ph])
 
     useEffect(() => {
-        temp >= 32 ? checkHighTemp() : reset()
-        temp <= 23 ? checkLowTemp() : reset()
+        temp >= 27 && temp <= 100 ? checkHighTemp() : reset()
+        temp <= 23 && temp >= 1 ? checkLowTemp() : reset()
     }, [temp])
 
     const riskyPH = () => {
@@ -60,35 +60,32 @@ export default function Home() {
     }
 
     const checkHighPH = () => {
-        if(ph >= 7.50 && count == 0) {
+        if(ph >= 7.5 && ph <= 6.5 && count == 0) {
             setCount(1);
             riskyPH();
         }
     };
+
     const checkLowPH = () => {
-        if(ph <= 6.50 && count == 0) {
+        if(ph <= 6.5 && ph > 0 && count == 0) {
             setCount(1);
             riskyPH();
         }
     }
 
     const checkHighTemp = () => {
-        if(temp >= 32 && count == 0) {
+        if(temp >= 27 && temp <= 100 && count == 0) {
             setCount(1);
             riskyTemp();
         }
     };
 
     const checkLowTemp = () => {
-         if(temp <= 23 && count == 0) {
+         if(temp <= 23 && temp >= 1 && count == 0) {
             setCount(1);
             riskyTemp();
         }
     };
-
-    function setPhCardColor() {
-        return '#ff0a0a';
-    }
 
     return (
         <LinearGradient
