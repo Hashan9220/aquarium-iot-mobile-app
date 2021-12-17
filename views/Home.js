@@ -29,8 +29,14 @@ export default function Home() {
     },[id])
 
     useEffect(() => {
-        ph >= 6.5 ? checkPH() : reset()
+        ph >= 7.5 ? checkHighPH() : reset()
+        ph <= 6.5 ? checkLowPH() : reset()
     }, [ph])
+
+    useEffect(() => {
+        temp >= 32 ? checkHighTemp() : reset()
+        temp <= 23 ? checkLowTemp() : reset()
+    }, [temp])
 
     const riskyPH = () => {
         riskyPhValueNotification()
@@ -53,10 +59,30 @@ export default function Home() {
         }
     }
 
-    const checkPH = () => {
-        if(ph >= 6.50 && count == 0) {
+    const checkHighPH = () => {
+        if(ph >= 7.50 && count == 0) {
             setCount(1);
             riskyPH();
+        }
+    };
+    const checkLowPH = () => {
+        if(ph <= 6.50 && count == 0) {
+            setCount(1);
+            riskyPH();
+        }
+    }
+
+    const checkHighTemp = () => {
+        if(temp >= 32 && count == 0) {
+            setCount(1);
+            riskyTemp();
+        }
+    };
+
+    const checkLowTemp = () => {
+         if(temp <= 23 && count == 0) {
+            setCount(1);
+            riskyTemp();
         }
     };
 
@@ -77,9 +103,8 @@ export default function Home() {
                 <View style={styles.cardSection}>
                     <Card style={{
                         ...styles.leftCard,
-                        // borderColor: ph > 7.5 ? '#ff0a0a' && checkPH(): ph < 6.5 ? '#27ae60' : '#fff',
-                        borderColor: ph >= 6.50 ? 'red' :  '#fff',
-                        borderWidth: ph > 6.50 ? 3 : 0
+                        borderColor: ph >= 7.50 ? 'red' : ph >= 6.5 ? 'yellow' : ph <= 6.5 ? 'green' : '#fff',
+                        borderWidth: ph > 7.50 ? 3 : ph >= 6.5 ? 3 : ph <= 6.5 ? 3 : 0
                     }}>
                         <Card.Content style={styles.cardContent}>
                             <Title style={{color: '#1E90FF'}}>pH</Title>
@@ -109,7 +134,7 @@ export default function Home() {
                     </Text>
                     <View progressBarContainer>
                         <Progress.Circle progress={temp / 50}
-                                         color={temp >= 32 ? '#e61405' && riskyTemp() : temp >= 27 ? '#1bff0a' : temp < 24 ? '#27ae60': '#fff421' }
+                                         color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff' }
                                          size={300} style={{marginTop: 40,}} indeterminate={false}/>
                         <View style={styles.midCircle}>
                             <Text style={styles.temperature}>
