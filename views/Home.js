@@ -17,19 +17,20 @@ export default function Home() {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        console.log("is id //////////"+id);
         getData()
         if (id !== ""){
             const onValueChange = database()
                 .ref('/'+id+'/')
                 .on('value', snapshot => {
-                    // console.log('User data: ', snapshot.val().PH_Value);
-                    // console.log(snapshot.val().PH_Value);
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
         }
     },[id])
+
+    useEffect(() => {
+        ph >= 6.5 ? checkPH() : reset()
+    }, [ph])
 
     const riskyPH = () => {
         riskyPhValueNotification()
@@ -60,7 +61,6 @@ export default function Home() {
     };
 
     function setPhCardColor() {
-        // console.log('setPhCardColor==========================================================');
         return '#ff0a0a';
     }
 
@@ -78,7 +78,7 @@ export default function Home() {
                     <Card style={{
                         ...styles.leftCard,
                         // borderColor: ph > 7.5 ? '#ff0a0a' && checkPH(): ph < 6.5 ? '#27ae60' : '#fff',
-                        borderColor: ph >= 6.50 ? '#ff0a0a' && checkPH() :  reset(),
+                        borderColor: ph >= 6.50 ? 'red' :  '#fff',
                         borderWidth: ph > 6.50 ? 3 : 0
                     }}>
                         <Card.Content style={styles.cardContent}>

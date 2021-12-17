@@ -57,7 +57,6 @@ export default function DrawerContent({navigation}){
                        label="Sign Out"
                        active={active === 'fourth'}
                        onPress={() => {
-                           // signOut();
                            Alert.alert(
                                "Signing Out",
                                "Are you sure?",

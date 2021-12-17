@@ -7,7 +7,12 @@ import UpCommingScreen from '../views/UpCommingScreen';
 import FeedScreen from '../views/FeedScreen';
 
 export default function BottomTab(){
-    const Homes = () => <Home/>;
+
+    const HomeRoute = () => <Home/>;
+    const UpCommingScreenRoute = () => <UpCommingScreen/>;
+    const QrCodeRoute = () => <QrCode/>;
+    const FeedRoute = () => <FeedScreen/>;
+
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'home', title: 'Home', icon: 'home', color: '#1E90FF', },
@@ -18,11 +23,11 @@ export default function BottomTab(){
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
-        home: Homes,
-        history: UpCommingScreen,
-        scan: QrCode,
-        feed: FeedScreen,
-        profile: UpCommingScreen
+        home: HomeRoute,
+        history: UpCommingScreenRoute,
+        scan: QrCodeRoute,
+        feed: FeedRoute,
+        profile: UpCommingScreenRoute
     });
 
     return(
