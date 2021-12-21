@@ -74,7 +74,7 @@ export default function Home() {
     }
 
     const checkHighTemp = () => {
-        if(temp >= 27 && temp <= 100 && count == 0) {
+        if(temp >= 32 && temp <= 100 && count == 0) {
             setCount(1);
             riskyTemp();
         }
@@ -169,14 +169,14 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     leftCard: {
-        width: 170,
+        width: '47%',
         height: 170,
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
     },
     rightCard: {
-        width: 170,
+        width: '47%',
         height: 170,
         borderRadius: 30,
         marginLeft: 190,

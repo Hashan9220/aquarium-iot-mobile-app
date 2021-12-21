@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Pressable, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import SplashScreen from 'react-native-splash-screen';
+import Ripple from 'react-native-material-ripple';
 
 export default function FeedScreen() {
 
     const [id, setId] = useState('');
     const [lottieOpacity, setLottieOpacity] = useState(0);
+    const [rippleOpacity, setRippleOpacity] = useState(0);
+
 
     useEffect(() => {
         getData();
@@ -25,22 +28,21 @@ export default function FeedScreen() {
     };
 
     const reset = () => {
-        console.log("inside reset");
             setTimeout(() => {
                 setLottieOpacity(0)
-            }, 1000)
+                setRippleOpacity(0)
+            }, 3000)
     }
 
     const viewLottie = () => {
-        console.log("inside lottie");
         if (lottieOpacity === 0){
             setLottieOpacity(1)
+            setRippleOpacity(1)
             reset();
         }else {
 
         }
     }
-
 
     const getData = async () => {
         const value = await AsyncStorage.getItem('@device_id');
@@ -49,22 +51,25 @@ export default function FeedScreen() {
         }
     };
 
-
     return (
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}
         >
-            <View style={{width: '100%', height: '50%', opacity: lottieOpacity}}>
-                <LottieView source={require('../assets/animations/89332-loading-4.json')} autoPlay loop></LottieView>
-
+            <View style={{width: '50%', height: '50%', opacity: lottieOpacity, marginLeft: '-90%'}}>
+                {/*<LottieView source={require('../assets/animations/5152-fish-animation.json')} autoPlay loop></LottieView>*/}
+                <Image style={styles.card_logo} source={require('../assets/icons/Gold-Fish-Animation-HD-Loop-unscreen.gif')}/>
             </View>
 
-            <TouchableOpacity style={styles.btn}
-                              onPress={feed}
-            >
-                <Text style={styles.btnTxt}>FEED</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={feed}
+                >
+                    <LottieView style={{opacity: rippleOpacity}} source={require('../assets/animations/82892-wave.json')} autoPlay loop></LottieView>
+
+                    <Text style={styles.text}>FEED</Text>
+                </TouchableOpacity>
+
 
 
         </LinearGradient>
@@ -80,19 +85,24 @@ const styles = StyleSheet.create({
     btn: {
         width: '38%',
         height: '22%',
-        backgroundColor: 'green',
+        backgroundColor: '#fff',
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 5,
     },
-    btnTxt: {
-        color: '#FFF',
-        fontWeight: 'bold',
-        fontSize: 25,
-    },
     lottieView: {
         width: '100%',
         height: '50%'
+    },
+    body: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    text: {
+        color: '#1E90FF',
+        fontSize: 30
     }
 });

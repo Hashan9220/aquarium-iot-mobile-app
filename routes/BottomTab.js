@@ -25,7 +25,7 @@ export default function BottomTab(){
 
     const renderScene = BottomNavigation.SceneMap({
         home: HomeRoute,
-        history: ExampleRoute,
+        history: UpCommingScreenRoute,
         scan: QrCodeRoute,
         feed: FeedRoute,
         profile: UpCommingScreenRoute
