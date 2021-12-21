@@ -12,6 +12,7 @@ export default function BottomTab(){
     const UpCommingScreenRoute = () => <UpCommingScreen/>;
     const QrCodeRoute = () => <QrCode/>;
     const FeedRoute = () => <FeedScreen/>;
+    const ExampleRoute = () => <ExampleRoute/>
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -24,7 +25,7 @@ export default function BottomTab(){
 
     const renderScene = BottomNavigation.SceneMap({
         home: HomeRoute,
-        history: UpCommingScreenRoute,
+        history: ExampleRoute,
         scan: QrCodeRoute,
         feed: FeedRoute,
         profile: UpCommingScreenRoute

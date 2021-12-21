@@ -13,6 +13,8 @@ import ForgotPassword from './views/forgotpassword';
 import Dashboard from './views/Dashboard';
 import QrCode from './views/QrCode';
 import UpCommingScreen from './views/UpCommingScreen';
+// import BasicExample from './views/BasicExample';
+
 
 const Stack = createStackNavigator();
 
@@ -71,6 +73,8 @@ const App = () => {
           })}
         >
           <Stack.Screen name="Dashboard" component={Dashboard} />
+            {/*<Stack.Screen name="BasicExample" component={BasicExample} />*/}
+
         </Stack.Navigator>
       </NavigationContainer>
     );
