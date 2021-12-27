@@ -37,7 +37,8 @@ export default function DrawerContent({navigation}){
                    <Drawer.Item
                        label="Change Password"
                        active={active === 'first'}
-                       onPress={() => setActive('first')}
+                       onPress={() => navigation.navigate('ForgotPassword')
+                       }
                    />
                    <Drawer.Item
                        label="Contact Us"

@@ -7,12 +7,19 @@ import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { riskyPhValueNotification } from '../services/LocalPushController'
 import { riskyTemperatureNotification } from '../services/LocalPushController'
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+
 
 export default function Home() {
 
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0);
     const [id, setId] = useState("");
+
+    const [dangerNh3, setDangerNh3] = useState(0);
+    const [normalNh3, setNormalNh3] = useState(0);
+    const [nh3BarLevel, setNh3BarLevel] = useState(0)
+    const [nh3BarColor, setNh3BarColor] = useState("#fff")
 
     const [count, setCount] = useState(0);
 
@@ -25,6 +32,7 @@ export default function Home() {
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
+            checkNh3()
         }
     },[id])
 
@@ -87,6 +95,20 @@ export default function Home() {
         }
     };
 
+    const checkNh3 = () => {
+      if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 27){
+          setNormalNh3(1)
+          setDangerNh3(0)
+          setNh3BarLevel(0.5)
+          setNh3BarColor("#a6d4ff")
+      }else {
+          setDangerNh3(1)
+          setNormalNh3(0)
+          setNh3BarLevel(0.8)
+          setNh3BarColor("red")
+      }
+    }
+
     return (
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
@@ -116,7 +138,11 @@ export default function Home() {
                     <Card style={styles.rightCard}>
                         <Card.Content style={styles.cardContent}>
                             <Title style={{color: '#1E90FF'}}>NH3</Title>
-                            <Paragraph>0.004 mg(ppm)</Paragraph>
+
+                            <Paragraph style={{ fontSize: 15, color: 'red' , opacity: dangerNh3}}>Dangerous</Paragraph>
+                            <Paragraph style={{ fontSize: 15, color: '#000', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
+
+                            <Progress.Bar progress={nh3BarLevel} width={100} animated={true} color={nh3BarColor}/>
                         </Card.Content>
                         <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>

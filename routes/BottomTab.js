@@ -17,15 +17,13 @@ export default function BottomTab(){
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'home', title: 'Home', icon: 'home', color: '#1E90FF', },
-        { key: 'history', title: 'History', icon: 'history', color: '#1E90FF'},
         { key: 'scan', title: 'Scan', icon: 'qrcode-scan', color: '#1E90FF' },
-        { key: 'feed', title: 'Feed', icon: 'comment-outline', color: '#1E90FF' },
+        { key: 'feed', title: 'Feed', icon: 'cookie', color: '#1E90FF' },
         { key: 'profile', title: 'Profile', icon: 'account', color: '#1E90FF' },
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
         home: HomeRoute,
-        history: UpCommingScreenRoute,
         scan: QrCodeRoute,
         feed: FeedRoute,
         profile: UpCommingScreenRoute

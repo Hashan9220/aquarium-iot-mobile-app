@@ -59,8 +59,6 @@ export default function FeedScreen() {
             style={styles.container}
         >
 
-
-
             <View style={{width: '100%', height: '50%', opacity: lottieOpacity, marginLeft: '85%', marginTop: '20%'}}>
                 <Bubbles size={10} color="#FFF" />
             </View>

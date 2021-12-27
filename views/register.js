@@ -272,7 +272,5 @@ const styles = StyleSheet.create({
     logo: {
         width: 170,
         height:170,
-        marginLeft: -10,
-        marginTop: -5
     }
 })

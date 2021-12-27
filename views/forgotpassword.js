@@ -60,6 +60,7 @@ export default class forgotpassword extends Component {
 
                     {/*----------------------------Head Image----------------------------*/}
                     <View style={styles.forgotCircle}>
+                        <Image style={styles.logo} source={require('../assets/logos/main_logo.png')}/>
                     </View>
 
                     {/*----------------------------Head Title----------------------------*/}
@@ -125,7 +126,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 230,
         elevation: 8,
-        marginTop: '5%'
+        marginTop: '5%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     HeadTitle: {
         fontSize: 30,
@@ -159,4 +162,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: '-1%'
     },
+    logo: {
+        width: 170,
+        height:170,
+    }
 })

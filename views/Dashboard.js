@@ -8,6 +8,7 @@ import StackNav from "../routes/StackNav";
 import forgotpassword from './forgotpassword';
 import signIn from './signIn';
 import welcome from './welcome';
+import register from './register';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,9 +19,8 @@ export default function Dashboard() {
                 <Drawer.Screen
                     options={{
                         headerTintColor: '#FFFFFF',
-                        title: 'Title',
+                        title: 'Dashboard',
                         headerTitleStyle: { color: '#fff' },
-
                         drawerStyle: {
                             width: 320,
                             height: 580,
@@ -39,7 +39,9 @@ export default function Dashboard() {
                 <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Dashboard"} component={Dashboard}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Welcome"} component={welcome}/>
-
+                <Drawer.Screen options={{headerShown: null}} name={"ForgotPassword"} component={forgotpassword}/>
+                <Drawer.Screen options={{headerShown: null}} name={"Register"} component={register}/>
+                <Drawer.Screen options={{headerShown: null}} name={"SignIn"} component={signIn}/>
             </Drawer.Navigator>
         </NavigationContainer>
     )
