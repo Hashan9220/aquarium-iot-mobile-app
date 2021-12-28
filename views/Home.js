@@ -18,9 +18,9 @@ export default function Home() {
 
     const [dangerNh3, setDangerNh3] = useState(0);
     const [normalNh3, setNormalNh3] = useState(0);
-    const [nh3BarLevel, setNh3BarLevel] = useState(0)
-    const [nh3BarColor, setNh3BarColor] = useState("#fff")
     const [indicatorColor, setIndicatorColor] = useState("fff")
+    const [normalIndicatorOpacity, setNormalIndicatorOpacity] = useState(0)
+    const [dangerIndicatorOpacity, setDangerIndicatorOpacity] = useState(0)
 
     const [count, setCount] = useState(0);
 
@@ -103,20 +103,17 @@ export default function Home() {
       if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 32){
           setNormalNh3(1)
           setDangerNh3(0)
-          setNh3BarLevel(0.1)
-          setNh3BarColor("#a6d4ff")
           setIndicatorColor("#a6d4ff")
+          setNormalIndicatorOpacity(1)
+          setDangerIndicatorOpacity(0)
       }else if(ph === 0 && temp === 0){
           setNormalNh3(0)
-          setNh3BarLevel(0.0)
-          setNh3BarColor("#fff")
       } else {
           setDangerNh3(1)
           setNormalNh3(0)
-          setNh3BarLevel(0.2)
-          setNh3BarColor("red")
           setIndicatorColor("red")
-
+          setNormalIndicatorOpacity(0)
+          setDangerIndicatorOpacity(1)
       }
     }
 
@@ -154,8 +151,9 @@ export default function Home() {
                                 <Paragraph style={{ fontSize: 13, color: 'red' , opacity: dangerNh3, marginTop: '-10%'}}>Dangerous</Paragraph>
                                 <Paragraph style={{ fontSize: 13, color: '#000', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
 
-                                <View style={{marginTop: '-12%', marginLeft: '50%'}}>
-                                    <Pulse size={10} color={indicatorColor} />
+                                <View style={{marginTop: '-15%', marginLeft: '50%'}}>
+                                    <Pulse size={10} color={indicatorColor}/>
+                                    <View style={{width: 15, height: 15, borderRadius: 50, backgroundColor: indicatorColor, marginTop: '-25%', opacity: normalIndicatorOpacity}}></View>
                                 </View>
                             </View>
                         </Card.Content>
@@ -266,5 +264,8 @@ const styles = StyleSheet.create({
     temperature: {
         fontSize: 30,
         color: '#000'
+    },
+    normalIndicator: {
+
     }
 })
