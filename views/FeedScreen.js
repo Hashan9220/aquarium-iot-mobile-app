@@ -63,7 +63,6 @@ export default function FeedScreen() {
                 <Bubbles size={10} color="#FFF" />
             </View>
             <LottieView style={{marginTop: 130}} source={require('../assets/animations/82892-wave.json')} autoPlay loop></LottieView>
-
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={feed}

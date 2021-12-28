@@ -20,21 +20,25 @@ export default function Home() {
     const [normalNh3, setNormalNh3] = useState(0);
     const [nh3BarLevel, setNh3BarLevel] = useState(0)
     const [nh3BarColor, setNh3BarColor] = useState("#fff")
+    const [indicatorColor, setIndicatorColor] = useState("fff")
 
     const [count, setCount] = useState(0);
 
     useEffect(() => {
         getData()
-        if (id !== ""){
+        if (id !== "") {
             const onValueChange = database()
-                .ref('/'+id+'/')
+                .ref('/' + id + '/')
                 .on('value', snapshot => {
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
-            checkNh3()
         }
     },[id])
+
+    useEffect(() => {
+        checkNh3()
+    })
 
     useEffect(() => {
         ph >= 7.5 && ph <= 30.5 ? checkHighPH() : reset()
@@ -96,16 +100,23 @@ export default function Home() {
     };
 
     const checkNh3 = () => {
-      if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 27){
+      if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 32){
           setNormalNh3(1)
           setDangerNh3(0)
-          setNh3BarLevel(0.5)
+          setNh3BarLevel(0.1)
           setNh3BarColor("#a6d4ff")
-      }else {
+          setIndicatorColor("#a6d4ff")
+      }else if(ph === 0 && temp === 0){
+          setNormalNh3(0)
+          setNh3BarLevel(0.0)
+          setNh3BarColor("#fff")
+      } else {
           setDangerNh3(1)
           setNormalNh3(0)
-          setNh3BarLevel(0.8)
+          setNh3BarLevel(0.2)
           setNh3BarColor("red")
+          setIndicatorColor("red")
+
       }
     }
 
@@ -137,12 +148,16 @@ export default function Home() {
                     </Card>
                     <Card style={styles.rightCard}>
                         <Card.Content style={styles.cardContent}>
-                            <Title style={{color: '#1E90FF'}}>NH3</Title>
+                            <Title style={{color: '#1E90FF', }}>NH3</Title>
 
-                            <Paragraph style={{ fontSize: 15, color: 'red' , opacity: dangerNh3}}>Dangerous</Paragraph>
-                            <Paragraph style={{ fontSize: 15, color: '#000', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
+                            <View style={{marginTop: '12%'}}>
+                                <Paragraph style={{ fontSize: 13, color: 'red' , opacity: dangerNh3, marginTop: '-10%'}}>Dangerous</Paragraph>
+                                <Paragraph style={{ fontSize: 13, color: '#000', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
 
-                            <Progress.Bar progress={nh3BarLevel} width={100} animated={true} color={nh3BarColor}/>
+                                <View style={{marginTop: '-12%', marginLeft: '50%'}}>
+                                    <Pulse size={10} color={indicatorColor} />
+                                </View>
+                            </View>
                         </Card.Content>
                         <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>
@@ -214,8 +229,8 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 20,
-        marginLeft: 90,
-        marginTop: -120,
+        marginLeft: '50%',
+        marginTop: '-70%',
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -237,12 +252,12 @@ const styles = StyleSheet.create({
     },
     midCircle: {
         padding: 20,
-        width: 260,
-        height: 260,
+        width: 250,
+        height: 250,
         borderRadius: 250,
         backgroundColor: '#fff',
-        marginTop: -280,
-        marginLeft: 20,
+        marginTop: '-83%',
+        marginLeft: '8%',
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 20,

@@ -9,17 +9,18 @@ import forgotpassword from './forgotpassword';
 import signIn from './signIn';
 import welcome from './welcome';
 import register from './register';
+import FeedScreen from './FeedScreen';
 
 const Drawer = createDrawerNavigator();
 
 export default function Dashboard() {
     return (
         <NavigationContainer independent={true}>
-            <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
+            <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} />}>
                 <Drawer.Screen
                     options={{
                         headerTintColor: '#FFFFFF',
-                        title: 'Dashboard',
+                        title: '',
                         headerTitleStyle: { color: '#fff' },
                         drawerStyle: {
                             width: 320,
@@ -34,7 +35,7 @@ export default function Dashboard() {
                             <Image source={require('../assets/logos/notification_icon.png')} />
                         ),
                     }}
-                    name="BottomTab" component={BottomTab}
+                    name="Bottom Tab" component={BottomTab}
                 />
                 <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Dashboard"} component={Dashboard}/>
@@ -42,6 +43,8 @@ export default function Dashboard() {
                 <Drawer.Screen options={{headerShown: null}} name={"ForgotPassword"} component={forgotpassword}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Register"} component={register}/>
                 <Drawer.Screen options={{headerShown: null}} name={"SignIn"} component={signIn}/>
+                <Drawer.Screen options={{headerShown: true}} name={"FeedScreen"} component={FeedScreen}/>
+
             </Drawer.Navigator>
         </NavigationContainer>
     )
