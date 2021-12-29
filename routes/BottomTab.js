@@ -5,6 +5,7 @@ import Article from "../views/Article";
 import QrCode from "../views/QrCode";
 import UpCommingScreen from '../views/UpCommingScreen';
 import FeedScreen from '../views/FeedScreen';
+import ProfileScreen from '../views/ProfileScreen';
 
 export default function BottomTab(){
 
@@ -12,7 +13,7 @@ export default function BottomTab(){
     const UpCommingScreenRoute = () => <UpCommingScreen/>;
     const QrCodeRoute = () => <QrCode/>;
     const FeedRoute = () => <FeedScreen/>;
-    const ExampleRoute = () => <ExampleRoute/>
+    const ProfileScreenRoute = () => <ProfileScreen/>
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -26,7 +27,7 @@ export default function BottomTab(){
         home: HomeRoute,
         scan: QrCodeRoute,
         feed: FeedRoute,
-        profile: UpCommingScreenRoute
+        profile: ProfileScreenRoute
     });
 
     return(

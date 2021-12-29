@@ -4,7 +4,7 @@ import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from 'react-native-animatable';
 
-export default function UpCommingScreen(props){
+export default function UpCommingScreen(){
     return(
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
