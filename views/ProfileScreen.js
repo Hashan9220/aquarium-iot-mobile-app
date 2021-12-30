@@ -1,40 +1,102 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { Fragment, Component } from 'react';
+import {View, StyleSheet, TouchableOpacity, Image, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Divider} from 'react-native-paper';
+import {Text, Divider, TextInput } from 'react-native-paper';
+import * as ImagePicker from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function ProfileScreen(){
-    return(
-        <LinearGradient
-            colors={['#a6d4ff', '#1E90FF']}
-            style={styles.container}
-        >
-            <View style={styles.card}>
-                    <View style={styles.imgContainer}></View>
-                <TouchableOpacity style={styles.cameraContainer}></TouchableOpacity>
-                <Text style={styles.name}>Mindula Dilthushan</Text>
-            </View>
+export default class ProfileScreen extends Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            filepath: {
+                data: '',
+                uri: ''
+            },
+            fileData: '',
+            fileUri: '',
 
-            <View style={styles.detailContainer}>
-                <View>
-                    <Text style={styles.heading}> First Name </Text>
-                    <Divider />
+        }
+    }
 
-                    <Text style={styles.heading}> Last Name </Text>
-                    <Divider />
+    launchImageLibrary = () => {
+        let options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.launchImageLibrary(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                console.log('response = ', response.assets[0].uri);
+                this.setState({
+                    filePath: response,
+                    fileData: response.assets[0].uri,
+                    fileUri: response.uri
+                });
+                this.getImage();
+            }
+        });
 
-                    <Text style={styles.heading}> Email </Text>
-                    <Text style={styles.heading}> Phone </Text>
+    }
 
+    render(){
+        return(
+            <LinearGradient
+                colors={['#a6d4ff', '#1E90FF']}
+                style={styles.container}
+            >
+                <View style={styles.card}>
+                    <View style={styles.imgContainer}>
+                        <Image source={{ uri: this.state.fileData }}
+                               style={styles.images}
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.cameraContainer} onPress={this.launchImageLibrary}>
+                        <Image style={{marginLeft: '5%'}} source={require('../assets/icons/camera.png')}/>
+                    </TouchableOpacity>
+                    <Text style={styles.name}>Mindula Dilthushan</Text>
                 </View>
-            </View>
 
-            <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btnTxt}>Done</Text>
-            </TouchableOpacity>
+                <View style={styles.mainContainer}>
+                    <View style={styles.detailContainer}>
+                        <Text style={styles.heading}> First Name </Text>
+                        <Text style={styles.detail}> Mindula </Text>
+                    </View>
+                    <Divider/>
 
-        </LinearGradient>
-    )
+                    <View style={styles.detailContainer}>
+                        <Text style={styles.heading}> Last Name </Text>
+                        <Text style={styles.detail}> Dilthushan </Text>
+                    </View>
+                    <Divider/>
+
+                    <View style={styles.detailContainer}>
+                        <Text style={styles.heading}> Email </Text>
+                        <Text style={styles.detail}> mindula1@gmail.com </Text>
+                    </View>
+                    <Divider/>
+
+                    <View style={styles.detailContainer}>
+                        <Text style={styles.heading}> Phone </Text>
+                        <Text style={styles.detail}> 075 586 5845  </Text>
+                    </View>
+                    <Divider/>
+                </View>
+
+            </LinearGradient>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -51,14 +113,15 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: '#fff',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: '-15%'
     },
     imgContainer: {
         width: 100,
         height: 100,
         borderRadius: 50,
         backgroundColor: '#fff',
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: '#a6d4ff',
     },
     cameraContainer: {
@@ -70,44 +133,39 @@ const styles = StyleSheet.create({
         borderColor: '#a6d4ff',
         marginTop: '-12%',
         marginLeft: '20%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     name: {
         marginTop: '5%',
         fontSize: 25,
-        color: '#000'
-    },
-    detailContainer: {
-        marginTop: '15%',
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center'
+        color: '#34495e'
     },
     heading: {
-        marginLeft: '-40%',
         color: '#fff',
         fontSize: 20,
-        marginBottom: '5%'
+        textAlign: 'left'
     },
     detail: {
-        marginTop: '-6%',
-        marginLeft: '40%',
         color: '#fff',
         fontSize: 20,
+        textAlign: 'right',
+        marginTop: '-7%'
     },
-    btn: {
+    mainContainer: {
         marginTop: '10%',
-        width: '65%',
-        height: '8%',
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 12,
-        elevation: 5
+        width: '90%'
     },
-    btnTxt: {
-        color: '#a6d4ff',
-        fontSize: 25,
-
+    detailContainer: {
+        width: '100%',
+        padding: 5,
+        marginTop: '5%'
+    },
+    images: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        marginLeft: '-1%'
     }
 
 })

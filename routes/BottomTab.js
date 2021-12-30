@@ -15,6 +15,7 @@ export default function BottomTab(){
     const FeedRoute = () => <FeedScreen/>;
     const ProfileScreenRoute = () => <ProfileScreen/>
 
+
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'home', title: 'Home', icon: 'home', color: '#1E90FF', },

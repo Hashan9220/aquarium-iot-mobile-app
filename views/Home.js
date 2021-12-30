@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, StatusBar, Image, Alert} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
 import * as Progress from 'react-native-progress';
@@ -37,6 +37,10 @@ export default function Home() {
     },[id])
 
     useEffect(() => {
+        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+    }, [])
+
+    useEffect(() => {
         checkNh3()
     })
 
@@ -49,6 +53,8 @@ export default function Home() {
         temp >= 27 && temp <= 100 ? checkHighTemp() : reset()
         temp <= 23 && temp >= 1 ? checkLowTemp() : reset()
     }, [temp])
+
+
 
     const riskyPH = () => {
         riskyPhValueNotification()
@@ -103,7 +109,7 @@ export default function Home() {
       if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 32){
           setNormalNh3(1)
           setDangerNh3(0)
-          setIndicatorColor("#a6d4ff")
+          setIndicatorColor("#fff")
           setNormalIndicatorOpacity(1)
           setDangerIndicatorOpacity(0)
       }else if(ph === 0 && temp === 0){
@@ -148,12 +154,12 @@ export default function Home() {
                             <Title style={{color: '#1E90FF', }}>NH3</Title>
 
                             <View style={{marginTop: '12%'}}>
-                                <Paragraph style={{ fontSize: 13, color: 'red' , opacity: dangerNh3, marginTop: '-10%'}}>Dangerous</Paragraph>
-                                <Paragraph style={{ fontSize: 13, color: '#000', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
+                                <Paragraph style={{ fontSize: 15, color: 'red' , opacity: dangerNh3, marginTop: '-12%'}}>Dangerous</Paragraph>
+                                <Paragraph style={{ fontSize: 15, color: 'green', marginTop: '-15%', opacity: normalNh3}}>Normal</Paragraph>
 
-                                <View style={{marginTop: '-15%', marginLeft: '50%'}}>
-                                    <Pulse size={10} color={indicatorColor}/>
-                                    <View style={{width: 15, height: 15, borderRadius: 50, backgroundColor: indicatorColor, marginTop: '-25%', opacity: normalIndicatorOpacity}}></View>
+                                <View style={{marginTop: '-18%', marginLeft: '60%'}}>
+                                    <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
+                                    <View style={{width: 15, height: 15, borderRadius: 50, backgroundColor: 'green', marginTop: '-28%', opacity: normalIndicatorOpacity}}></View>
                                 </View>
                             </View>
                         </Card.Content>
@@ -265,7 +271,4 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#000'
     },
-    normalIndicator: {
-
-    }
 })

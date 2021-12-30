@@ -13,7 +13,6 @@ import ForgotPassword from './views/forgotpassword';
 import Dashboard from './views/Dashboard';
 import QrCode from './views/QrCode';
 import UpCommingScreen from './views/UpCommingScreen';
-// import BasicExample from './views/BasicExample';
 
 
 const Stack = createStackNavigator();
@@ -25,6 +24,7 @@ const App = () => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 1000);
+
 
     AsyncStorage.getItem('alreadyLaunched').then(value => {
       if (value === null) {
