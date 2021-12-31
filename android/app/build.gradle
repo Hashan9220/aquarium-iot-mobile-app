@@ -193,6 +193,8 @@ android {
 dependencies {
     implementation 'com.facebook.fresco:fresco:2.0.0'
     implementation 'com.facebook.fresco:animated-gif:2.5.0'
+    implementation project(':react-native-fs')
+
 
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"

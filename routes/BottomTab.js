@@ -13,7 +13,6 @@ export default function BottomTab(){
     const UpCommingScreenRoute = () => <UpCommingScreen/>;
     const QrCodeRoute = () => <QrCode/>;
     const FeedRoute = () => <FeedScreen/>;
-    const ProfileScreenRoute = () => <ProfileScreen/>
 
 
     const [index, setIndex] = React.useState(0);
@@ -28,7 +27,7 @@ export default function BottomTab(){
         home: HomeRoute,
         scan: QrCodeRoute,
         feed: FeedRoute,
-        profile: ProfileScreenRoute
+        profile: ProfileScreen
     });
 
     return(

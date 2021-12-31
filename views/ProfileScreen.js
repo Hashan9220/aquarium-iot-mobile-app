@@ -16,15 +16,19 @@ export default class ProfileScreen extends Component{
             },
             fileData: '',
             fileUri: '',
-
         }
     }
+
+    // var RNFS = require('react-native-fs');
+
 
     launchImageLibrary = () => {
         let options = {
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
+                cameraRoll: true,
+                waitUntilSaved: true
             },
         };
         ImagePicker.launchImageLibrary(options, (response) => {
@@ -47,7 +51,22 @@ export default class ProfileScreen extends Component{
                 this.getImage();
             }
         });
+    }
 
+     getImage = async () => {
+        const value = await AsyncStorage.getItem('pro_img')
+        if (value !== null) {
+            this.setImage(value)
+        }
+    }
+
+
+    setImage = async () => {
+        // try {
+        //     AsyncStorage.setItem(@myKey,JSON.stringify(source));
+        //     console.log("get Image");
+        // } catch (e) {
+        // }
     }
 
     render(){
