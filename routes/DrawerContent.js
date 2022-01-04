@@ -2,7 +2,7 @@ import React from "react";
 import {View, Image, StyleSheet, TouchableOpacity, Alert} from "react-native";
 import {DrawerContentScrollView,} from "@react-navigation/drawer";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, Drawer} from 'react-native-paper';
+import {Text, Drawer, Provider } from 'react-native-paper';
 
 export default function DrawerContent({navigation}){
 
@@ -27,11 +27,6 @@ export default function DrawerContent({navigation}){
                        <Image style={styles.dummyPic} source={require('../assets/icons/dummy-profile.png')}/>
                    </View>
                    <Text style={{marginLeft:100, marginTop: -65, fontSize: 20}}>User Name</Text>
-                   <View style={styles.editBtnSection}>
-                       <TouchableOpacity onPress={() => { }}>
-                           <Image style={styles.edit_icon} source={require('../assets/icons/edit_icon.png')}/>
-                       </TouchableOpacity>
-                   </View>
                </View>
                <Drawer.Section title=" ">
                    <Drawer.Item
@@ -101,16 +96,6 @@ const styles =StyleSheet.create({
     dummyPic: {
         width:80,
         height: 80,
-    },
-    editBtnSection:{
-        width:40,
-        height: 40,
-        borderRadius:50,
-        backgroundColor: '#fff',
-        marginLeft: 245,
-        marginTop: -25,
-        elevation: 20,
-        shadowColor: 'grey',
     },
     signOutSection: {
         marginTop: 150,

@@ -16,11 +16,16 @@ export default class ProfileScreen extends Component{
             },
             fileData: '',
             fileUri: '',
+            data: '',
+            fullName: '',
+            email: '',
+            password: ''
         }
     }
 
-    // var RNFS = require('react-native-fs');
-
+    componentDidMount(){
+        this.getFullName()
+    }
 
     launchImageLibrary = () => {
         let options = {
@@ -48,25 +53,24 @@ export default class ProfileScreen extends Component{
                     fileData: response.assets[0].uri,
                     fileUri: response.uri
                 });
-                this.getImage();
+                this.saveImg
             }
         });
     }
 
-     getImage = async () => {
-        const value = await AsyncStorage.getItem('pro_img')
-        if (value !== null) {
-            this.setImage(value)
+    saveImg = async () => {
+        try {
+            await AsyncStorage.setItem('@pro_img', JSON.stringify(this.state.data))
+            console.log("image saved to async");
+        } catch (e) {
         }
     }
 
-
-    setImage = async () => {
-        // try {
-        //     AsyncStorage.setItem(@myKey,JSON.stringify(source));
-        //     console.log("get Image");
-        // } catch (e) {
-        // }
+     getFullName = async () => {
+        const value = await AsyncStorage.getItem('reg_Full_Name')
+         if (value !== null) {
+             console.log("Full name printed");
+         }
     }
 
     render(){
@@ -90,25 +94,25 @@ export default class ProfileScreen extends Component{
                 <View style={styles.mainContainer}>
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> First Name </Text>
-                        <Text style={styles.detail}> Mindula </Text>
+                        <Text style={styles.detail}> {this.state.fullName} </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Last Name </Text>
-                        <Text style={styles.detail}> Dilthushan </Text>
+                        <Text style={styles.detail}> {this.state.email} </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Email </Text>
-                        <Text style={styles.detail}> mindula1@gmail.com </Text>
+                        <Text style={styles.detail}> {this.state.fullName} </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Phone </Text>
-                        <Text style={styles.detail}> 075 586 5845  </Text>
+                        <Text style={styles.detail}> {this.state.email} </Text>
                     </View>
                     <Divider/>
                 </View>

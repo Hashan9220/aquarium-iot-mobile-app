@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 
 //Common
 import {BasicInput} from "../common/BasicInput";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const radio_props = [
     {label: 'Agree to Terms & Conditions', value: 0},
@@ -25,6 +26,16 @@ export default class register extends Component {
             passwordError: false,
             confirmPasswordError: false
         };
+    }
+
+    getDetails = async () => {
+        try {
+            await AsyncStorage.setItem('reg_Full_Name', this.state.fullname)
+            await AsyncStorage.setItem('reg_email', this.state.email)
+            await AsyncStorage.setItem('reg_password', this.state.password)
+            console.log("get details");
+        } catch (e) {
+        }
     }
 
     //Validation---------------------------------------------------
@@ -71,6 +82,7 @@ export default class register extends Component {
                     this.setState({confirmPasswordError: false});
                     Alert.alert("Success !");
                     this.props.navigation.navigate('SignIn');
+                    this.getDetails();
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {

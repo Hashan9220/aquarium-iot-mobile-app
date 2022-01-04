@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
-import {Card, Title, Paragraph, Button} from 'react-native-paper';
+import {Card, Title, Paragraph, Button, Dialog, Portal, Provider } from 'react-native-paper';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,7 +10,11 @@ import { riskyTemperatureNotification } from '../services/LocalPushController'
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
 
-export default function Home() {
+export default function Home({navigation}) {
+    const [visible, setVisible] = React.useState(false);
+
+    const showDialog = () => setVisible(true);
+    const hideDialog = () => setVisible(false);
 
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0);
@@ -42,6 +46,7 @@ export default function Home() {
 
     useEffect(() => {
         checkNh3()
+        // scanIdPopUp()
     })
 
     useEffect(() => {
@@ -54,6 +59,15 @@ export default function Home() {
         temp <= 23 && temp >= 1 ? checkLowTemp() : reset()
     }, [temp])
 
+
+    const scanIdPopUp = () => {
+        if (id === null){
+            console.log("ID  NULL === NO QR CODE");
+            // showDialog()
+        }else {
+            showDialog()
+        }
+    }
 
 
     const riskyPH = () => {
@@ -124,10 +138,25 @@ export default function Home() {
     }
 
     return (
+        <Provider>
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}
         >
+
+            <View>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title>No Device Found</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph>Please Scan Your Device</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <TouchableOpacity onPress={console.log('jnjnjnjnjnj')}><Text>Done</Text></TouchableOpacity>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+            </View>
             <StatusBar backgroundColor='#a6d4ff'/>
             <View>
                 <View style={styles.deviceIdView}>
@@ -187,7 +216,8 @@ export default function Home() {
                 </View>
             </View>
         </LinearGradient>
-    )
+            </Provider>
+            )
 }
 
 const styles = StyleSheet.create({

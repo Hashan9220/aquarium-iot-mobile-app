@@ -10,6 +10,7 @@ import signIn from './signIn';
 import welcome from './welcome';
 import register from './register';
 import FeedScreen from './FeedScreen';
+import QrCode from './QrCode';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +45,7 @@ export default function Dashboard() {
                 <Drawer.Screen options={{headerShown: null}} name={"Register"} component={register}/>
                 <Drawer.Screen options={{headerShown: null}} name={"SignIn"} component={signIn}/>
                 <Drawer.Screen options={{headerShown: true}} name={"FeedScreen"} component={FeedScreen}/>
+                <Drawer.Screen options={{headerShown: true}} name={"QrCode"} component={QrCode}/>
 
             </Drawer.Navigator>
         </NavigationContainer>
