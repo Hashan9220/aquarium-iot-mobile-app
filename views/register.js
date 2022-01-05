@@ -28,16 +28,6 @@ export default class register extends Component {
         };
     }
 
-    getDetails = async () => {
-        try {
-            await AsyncStorage.setItem('reg_Full_Name', this.state.fullname)
-            await AsyncStorage.setItem('reg_email', this.state.email)
-            await AsyncStorage.setItem('reg_password', this.state.password)
-            console.log("get details");
-        } catch (e) {
-        }
-    }
-
     //Validation---------------------------------------------------
     fullNameValidate = (text) => {
         let nameReg = /^[a-zA-Z ]{2,40}$/;

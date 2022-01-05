@@ -9,7 +9,6 @@ import { riskyPhValueNotification } from '../services/LocalPushController'
 import { riskyTemperatureNotification } from '../services/LocalPushController'
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
-
 export default function Home({navigation}) {
     const [visible, setVisible] = React.useState(false);
 
@@ -37,6 +36,11 @@ export default function Home({navigation}) {
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
+            console.log("logged in with device");
+        } else if (id === ""){
+            showDialog()
+            console.log("logged without device");
+            console.log("----");
         }
     },[id])
 
@@ -46,7 +50,6 @@ export default function Home({navigation}) {
 
     useEffect(() => {
         checkNh3()
-        // scanIdPopUp()
     })
 
     useEffect(() => {
@@ -58,17 +61,6 @@ export default function Home({navigation}) {
         temp >= 27 && temp <= 100 ? checkHighTemp() : reset()
         temp <= 23 && temp >= 1 ? checkLowTemp() : reset()
     }, [temp])
-
-
-    const scanIdPopUp = () => {
-        if (id === null){
-            console.log("ID  NULL === NO QR CODE");
-            // showDialog()
-        }else {
-            showDialog()
-        }
-    }
-
 
     const riskyPH = () => {
         riskyPhValueNotification()
@@ -82,6 +74,7 @@ export default function Home({navigation}) {
         const value = await AsyncStorage.getItem('@device_id')
         if (value !== null) {
             setId(value)
+            hideDialog()
         }
     }
 
@@ -143,16 +136,15 @@ export default function Home({navigation}) {
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}
         >
-
             <View>
                 <Portal>
                     <Dialog visible={visible} onDismiss={hideDialog}>
-                        <Dialog.Title>No Device Found</Dialog.Title>
+                        <Dialog.Title>No device found</Dialog.Title>
                         <Dialog.Content>
-                            <Paragraph>Please Scan Your Device</Paragraph>
+                            <Paragraph>Please scan your device</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
-                            <TouchableOpacity onPress={console.log('jnjnjnjnjnj')}><Text>Done</Text></TouchableOpacity>
+                            <Button onPress={hideDialog}>OK</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
@@ -216,7 +208,7 @@ export default function Home({navigation}) {
                 </View>
             </View>
         </LinearGradient>
-            </Provider>
+        </Provider>
             )
 }
 

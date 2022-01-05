@@ -17,15 +17,9 @@ export default class ProfileScreen extends Component{
             fileData: '',
             fileUri: '',
             data: '',
-            fullName: '',
-            email: '',
-            password: ''
         }
     }
 
-    componentDidMount(){
-        this.getFullName()
-    }
 
     launchImageLibrary = () => {
         let options = {
@@ -58,21 +52,6 @@ export default class ProfileScreen extends Component{
         });
     }
 
-    saveImg = async () => {
-        try {
-            await AsyncStorage.setItem('@pro_img', JSON.stringify(this.state.data))
-            console.log("image saved to async");
-        } catch (e) {
-        }
-    }
-
-     getFullName = async () => {
-        const value = await AsyncStorage.getItem('reg_Full_Name')
-         if (value !== null) {
-             console.log("Full name printed");
-         }
-    }
-
     render(){
         return(
             <LinearGradient
@@ -94,25 +73,25 @@ export default class ProfileScreen extends Component{
                 <View style={styles.mainContainer}>
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> First Name </Text>
-                        <Text style={styles.detail}> {this.state.fullName} </Text>
+                        <Text style={styles.detail}>  </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Last Name </Text>
-                        <Text style={styles.detail}> {this.state.email} </Text>
+                        <Text style={styles.detail}>  </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Email </Text>
-                        <Text style={styles.detail}> {this.state.fullName} </Text>
+                        <Text style={styles.detail}>  </Text>
                     </View>
                     <Divider/>
 
                     <View style={styles.detailContainer}>
                         <Text style={styles.heading}> Phone </Text>
-                        <Text style={styles.detail}> {this.state.email} </Text>
+                        <Text style={styles.detail}>  </Text>
                     </View>
                     <Divider/>
                 </View>

@@ -44,8 +44,8 @@ export default class signIn extends Component {
             console.log('Data saved in Async storage');
         } catch (e) {
             Alert.alert(
-                "Welcome!",
-                "You have Successfully Signed In to Smart Aquarium",
+                "Device Not Found!",
+                "Please scan your device",
             );
         }
     }
