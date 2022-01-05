@@ -41,8 +41,6 @@ export default function FeedScreen() {
             setRippleOpacity(1)
             setTxtOpacity(0)
             reset();
-        }else {
-
         }
     }
 

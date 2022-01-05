@@ -47,7 +47,6 @@ export default class ProfileScreen extends Component{
                     fileData: response.assets[0].uri,
                     fileUri: response.uri
                 });
-                this.saveImg
             }
         });
     }
@@ -95,7 +94,6 @@ export default class ProfileScreen extends Component{
                     </View>
                     <Divider/>
                 </View>
-
             </LinearGradient>
         )
     }
@@ -169,5 +167,4 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginLeft: '-1%'
     }
-
 })

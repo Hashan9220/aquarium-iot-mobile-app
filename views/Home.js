@@ -136,7 +136,7 @@ export default function Home({navigation}) {
             <View>
                 <Portal>
                     <Dialog visible={visible} onDismiss={hideDialog}>
-                        <Dialog.Title>No device found</Dialog.Title>
+                        <Dialog.Title>Device not found</Dialog.Title>
                         <Dialog.Content>
                             <Paragraph>Please scan your device</Paragraph>
                         </Dialog.Content>
