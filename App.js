@@ -12,7 +12,6 @@ import Register from './views/register';
 import ForgotPassword from './views/forgotpassword';
 import Dashboard from './views/Dashboard';
 import QrCode from './views/QrCode';
-import UpCommingScreen from './views/UpCommingScreen';
 
 
 const Stack = createStackNavigator();
@@ -56,7 +55,6 @@ const App = () => {
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="QrCode" component={QrCode} />
-          <Stack.Screen name="UpCommingScreen" component={UpCommingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -73,7 +71,6 @@ const App = () => {
           })}
         >
           <Stack.Screen name="Dashboard" component={Dashboard} />
-            {/*<Stack.Screen name="BasicExample" component={BasicExample} />*/}
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -24,7 +24,6 @@ class QrCode extends Component {
         try {
             await AsyncStorage.setItem('@device_id', this.state.data)
             this.props.navigation.navigate('SignIn');
-            console.log("get Id");
         } catch (e) {
         }
     }

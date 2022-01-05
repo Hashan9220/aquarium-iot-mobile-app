@@ -36,11 +36,8 @@ export default function Home({navigation}) {
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
-            console.log("logged in with device");
         } else if (id === ""){
             showDialog()
-            console.log("logged without device");
-            console.log("----");
         }
     },[id])
 
@@ -162,7 +159,7 @@ export default function Home({navigation}) {
                     }}>
                         <Card.Content style={styles.cardContent}>
                             <Title style={{color: '#1E90FF'}}>pH</Title>
-                            <Paragraph>{ph}</Paragraph>
+                            <Paragraph style={{color: "#000"}}>{ph}</Paragraph>
                         </Card.Content>
                         <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>
@@ -184,7 +181,7 @@ export default function Home({navigation}) {
                                 </View>
                             </View>
                         </Card.Content>
-                        <Card style={styles.subCard}>
+                        <Card style={styles.rightSubCard}>
                             <Card.Content style={styles.cardContent}>
                                 <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
                             </Card.Content>
@@ -233,7 +230,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         padding: 5,
         display: 'flex',
-        marginTop: 10
+        marginTop: 10,
     },
     leftCard: {
         width: '47%',
@@ -241,6 +238,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
+        backgroundColor: '#FFF'
     },
     rightCard: {
         width: '47%',
@@ -250,6 +248,7 @@ const styles = StyleSheet.create({
         marginTop: -170,
         elevation: 10,
         shadowColor: 'black',
+        backgroundColor: '#FFF'
     },
     subCard: {
         width: 70,
@@ -257,6 +256,18 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginLeft: '50%',
         marginTop: '-70%',
+        backgroundColor: '#fff',
+        elevation: 20,
+        shadowColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    rightSubCard: {
+        width: 70,
+        height: 70,
+        borderRadius: 20,
+        marginLeft: '50%',
+        marginTop: '-65%',
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -282,7 +293,7 @@ const styles = StyleSheet.create({
         height: 250,
         borderRadius: 250,
         backgroundColor: '#fff',
-        marginTop: '-83%',
+        marginTop: '-82.5%',
         marginLeft: '8%',
         justifyContent: 'center',
         alignItems: 'center',
