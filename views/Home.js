@@ -9,6 +9,7 @@ import { riskyPhValueNotification } from '../services/LocalPushController'
 import { riskyTemperatureNotification } from '../services/LocalPushController'
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
+
 export default function Home({navigation}) {
     const [visible, setVisible] = React.useState(false);
 
@@ -36,8 +37,6 @@ export default function Home({navigation}) {
                     setPh(snapshot.val().PH_Value.toFixed(2));
                     setTemp(snapshot.val().Temp.toFixed(2));
                 });
-        } else if (id === ""){
-            showDialog()
         }
     },[id])
 
@@ -47,6 +46,7 @@ export default function Home({navigation}) {
 
     useEffect(() => {
         checkNh3()
+        // scanIdPopUp()
     })
 
     useEffect(() => {
@@ -58,6 +58,17 @@ export default function Home({navigation}) {
         temp >= 27 && temp <= 100 ? checkHighTemp() : reset()
         temp <= 23 && temp >= 1 ? checkLowTemp() : reset()
     }, [temp])
+
+
+    const scanIdPopUp = () => {
+        if (id === null){
+            console.log("ID  NULL === NO QR CODE");
+            // showDialog()
+        }else {
+            showDialog()
+        }
+    }
+
 
     const riskyPH = () => {
         riskyPhValueNotification()
@@ -71,7 +82,6 @@ export default function Home({navigation}) {
         const value = await AsyncStorage.getItem('@device_id')
         if (value !== null) {
             setId(value)
-            hideDialog()
         }
     }
 
@@ -133,15 +143,16 @@ export default function Home({navigation}) {
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}
         >
+
             <View>
                 <Portal>
                     <Dialog visible={visible} onDismiss={hideDialog}>
-                        <Dialog.Title>Device not found</Dialog.Title>
+                        <Dialog.Title>No Device Found</Dialog.Title>
                         <Dialog.Content>
-                            <Paragraph>Please scan your device</Paragraph>
+                            <Paragraph>Please Scan Your Device</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
-                            <Button onPress={hideDialog}>OK</Button>
+                            <TouchableOpacity onPress={console.log('jnjnjnjnjnj')}><Text>Done</Text></TouchableOpacity>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
@@ -159,7 +170,7 @@ export default function Home({navigation}) {
                     }}>
                         <Card.Content style={styles.cardContent}>
                             <Title style={{color: '#1E90FF'}}>pH</Title>
-                            <Paragraph style={{color: "#000"}}>{ph}</Paragraph>
+                            <Paragraph>{ph}</Paragraph>
                         </Card.Content>
                         <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>
@@ -181,7 +192,7 @@ export default function Home({navigation}) {
                                 </View>
                             </View>
                         </Card.Content>
-                        <Card style={styles.rightSubCard}>
+                        <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>
                                 <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
                             </Card.Content>
@@ -195,17 +206,18 @@ export default function Home({navigation}) {
                     <View progressBarContainer>
                         <Progress.Circle progress={temp / 50}
                                          color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff' }
-                                         size={300} style={{marginTop: 40,}} indeterminate={false}/>
+                                         size={300} style={styles.progressCircle} indeterminate={false}>
                         <View style={styles.midCircle}>
                             <Text style={styles.temperature}>
                                 {temp} °C
                             </Text>
                         </View>
+                        </Progress.Circle>
                     </View>
                 </View>
             </View>
         </LinearGradient>
-        </Provider>
+            </Provider>
             )
 }
 
@@ -230,7 +242,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         padding: 5,
         display: 'flex',
-        marginTop: 10,
+        marginTop: 10
     },
     leftCard: {
         width: '47%',
@@ -238,7 +250,6 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
-        backgroundColor: '#FFF'
     },
     rightCard: {
         width: '47%',
@@ -248,7 +259,6 @@ const styles = StyleSheet.create({
         marginTop: -170,
         elevation: 10,
         shadowColor: 'black',
-        backgroundColor: '#FFF'
     },
     subCard: {
         width: 70,
@@ -256,18 +266,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginLeft: '50%',
         marginTop: '-70%',
-        backgroundColor: '#fff',
-        elevation: 20,
-        shadowColor: 'grey',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    rightSubCard: {
-        width: 70,
-        height: 70,
-        borderRadius: 20,
-        marginLeft: '50%',
-        marginTop: '-65%',
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -287,18 +285,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    progressCircle: {
+        marginTop: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     midCircle: {
-        padding: 20,
         width: 250,
         height: 250,
         borderRadius: 250,
         backgroundColor: '#fff',
-        marginTop: '-82.5%',
-        marginLeft: '8%',
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 20,
         shadowColor: 'black',
+        position: 'absolute'
     },
     temperature: {
         fontSize: 30,
