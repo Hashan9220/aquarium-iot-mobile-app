@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Pressable, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import SplashScreen from 'react-native-splash-screen';
@@ -19,12 +18,7 @@ export default function FeedScreen() {
     }, [id]);
 
     const feed = () => {
-        database()
-            .ref('/' + id + '/')
-            .update({
-                feed: 1,
-            })
-            .then(() => viewLottie());
+
     };
 
     const reset = () => {

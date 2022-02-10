@@ -4,47 +4,40 @@ import React, {Component, useState} from 'react';
 import {Linking, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {state} from "react-native-push-notification/component";
 
-class QrCode extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: '',
-    };
-  }
+export default function QrCode({navigation}) {
 
-  onSuccess = e => {
-    Linking.openURL(e.data).catch(err => this.setState({data: e.data}));
+ const onSuccess = e => {
+    //Linking.openURL(e.data).catch(err => setState({data: e.data}));
   };
 
-  getId = async () => {
+  const getId = async () => {
     try {
-      await AsyncStorage.setItem('@device_id', this.state.data);
-      this.props.navigation.navigate('SignIn');
+      await AsyncStorage.setItem('@device_id', state.data);
+      props.navigation.navigate('SignIn');
     } catch (e) {}
   };
 
-  render() {
     return (
       <QRCodeScanner
-        onRead={this.onSuccess}
-        topContent={
+        onRead={onSuccess}
+        /*topContent={
           <View style={styles.topView}>
             <Text style={styles.txtData}>
-              Your Device ID : {this.state.data}
+             // Your Device ID : {state.data}
             </Text>
           </View>
-        }
+        }*/
         bottomContent={
           <View style={styles.bottomView}>
-            <TouchableOpacity style={styles.btnGoView} onPress={this.getId}>
+            <TouchableOpacity style={styles.btnGoView} onPress={getId}>
               <Text style={styles.txtGo}>Go</Text>
             </TouchableOpacity>
           </View>
         }
       />
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -83,4 +76,3 @@ const styles = StyleSheet.create({
     fontSize: 23,
   },
 });
-export default QrCode;

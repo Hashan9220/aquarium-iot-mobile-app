@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacit
 import LinearGradient from "react-native-linear-gradient";
 import {Card, Title, Paragraph, Button, Dialog, Portal, Provider } from 'react-native-paper';
 import * as Progress from 'react-native-progress';
-import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { riskyPhValueNotification } from '../services/LocalPushController'
 import { riskyTemperatureNotification } from '../services/LocalPushController'
@@ -29,15 +28,7 @@ export default function Home({navigation}) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        getData()
-        if (id !== "") {
-            const onValueChange = database()
-                .ref('/' + id + '/')
-                .on('value', snapshot => {
-                    setPh(snapshot.val().PH_Value.toFixed(2));
-                    setTemp(snapshot.val().Temp.toFixed(2));
-                });
-        }
+
     },[id])
 
     useEffect(() => {

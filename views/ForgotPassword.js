@@ -1,32 +1,18 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image} from 'react-native'
 import LinearGradient from "react-native-linear-gradient";
-import auth from '@react-native-firebase/auth';
 
 //Common
 import {BasicInput} from "../common/BasicInput";
 
-export default class forgotpassword extends Component {
+export default function ForgotPassword ({navigation})  {
+    const [email, setEmail] = useState('');
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: ''
-        }
+    const sendEmail = () => {
+
     }
 
-    sendEmail = () => {
-        auth()
-            .sendPasswordResetEmail(this.state.email)
-            .then(function () {
-                console.log('Password reset email sent successfully')
-            })
-            .catch(function (error) {
-                console.log('Error')
-            })
-    }
-
-    emailValidate = (text) => {
+   const emailValidate = (text) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
             this.setState({email: text})
@@ -36,7 +22,7 @@ export default class forgotpassword extends Component {
         }
     }
 
-    render() {
+
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
@@ -45,7 +31,7 @@ export default class forgotpassword extends Component {
                     <TouchableOpacity
                         style={styles.btnBack}
                         onPress={() => {
-                            this.props.navigation.navigate('Welcome');
+                           navigation.navigate('Welcome');
                         }}
                     >
                         <Image
@@ -77,19 +63,19 @@ export default class forgotpassword extends Component {
                     <BasicInput
                         viewLabel='Email Address'
                         valueSet={
-                            text => this.emailValidate(text)
+                            text => emailValidate(text)
                         }
                     />
 
                     {/*---------------- Forgot Password Button-----------*/}
-                    <TouchableOpacity style={styles.btnForgotPassword} onPress={this.sendEmail}>
+                    <TouchableOpacity style={styles.btnForgotPassword} onPress={sendEmail}>
                         <Text style={styles.btnForgotPasswordTxt}>Send Email</Text>
                     </TouchableOpacity>
 
                 </LinearGradient>
             </KeyboardAvoidingView>
         )
-    }
+
 }
 
 

@@ -5,10 +5,10 @@ import DrawerContent from "../routes/DrawerContent";
 import BottomTab from "../routes/BottomTab";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNav from "../routes/StackNav";
-import forgotpassword from './forgotpassword';
-import signIn from './signIn';
-import welcome from './welcome';
-import register from './register';
+import ForgotPassword from './ForgotPassword';
+import signIn from './SignIn';
+import welcome from './Welcome';
+import register from './Register';
 import FeedScreen from './FeedScreen';
 import QrCode from './QrCode';
 
@@ -41,7 +41,7 @@ export default function Dashboard() {
                 <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Dashboard"} component={Dashboard}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Welcome"} component={welcome}/>
-                <Drawer.Screen options={{headerShown: null}} name={"ForgotPassword"} component={forgotpassword}/>
+                <Drawer.Screen options={{headerShown: null}} name={"ForgotPassword"} component={ForgotPassword}/>
                 <Drawer.Screen options={{headerShown: null}} name={"Register"} component={register}/>
                 <Drawer.Screen options={{headerShown: null}} name={"SignIn"} component={signIn}/>
                 <Drawer.Screen options={{headerShown: true}} name={"FeedScreen"} component={FeedScreen}/>

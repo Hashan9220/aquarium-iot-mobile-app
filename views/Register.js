@@ -11,33 +11,17 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from 'react-native-simple-radio-button';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 //Common
 import {BasicInput} from '../common/BasicInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {state} from "react-native-push-notification/component";
 
 const radio_props = [{label: 'Agree to Terms & Conditions', value: 0}];
 
-export default class register extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmpassword: '',
-      nameError: false,
-      emailError: false,
-      passwordError: false,
-      confirmPasswordError: false,
-    };
-  }
+export default function Register({navigation})  {
 
   //Validation---------------------------------------------------
-  firstNameValidate = text => {
+ /* const firstNameValidate = text => {
     let nameReg = /^[a-zA-Z ]{1,40}$/;
     if (nameReg.test(text) === false) {
       this.setState({nameError: true});
@@ -48,7 +32,7 @@ export default class register extends Component {
       this.setState({nameError: false});
     }
   };
-  lastNameValidate = text => {
+  const lastNameValidate = text => {
     let nameReg = /^[a-zA-Z ]{1,40}$/;
     if (nameReg.test(text) === false) {
       this.setState({nameError: true});
@@ -59,7 +43,7 @@ export default class register extends Component {
       this.setState({nameError: false});
     }
   };
-  emailValidate = text => {
+  const emailValidate = text => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(text) === false) {
       this.setState({emailError: true});
@@ -70,7 +54,7 @@ export default class register extends Component {
       this.setState({emailError: false});
     }
   };
-  phoneValidate = text => {
+  const phoneValidate = text => {
     let reg = /^\d{10}$/;
     if (reg.test(text) === false) {
       this.setState({phoneError: true});
@@ -81,7 +65,7 @@ export default class register extends Component {
       this.setState({phoneError: false});
     }
   };
-  passwordValidate = text => {
+  const passwordValidate = text => {
     let pwReg =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     if (pwReg.test(text) === false) {
@@ -92,61 +76,14 @@ export default class register extends Component {
       this.setState({password: text});
       this.setState({passwordError: false});
     }
-  };
+  };*/
 
   //User Register------------------------------------------------
-  registerUser = () => {
-    firestore()
-      .collection('Users')
-      .add({
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        phone: this.state.phone,
-        password: this.state.password,
-        confirmpassword: this.state.confirmpassword,
-        postTime: firestore.Timestamp.fromDate(new Date()),
-      })
-      .then(async response => {
-        this.setState({docid: response.id});
-        await AsyncStorage.setItem('docid', this.state.docid);
+  const registerUser = () => {
 
-        console.log('User added firebase! ');
-      });
-
-    if (this.state.password == this.state.confirmpassword) {
-      auth()
-        .createUserWithEmailAndPassword(
-          this.state.email,
-          this.state.password,
-          this.state.firstname,
-          this.state.lastname,
-          this.state.phone,
-          this.state.confirmpassword,
-        )
-        .then(() => {
-          this.setState({confirmPasswordError: false});
-          Alert.alert('Success !');
-          this.props.navigation.navigate('SignIn');
-          this.getDetails();
-        })
-        .catch(error => {
-          if (error.code === 'auth/email-already-in-use') {
-            Alert.alert('That email address is already in use!');
-          }
-          if (error.code === 'auth/invalid-email') {
-            Alert.alert('That email address is invalid!');
-          }
-          console.error(error);
-        });
-    } else {
-      this.setState({confirmPasswordError: true});
-    }
   };
 
-  render() {
     return (
-      <ScrollView>
         <KeyboardAvoidingView style={styles.container}>
           <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
@@ -155,7 +92,7 @@ export default class register extends Component {
             <TouchableOpacity
               style={styles.btnBack}
               onPress={() => {
-                this.props.navigation.navigate('Welcome');
+                navigation.navigate('Welcome');
               }}>
               <Image
                 source={require('../assets/icons/left_arrow.png')}
@@ -178,24 +115,24 @@ export default class register extends Component {
             <Text style={styles.registerHeadTitle}>Smart {'\n'} Aquarium</Text>
 
             {/*---------------------------Common --------------------------------*/}
-            <BasicInput
+           {/* <BasicInput
               viewLabel="First Name"
-              valuData={this.state.firstname}
-              valueSet={text => this.firstNameValidate(text)}
+              valuData={state.firstname}
+              valueSet={text => firstNameValidate(text)}
               txtEntry={false}
             />
-            {this.state.nameError ? (
+            {state.nameError ? (
               <Text style={styles.txtUserError}> Invalid First Name </Text>
             ) : (
               <></>
             )}
             <BasicInput
               viewLabel="Last Name"
-              valuData={this.state.lastname}
-              valueSet={text => this.lastNameValidate(text)}
+              valuData={state.lastname}
+              valueSet={text => lastNameValidate(text)}
               txtEntry={false}
             />
-            {this.state.nameError ? (
+            {state.nameError ? (
               <Text style={styles.txtUserError}> Invalid last Name </Text>
             ) : (
               <></>
@@ -203,8 +140,8 @@ export default class register extends Component {
 
             <BasicInput
               viewLabel="Email"
-              valuData={this.state.email}
-              valueSet={text => this.emailValidate(text)}
+              valuData={state.email}
+              valueSet={text => emailValidate(text)}
               txtEntry={false}
             />
 
@@ -215,11 +152,11 @@ export default class register extends Component {
             )}
             <BasicInput
               viewLabel="phone"
-              valuData={this.state.phone}
-              valueSet={text => this.phoneValidate(text)}
+              valuData={state.phone}
+              valueSet={text => phoneValidate(text)}
               txtEntry={false}
             />
-            {this.state.nameError ? (
+            {state.nameError ? (
               <Text style={styles.txtUserError}> Invalid phone No </Text>
             ) : (
               <></>
@@ -227,11 +164,11 @@ export default class register extends Component {
 
             <BasicInput
               viewLabel="Password"
-              valuData={this.state.password}
-              valueSet={text => this.passwordValidate(text)}
+              valuData={state.password}
+              valueSet={text => passwordValidate(text)}
               txtEntry={true}
             />
-            {this.state.passwordError ? (
+            {state.passwordError ? (
               <Text style={styles.txtPwError}> Invalid Password Format </Text>
             ) : (
               <></>
@@ -239,7 +176,7 @@ export default class register extends Component {
 
             <BasicInput
               viewLabel="Confirm Password"
-              valuData={this.state.confirmpassword}
+              valuData={state.confirmpassword}
               valueSet={text =>
                 this.setState({
                   confirmpassword: text,
@@ -247,12 +184,12 @@ export default class register extends Component {
               }
               txtEntry={true}
             />
-            {this.state.confirmPasswordError ? (
+            {state.confirmPasswordError ? (
               <Text style={styles.txtCPWError}> Password Different </Text>
             ) : (
               <></>
             )}
-
+*/}
             {/*-------------------------- Radio Button ---------------------------*/}
             <RadioForm
               style={styles.rdBtn}
@@ -266,14 +203,12 @@ export default class register extends Component {
             {/*----------------Register Button-----------*/}
             <TouchableOpacity
               style={styles.btnRegister}
-              onPress={this.registerUser}>
+              onPress={registerUser}>
               <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
             </TouchableOpacity>
           </LinearGradient>
         </KeyboardAvoidingView>
-      </ScrollView>
     );
-  }
 }
 
 const styles = StyleSheet.create({

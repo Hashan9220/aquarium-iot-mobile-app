@@ -6,10 +6,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Screens---------------------------------------------------------------------------------------------------------------
 import OnBoarding from './views/OnBoarding';
-import Welcome from './views/welcome';
-import SignIn from './views/signIn';
-import Register from './views/register';
-import ForgotPassword from './views/forgotpassword';
+import Welcome from './views/Welcome';
+import SignIn from './views/SignIn';
+import Register from './views/Register';
+import ForgotPassword from './views/ForgotPassword';
 import Dashboard from './views/Dashboard';
 import QrCode from './views/QrCode';
 

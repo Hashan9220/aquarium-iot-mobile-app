@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
     StyleSheet,
     KeyboardAvoidingView,
@@ -10,38 +10,23 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from 'react-native-simple-radio-button';
-import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Common---------------------------------------------------
 import {BasicInput} from '../common/BasicInput';
+import Dashboard from "./Dashboard";
 
 const radio_props = [{label: 'Remember the account ?', value: 0}];
 
-export default class signIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      userData: {},
-      emailError: false,
-      passwordError: false,
-    };
-  }
+export default function SignIn ({navigation}) {
+    const [email, setEmail] = useState('');
 
   //User Login -----------------------------------------------------------------------------
-  userLogin = () => {
-    auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(json => {
-        this.storeData(json.data);
-        this.props.navigation.navigate('Dashboard');
-      })
-      .catch(error => {});
+  /*userLogin = () => {
+    this.props.navigation.navigate('ForgotPassword');
   };
-
-  storeData = async value => {
+*/
+  /*storeData = async value => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('alreadyLaunched', jsonValue);
@@ -50,9 +35,9 @@ export default class signIn extends Component {
       Alert.alert('Device Not Found!', 'Please scan your device');
     }
   };
-
+*/
   //Validate -----------------------------------------------------------------------------------
-  emailValidate = text => {
+  const emailValidate = text => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(text) === false) {
       this.setState({emailError: true});
@@ -63,7 +48,7 @@ export default class signIn extends Component {
       this.setState({emailError: false});
     }
   };
-  passwordValidate = text => {
+  const passwordValidate = text => {
     let pwReg =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     if (pwReg.test(text) === false) {
@@ -76,9 +61,7 @@ export default class signIn extends Component {
     }
   };
 
-  render() {
     return (
-      <ScrollView>
         <KeyboardAvoidingView style={styles.container}>
           <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
@@ -87,7 +70,7 @@ export default class signIn extends Component {
             <TouchableOpacity
               style={styles.btnBack}
               onPress={() => {
-                this.props.navigation.navigate('Welcome');
+                navigation.navigate('Welcome');
               }}>
               <Image
                 source={require('../assets/icons/left_arrow.png')}
@@ -110,7 +93,7 @@ export default class signIn extends Component {
             <Text style={styles.signInHeadTitle}>Smart {'\n'} Aquarium</Text>
 
             {/*---------------------------Common --------------------------------*/}
-            <BasicInput
+           {/* <BasicInput
               viewLabel="Email"
               valuData={this.state.email}
               txtEntry={false}
@@ -137,9 +120,9 @@ export default class signIn extends Component {
             ) : (
               <></>
             )}
-
+*/}
             {/*-------------------------- Radio Button ---------------------------*/}
-            <RadioForm
+            {/*<RadioForm
               style={styles.rdBtn}
               radio_props={radio_props}
               initial={0}
@@ -147,9 +130,9 @@ export default class signIn extends Component {
               buttonColor="#ffffff"
               labelStyle={{fontSize: 15, color: '#ffffff'}}
             />
-
+*/}
             {/*----------------Sign In Button-----------*/}
-            <TouchableOpacity style={styles.btnSignIn} onPress={this.userLogin}>
+            <TouchableOpacity style={styles.btnSignIn} onPress={navigation.navigate('Dashboard')}>
               <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
             </TouchableOpacity>
 
@@ -176,9 +159,8 @@ export default class signIn extends Component {
             </TouchableOpacity>
           </LinearGradient>
         </KeyboardAvoidingView>
-      </ScrollView>
+
     );
-  }
 }
 
 const styles = StyleSheet.create({
