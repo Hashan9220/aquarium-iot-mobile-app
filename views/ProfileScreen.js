@@ -5,22 +5,11 @@ import {Text, Divider, TextInput} from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {state} from "react-native-push-notification/component";
 
-export default class ProfileScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filepath: {
-        data: '',
-        uri: '',
-      },
-      fileData: '',
-      fileUri: '',
-      data: '',
-    };
-  }
+export default function ProfileScreen ({navigation}) {
 
-  launchImageLibrary = () => {
+ /* launchImageLibrary = () => {
     let options = {
       storageOptions: {
         skipBackup: true,
@@ -28,8 +17,8 @@ export default class ProfileScreen extends Component {
         cameraRoll: true,
         waitUntilSaved: true,
       },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
+    };*/
+   /* ImagePicker.launchImageLibrary(options, response => {
       console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -48,24 +37,22 @@ export default class ProfileScreen extends Component {
         });
       }
     });
-  };
+  };*/
 
-  render() {
     return (
-      <ScrollView>
         <LinearGradient
           colors={['#a6d4ff', '#1E90FF']}
           style={styles.container}>
           <View style={styles.card}>
             <View style={styles.imgContainer}>
               <Image
-                source={{uri: this.state.fileData}}
+               /* source={{uri: state.fileData}}*/
                 style={styles.images}
               />
             </View>
             <TouchableOpacity
               style={styles.cameraContainer}
-              onPress={this.launchImageLibrary}>
+              onPress={launchImageLibrary}>
               <Image
                 style={{marginLeft: '5%'}}
                 source={require('../assets/icons/camera.png')}
@@ -100,9 +87,8 @@ export default class ProfileScreen extends Component {
             <Divider />
           </View>
         </LinearGradient>
-      </ScrollView>
+
     );
-  }
 }
 
 const styles = StyleSheet.create({

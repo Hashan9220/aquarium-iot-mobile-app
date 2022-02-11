@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, StatusBar} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
-export default class welcome extends Component {
-    render() {
+export default function Welcome ({navigation}) {
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
@@ -49,7 +48,6 @@ export default class welcome extends Component {
                 </LinearGradient>
             </KeyboardAvoidingView>
         )
-    }
 }
 
 const styles = StyleSheet.create({
