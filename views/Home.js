@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     cardContent: {
-        marginTop: 60,
+        marginTop: 65,
     },
     card_logo: {
         width: 50,
