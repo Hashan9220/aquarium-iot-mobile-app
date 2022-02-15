@@ -30,7 +30,7 @@ export default function Welcome ({navigation}) {
                     {/*----------------Sign In Button-----------*/}
                     <TouchableOpacity style={styles.btnSignIn}
                                       onPress={() => {
-                                          this.props.navigation.navigate('SignIn');
+                                          navigation.navigate('SignIn');
                                       }}
                     >
                         <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
@@ -39,7 +39,7 @@ export default function Welcome ({navigation}) {
                     {/*----------------Register Button-----------*/}
                     <TouchableOpacity style={styles.btnRegister}
                                       onPress={() => {
-                                          this.props.navigation.navigate('Register');
+                                          navigation.navigate('Register');
                                       }}
                     >
                         <Text style={styles.btnRegisterTxt}>{'Register'}</Text>

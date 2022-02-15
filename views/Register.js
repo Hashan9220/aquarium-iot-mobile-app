@@ -191,14 +191,14 @@ export default function Register({navigation})  {
             )}
 */}
             {/*-------------------------- Radio Button ---------------------------*/}
-            <RadioForm
+         {/*   <RadioForm
               style={styles.rdBtn}
               radio_props={radio_props}
               initial={0}
               animation={true}
               buttonColor="#ffffff"
               labelStyle={{fontSize: 15, color: '#ffffff'}}
-            />
+            />*/}
 
             {/*----------------Register Button-----------*/}
             <TouchableOpacity
