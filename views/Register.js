@@ -86,79 +86,79 @@ export default function Register({navigation}) {
     };
 
     return (
-        // <KeyboardAvoidingView style={styles.container}>
-            <LinearGradient
-                colors={['#a6d4ff', '#1E90FF']}
-                style={styles.linearGradient}>
-                {/*----------------------------Back Button----------------------------*/}
-                <TouchableOpacity
-                    style={styles.btnBack}
-                    onPress={() => {
-                        navigation.navigate('Welcome');
-                    }}>
-                    <Image
-                        source={require('../assets/icons/left_arrow.png')}
-                        style={styles.imgBack}
-                    />
-                </TouchableOpacity>
 
-                {/*----------------------------Back Title----------------------------*/}
-                <Text style={styles.backTitle}>Register</Text>
+        <LinearGradient
+            colors={['#a6d4ff', '#1E90FF']}
+            style={styles.linearGradient}>
+            {/*----------------------------Back Button----------------------------*/}
+            <TouchableOpacity
+                style={styles.btnBack}
+                onPress={() => {
+                    navigation.navigate('Welcome');
+                }}>
+                <Image
+                    source={require('../assets/icons/left_arrow.png')}
+                    style={styles.imgBack}
+                />
+            </TouchableOpacity>
 
-                {/*----------------------------Head Image----------------------------*/}
+            {/*----------------------------Back Title----------------------------*/}
+            <Text style={styles.backTitle}>Register</Text>
 
-                    <View style={styles.registerCircle}>
-                        <Image
-                            style={styles.logo}
-                            source={require('../assets/logos/main_logo.png')}
-                        />
-                    </View>
-                <ScrollView>
-                    {/*----------------------------Head Title----------------------------*/}
-                    <Text style={styles.registerHeadTitle}>SMART {'\n'} AQUARIUM</Text>
+            {/*----------------------------Head Image----------------------------*/}
 
-                    {/*---------------------------Common --------------------------------*/}
-                    <BasicInput
-                        viewLabel="First Name"
-                        // valuData={state.firstname}
-                        // valueSet={text => firstNameValidate(text)}
-                        txtEntry={false}
-                    />
-                    <BasicInput
-                        viewLabel="Last Name"
-                        // valuData={state.lastname}
-                        // valueSet={text => lastNameValidate(text)}
-                        txtEntry={false}
-                    />
-                    <BasicInput
-                        viewLabel="Email"
-                        // valuData={state.email}
-                        // valueSet={text => emailValidate(text)}
-                        txtEntry={false}
-                    />
-                    <BasicInput
-                        viewLabel="phone"
-                        // valuData={state.phone}
-                        // valueSet={text => phoneValidate(text)}
-                        txtEntry={false}
-                    />
-                    <BasicInput
-                        viewLabel="Password"
-                        // valuData={state.password}
-                        // valueSet={text => passwordValidate(text)}
-                        txtEntry={true}
-                    />
-                    <BasicInput
-                        viewLabel="Confirm Password"
-                        // valuData={state.confirmpassword}
-                        // valueSet={text =>
-                        //     this.setState({
-                        //       confirmpassword: text,
-                        //     })
-                        // }
-                        txtEntry={true}
-                    />
-                    {/* <BasicInput
+            <View style={styles.registerCircle}>
+                <Image
+                    style={styles.logo}
+                    source={require('../assets/logos/main_logo.png')}
+                />
+            </View>
+            <ScrollView>
+                {/*----------------------------Head Title----------------------------*/}
+                <Text style={styles.registerHeadTitle}>SMART {'\n'} AQUARIUM</Text>
+
+                {/*---------------------------Common --------------------------------*/}
+                <BasicInput
+                    viewLabel="First Name"
+                    // valuData={state.firstname}
+                    // valueSet={text => firstNameValidate(text)}
+                    txtEntry={false}
+                />
+                <BasicInput
+                    viewLabel="Last Name"
+                    // valuData={state.lastname}
+                    // valueSet={text => lastNameValidate(text)}
+                    txtEntry={false}
+                />
+                <BasicInput
+                    viewLabel="Email"
+                    // valuData={state.email}
+                    // valueSet={text => emailValidate(text)}
+                    txtEntry={false}
+                />
+                <BasicInput
+                    viewLabel="phone"
+                    // valuData={state.phone}
+                    // valueSet={text => phoneValidate(text)}
+                    txtEntry={false}
+                />
+                <BasicInput
+                    viewLabel="Password"
+                    // valuData={state.password}
+                    // valueSet={text => passwordValidate(text)}
+                    txtEntry={true}
+                />
+                <BasicInput
+                    viewLabel="Confirm Password"
+                    // valuData={state.confirmpassword}
+                    // valueSet={text =>
+                    //     this.setState({
+                    //       confirmpassword: text,
+                    //     })
+                    // }
+                    txtEntry={true}
+                />
+                {/* <BasicInput
               viewLabel="First Name"
               valuData={state.firstname}
               valueSet={text => firstNameValidate(text)}
@@ -233,25 +233,26 @@ export default function Register({navigation}) {
               <></>
             )}
 */}
-                    {/*-------------------------- Radio Button ---------------------------*/}
-                    <RadioForm
-                        style={styles.rdBtn}
-                        radio_props={radio_props}
-                        initial={0}
-                        animation={true}
-                        buttonColor="#ffffff"
-                        labelStyle={{fontSize: 15, color: '#ffffff'}}
-                    />
 
-                    {/*----------------Register Button-----------*/}
-                    <TouchableOpacity
-                        style={styles.btnRegister}
-                        onPress={registerUser}>
-                        <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-            </LinearGradient>
-        // </KeyboardAvoidingView>
+            </ScrollView>
+            {/*-------------------------- Radio Button ---------------------------*/}
+            <RadioForm
+                style={styles.rdBtn}
+                radio_props={radio_props}
+                initial={0}
+                animation={true}
+                buttonColor="#ffffff"
+                labelStyle={{fontSize: 17, color: '#ffffff', fontFamily: 'Montserrat-Regular',}}
+            />
+
+            {/*----------------Register Button-----------*/}
+            <TouchableOpacity
+                style={styles.btnRegister}
+                onPress={registerUser}>
+                <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+            </TouchableOpacity>
+        </LinearGradient>
+
     );
 }
 
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
         height: 45,
         backgroundColor: 'rgba(0,0,0,0)',
         marginRight: '90%',
-        marginTop: '8%',
+        marginTop: '6%',
     },
     imgBack: {
         width: 45,
@@ -304,8 +305,8 @@ const styles = StyleSheet.create({
         marginTop: '-2%',
     },
     backTitle: {
-        fontSize: 35,
-        fontFamily: 'Montserrat',
+        fontSize: 33,
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
         marginTop: '-15%',
     },
@@ -319,10 +320,10 @@ const styles = StyleSheet.create({
 
     },
     registerHeadTitle: {
-        fontSize: 30,
-        fontFamily: 'Montserrat',
+        fontSize: 22,
+        fontFamily: 'Montserrat-SemiBold',
         color: '#ffffff',
-        marginTop: '5%',
+        marginTop: '0%',
         textAlign: 'center',
     },
     rdBtn: {
@@ -336,11 +337,12 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginTop: '6%',
+        marginBottom: '5%',
     },
     btnRegisterTxt: {
-        fontSize: 24,
+        fontSize: 25,
         color: '#ffffff',
+        fontFamily: 'Montserrat-Medium',
         alignSelf: 'center',
         marginTop: '-1%',
     },

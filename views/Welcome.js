@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     },
     titleName: {
         fontSize: 25,
-        fontFamily: 'Montserrat',
+        //fontFamily:'Roboto-Bold',
+        fontFamily: 'Montserrat-Bold',
         color: '#ffffff',
         marginBottom: '6%'
     },
@@ -75,15 +76,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     headTitle: {
-        fontSize: 35,
-        fontFamily: 'Montserrat',
+        fontSize: 40,
+        fontFamily: 'Montserrat-Medium',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: "center"
     },
     detailTitle: {
-        fontSize: 18,
-        fontFamily: 'Montserrat',
+        fontSize: 20,
+        fontFamily: 'Montserrat-Medium',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: "center",
@@ -99,11 +100,12 @@ const styles = StyleSheet.create({
         marginTop: '10%'
     },
     btnSignInTxt: {
-        fontSize: 20,
+        fontSize: 21,
         color: "#ffffff",
         fontWeight: "bold",
         alignSelf: "center",
-        marginTop: '1%'
+        marginTop: '1%',
+        fontFamily: 'Montserrat-Medium',
     },
     btnRegister: {
         width: 280,
@@ -116,11 +118,12 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     btnRegisterTxt: {
-        fontSize: 20,
+        fontSize: 21,
         color: "#5FB0FF",
         fontWeight: "bold",
         alignSelf: "center",
-        marginTop: '1%'
+        marginTop: '1%',
+        fontFamily: 'Montserrat-Medium',
     },
     logo: {
         width: "130%",

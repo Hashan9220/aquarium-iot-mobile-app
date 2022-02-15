@@ -14,10 +14,23 @@ const Page = ({image, title, subTitle}) => {
         >
             <Image source={image}/>
             <View style={{marginTop: 16}}>
-                <Text style={{fontSize: 30, fontWeight: 'bold', color: 'white', textAlign: 'center'}}>
+                <Text style={{
+                    fontSize: 45,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    textAlign: 'center',
+                    fontFamily: 'Montserrat-Medium'
+                }}>
                     {title}
                 </Text>
-                <Text style={{marginTop: 30, fontSize: 18, color: 'white', textAlign: 'center', width: 300}}>
+                <Text style={{
+                    marginTop: 30,
+                    fontSize: 16,
+                    color: 'white',
+                    textAlign: 'center',
+                    width: 300,
+                    fontFamily: 'Montserrat-Medium'
+                }}>
                     {subTitle}
                 </Text>
             </View>

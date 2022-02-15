@@ -51,7 +51,7 @@ export default function ForgotPassword ({navigation})  {
 
                     {/*----------------------------Head Title----------------------------*/}
                     <Text style={styles.HeadTitle}>
-                        Smart {"\n"} Aquarium
+                        SMART {"\n"} AQUARIUM
                     </Text>
 
                     {/*----------------------------Head Details------------------------------------------*/}
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
         width: 45,
         height: 45,
         backgroundColor: "rgba(0,0,0,0)",
-        marginRight: '90%'
+        marginRight: '90%',
+        top: '-7%',
     },
     imgBack: {
         width: 45,
@@ -101,10 +102,10 @@ const styles = StyleSheet.create({
         marginLeft: '20%'
     },
     backTitle: {
-        fontSize: 17,
-        fontFamily: 'Montserrat',
+        fontSize: 30,
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
-        marginTop: '-15%'
+        marginTop: '-30%'
     },
     forgotCircle: {
         width: 160,
@@ -117,15 +118,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     HeadTitle: {
-        fontSize: 30,
-        fontFamily: 'Montserrat',
+        fontSize: 26,
+        fontFamily: 'Montserrat-SemiBold',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: "center"
     },
     headDetail: {
-        fontSize: 15,
-        fontFamily: 'Montserrat',
+        fontSize: 20,
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
         textAlign: "center",
         marginTop: "3%",
@@ -143,10 +144,11 @@ const styles = StyleSheet.create({
         marginBottom: "40%"
     },
     btnForgotPasswordTxt: {
-        fontSize: 23,
+        fontSize: 25,
         color: "#ffffff",
         alignSelf: "center",
-        marginTop: '-1%'
+        marginTop: '-1%',
+        fontFamily: 'Montserrat-Medium',
     },
     logo: {
         width: 170,
