@@ -2,52 +2,52 @@ import React, {Component} from 'react'
 import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, StatusBar} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
-export default function Welcome ({navigation}) {
-        return (
-            <KeyboardAvoidingView style={styles.container}>
-                <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
-                    <StatusBar backgroundColor='#a6d4ff'/>
+export default function Welcome({navigation}) {
+    return (
+        <KeyboardAvoidingView style={styles.container}>
+            <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
+                <StatusBar backgroundColor='#a6d4ff'/>
 
-                    {/*----------------Title Name------------*/}
-                    <Text style={styles.titleName}> Smart Aquarium </Text>
+                {/*----------------Title Name------------*/}
+                <Text style={styles.titleName}> SMART AQUARIUM</Text>
 
-                    {/*----------------Image Circle------------*/}
-                    <View style={styles.imgCircle}>
-                        <Image style={styles.logo} source={require('../assets/logos/main_logo.png')}/>
-                    </View>
+                {/*----------------Image Circle------------*/}
+                <View style={styles.imgCircle}>
+                    <Image style={styles.logo} source={require('../assets/logos/main_logo.png')}/>
+                </View>
 
-                    {/*----------------Head Title ------------*/}
-                    <Text style={styles.headTitle}>
-                        Welcome in {"\n"} Smart Aquarium
-                    </Text>
+                {/*----------------Head Title ------------*/}
+                <Text style={styles.headTitle}>
+                    Welcome in {"\n"} Smart Aquarium
+                </Text>
 
-                    {/*--------------- Details Title------------*/}
-                    <Text style={styles.detailTitle}>
-                        A fish is an animal which {"\n"}
-                        lives and breathes in water.
-                    </Text>
+                {/*--------------- Details Title------------*/}
+                <Text style={styles.detailTitle}>
+                    A fish is an animal which {"\n"}
+                    lives and breathes in water.
+                </Text>
 
-                    {/*----------------Sign In Button-----------*/}
-                    <TouchableOpacity style={styles.btnSignIn}
-                                      onPress={() => {
-                                          navigation.navigate('SignIn');
-                                      }}
-                    >
-                        <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
-                    </TouchableOpacity>
+                {/*----------------Sign In Button-----------*/}
+                <TouchableOpacity style={styles.btnSignIn}
+                                  onPress={() => {
+                                      navigation.navigate('SignIn');
+                                  }}
+                >
+                    <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
+                </TouchableOpacity>
 
-                    {/*----------------Register Button-----------*/}
-                    <TouchableOpacity style={styles.btnRegister}
-                                      onPress={() => {
-                                          navigation.navigate('Register');
-                                      }}
-                    >
-                        <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
-                    </TouchableOpacity>
+                {/*----------------Register Button-----------*/}
+                <TouchableOpacity style={styles.btnRegister}
+                                  onPress={() => {
+                                      navigation.navigate('Register');
+                                  }}
+                >
+                    <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+                </TouchableOpacity>
 
-                </LinearGradient>
-            </KeyboardAvoidingView>
-        )
+            </LinearGradient>
+        </KeyboardAvoidingView>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -124,6 +124,6 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: "130%",
-        height:"130%",
+        height: "130%",
     }
 })

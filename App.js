@@ -49,6 +49,7 @@ const App = () => {
             cardOverlayEnabled: false,
             gestureDirection: 'horizontal',
           })}>
+            <Stack.Screen name="OnBoarding" component={OnBoarding} />
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="Register" component={Register} />
