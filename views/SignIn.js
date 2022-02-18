@@ -96,21 +96,16 @@ export default function SignIn({navigation}) {
                 {/*---------------------------Common --------------------------------*/}
                 <BasicInput
                     viewLabel="Email"
-                    // valuData={this.state.email}
-                    // txtEntry={false}
-                    // valueSet={text => this.emailValidate(text)}
                     autoCorrect={false}
                     autoCap="none"
                 />
 
                 <BasicInput
                     viewLabel="Password"
-                    //valuData={this.state.password}
-                    // txtEntry={true}
-                    // valueSet={text => this.passwordValidate(text)}
                     autoCorrect={false}
                     autoCap="none"
                 />
+
 
                 {/*
            <BasicInput
@@ -148,11 +143,14 @@ export default function SignIn({navigation}) {
                     initial={0}
                     animation={true}
                     buttonColor="#ffffff"
-                    labelStyle={{fontSize: 15, color: '#ffffff'}}
+                    labelStyle={{fontSize: 17, color: '#ffffff', fontFamily: 'Montserrat-Regular',}}
                 />
 
                 {/*----------------Sign In Button-----------*/}
-                <TouchableOpacity style={styles.btnSignIn} onPress={navigation.navigate('SignIn')}>
+                <TouchableOpacity style={styles.btnSignIn1}
+                                  onPress={() => {
+                                      navigation.navigate('Dashboard');
+                                  }}>
                     <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                 </TouchableOpacity>
 
@@ -195,10 +193,9 @@ const styles = StyleSheet.create({
     btnBack: {
         width: 45,
         height: 45,
-        // backgroundColor:'#000000',
         backgroundColor: 'rgba(0,0,0,0)',
         marginRight: '90%',
-        top: '-12%',
+        top: '-5%',
 
 
     },
@@ -209,10 +206,10 @@ const styles = StyleSheet.create({
         marginLeft: '20%',
     },
     backTitle: {
-        fontSize: 35,
-        fontFamily: 'Montserrat',
+        fontSize: 31,
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
-        marginTop: '-40%',
+        marginTop: '-27%',
     },
     txtError: {
         color: '#ff2020',
@@ -237,11 +234,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     signInHeadTitle: {
-        fontSize: 30,
-        fontFamily: 'Roboto',
+        fontSize: 26,
         color: '#ffffff',
         marginTop: '5%',
         textAlign: 'center',
+        fontFamily: 'Montserrat-SemiBold',
     },
     rdBtn: {
         marginLeft: '-17%',
@@ -255,10 +252,11 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnForgotPasswordTxt: {
-        fontSize: 17,
+        fontSize: 15,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '2%',
+        fontFamily: 'Montserrat-Regular',
     },
     separator: {
         width: '80%',
@@ -274,12 +272,13 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnRegTxt: {
-        fontSize: 19,
+        fontSize: 20,
         color: '#ffffff',
         alignSelf: 'center',
         fontWeight: 'bold',
+        fontFamily: 'Montserrat-Medium',
     },
-    btnSignIn: {
+    btnSignIn1: {
         width: 280,
         height: 50,
         elevation: 8,
@@ -290,10 +289,11 @@ const styles = StyleSheet.create({
         marginTop: '6%',
     },
     btnSignInTxt: {
-        fontSize: 24,
+        fontSize: 21,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '-1%',
+        fontFamily: 'Montserrat-Medium',
     },
     logo: {
         width: 170,

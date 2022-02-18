@@ -24,30 +24,26 @@ export default function OnBoarding({navigation}) {
                     <Card style={styles.subCard}>
                         <Image style={styles.card_logo} source={require('../assets/logos/main_logo.png')}/>
                     </Card>
-                    <Text style={styles.logoTitle}>SMART AQUARIUM</Text>
+                    <Text style={styles.logoTitle}>SMART {'\n'}AQUARIUM</Text>
                 </View>
             </View>
 
             <ViewPager style={{flex: 1}} initialPage={0} ref={pagerRef}>
                 <View key="1">
-                    {/*<Image source={require('../assets/logos/slide1_logo.png')}/>*/}
                     <Page
-                        image={require('../assets/logos/slide1_logo.png')}
+                        image={require('../assets/logos/slide3_logo.png')}
                         title="Title 1 "
                         subTitle="A fish is an animal which  lives and breathes in water. All fish are vertebrates (have a backbone) and  most breathe through gills and have fins and scales."
                     />
                 </View>
-                <View key="2" style={{backgroundColor: 'red', height: '100%'}}>
-                    {/*<Image source={require('../assets/logos/slide2_logo.png')} style={{marginLeft: '20%',}}/>*/}
+                <View key="2">
                     <Page
                         image={require('../assets/logos/slide2_logo.png')}
                         title="Title 2 "
                         subTitle="A bird is an animal which  lives and breathes in water. All fish are vertebrates (have a backbone) and  most breathe through gills and have fins and scales."
                     />
                 </View>
-                <View key="3" style={{backgroundColor: 'red'}}>
-                    {/*<Image source={require('../assets/logos/slide3_logo.png')} style={{marginLeft: '5%',}}/>*/}
-
+                <View key="3">
                     <Page
                         image={require('../assets/logos/slide3_logo.png')}
                         title="Title 3 "
@@ -74,7 +70,7 @@ export default function OnBoarding({navigation}) {
 }
 const styles = StyleSheet.create({
     logoContainer: {
-        width: '50%',
+        width: '60%',
         height: '15%',
     },
     subCard: {
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 15,
         marginLeft: '10%',
-        marginTop: '10%',
+        marginTop: '13%',
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -91,10 +87,10 @@ const styles = StyleSheet.create({
     },
     logoTitle: {
         marginLeft: '40%',
-        marginTop: '-22%',
-        fontSize: 22,
-        color: '#FFF'
-        // fontFamily:
+        marginTop: '-21%',
+        fontSize: 20,
+        color: '#FFF',
+        fontFamily: 'Montserrat-SemiBold',
     },
     card_logo: {
         width: 50,
