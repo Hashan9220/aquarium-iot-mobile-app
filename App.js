@@ -24,10 +24,10 @@ const App = () => {
 
     useEffect(() => {
         const init = async () => {
-            let userToken = null;
+            let token = null;
             try {
-                userToken = await AsyncStorage.getItem('userToken');
-                setToken(userToken);
+                token = await AsyncStorage.getItem('token');
+                setToken(token);
             } catch (e) {
                 console.log(e);
             }
@@ -55,7 +55,7 @@ const App = () => {
             null
         )
 
-    } else if (isFirstLaunch === true) {
+    } else if (isFirstLaunch === true || token === null) {
         return (
             <NavigationContainer independent={true}>
                 <Stack.Navigator

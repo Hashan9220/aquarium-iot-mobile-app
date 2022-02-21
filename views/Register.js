@@ -5,6 +5,7 @@ import RadioForm from 'react-native-simple-radio-button';
 //Common
 import {BasicInput} from '../common/BasicInput';
 import Dashboard from "./Dashboard";
+import SignIn from "./SignIn";
 
 const radio_props = [{label: 'Agree to Terms & Conditions', value: 0}];
 
@@ -78,7 +79,14 @@ export default function Register({navigation}) {
             setPassword({passwordError: false});
         }
     };
-
+    function navigateToDashboard(token) {
+        console.log(token)
+        if (token){
+            navigation.navigate(Dashboard)
+        }else {
+            Alert.alert('Sorry', 'Please try again');
+        }
+    }
     //User Register------------------------------------------------
     const registerUser = async () => {
         await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/register', {
@@ -95,10 +103,16 @@ export default function Register({navigation}) {
             },
         })
             .then((response) => response.json())
-            .then(navigation.navigate(Dashboard))
-            .then((json) => console.log(json));
-             Alert.alert('User Registered', 'Successfully registered as new user ');
+            .then((json) => {
+                if (json.token){
+                    navigateToDashboard(json.token)
 
+                }else {
+                    Alert.alert('please fill input field..!', 'Please try again');
+                }
+            })
+            .then((json) => console.log(json));
+            Alert.alert('User Registered', 'Successfully registered as new user ');
     };
 
     return (

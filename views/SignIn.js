@@ -1,13 +1,5 @@
 import React, {useState} from 'react';
-import {
-    StyleSheet,
-    KeyboardAvoidingView,
-    View,
-    Text,
-    TouchableOpacity,
-    Image,
-    Alert,
-} from 'react-native';
+import {Alert, Image, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,11 +13,20 @@ const radio_props = [{label: 'Remember the account ?', value: 0}];
 export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    console.log(email,password)
+    const [token, setToken] = useState('');
+
     //User Login -----------------------------------------------------------------------------
 
-    const login = async () => {
+    function navigateToDashboard(token) {
+        console.log(token)
+        if (token){
+            navigation.navigate(Dashboard)
+        }else {
+            Alert.alert('Sorry', 'Please try again');
+        }
+    }
 
+    const login = async () => {
         await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/login', {
             method: 'POST',
             body: JSON.stringify({
@@ -36,23 +37,30 @@ export default function SignIn({navigation}) {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-
             .then((response) => response.json())
-            .then(navigation.navigate(Dashboard))
-            .then((json) => console.log(json.token));
-        Alert.alert('User Login', 'Welcome Smart Aquarium ');
+            .then((json) => {
+                if (json.token){
+                    navigateToDashboard(json.token)
+                    storeData(json)
+                }else {
+                    Alert.alert('Login and Password not matched..!', 'Please try again');
+                }
+            })
+
 
     };
-
-    const storeData = async value => {
+    const storeData = async (value)=> {
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem('alreadyLaunched', jsonValue);
+            await AsyncStorage.setItem('userToken', token);
             console.log('Data saved in Async storage');
         } catch (e) {
-            Alert.alert('Device Not Found!', 'Please scan your device');
+            Alert.alert('Data not saved!', 'Please try again');
         }
     };
+    const userLogin = async value => {
+    }
     //Validate -----------------------------------------------------------------------------------
     const emailValidate = text => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -60,7 +68,7 @@ export default function SignIn({navigation}) {
             setEmail(text);
             return false;
         } else {
-            setEmail( text);
+            setEmail(text);
         }
     };
     const passwordValidate = text => {
