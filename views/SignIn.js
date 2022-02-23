@@ -1,5 +1,14 @@
 import React, {useState} from 'react';
-import {Alert, Image, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,7 +27,7 @@ export default function SignIn({navigation}) {
     //User Login -----------------------------------------------------------------------------
 
     function navigateToDashboard(token) {
-        console.log(token)
+        setToken(token);
         if (token){
             navigation.navigate(Dashboard)
         }else {
@@ -41,26 +50,24 @@ export default function SignIn({navigation}) {
             .then((json) => {
                 if (json.token){
                     navigateToDashboard(json.token)
-                    storeData(json)
+                    storeData(json,json.token)
                 }else {
                     Alert.alert('Login and Password not matched..!', 'Please try again');
                 }
             })
-
-
     };
-    const storeData = async (value)=> {
+
+
+    const storeData = async (value,token)=> {
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem('alreadyLaunched', jsonValue);
-            await AsyncStorage.setItem('userToken', token);
+            await AsyncStorage.setItem('token', token);
             console.log('Data saved in Async storage');
         } catch (e) {
             Alert.alert('Data not saved!', 'Please try again');
         }
     };
-    const userLogin = async value => {
-    }
     //Validate -----------------------------------------------------------------------------------
     const emailValidate = text => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -134,15 +141,15 @@ export default function SignIn({navigation}) {
                 />
 
                 {/*-------------------------- Radio Button ---------------------------*/}
-                <RadioForm
+               {/* <RadioForm
                     style={styles.rdBtn}
                     radio_props={radio_props}
                     initial={0}
                     animation={true}
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
-                />
-
+                />*/}
+                <ActivityIndicator size="small" color="#0000ff" />
                 {/*----------------Sign In Button-----------*/}
                 <TouchableOpacity style={styles.btnSignIn} onPress={login}>
                     <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>

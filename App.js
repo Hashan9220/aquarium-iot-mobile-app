@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as RNBootSplash from "react-native";
 //Screens---------------------------------------------------------------------------------------------------------------
 import OnBoarding from './views/OnBoarding';
 import Welcome from './views/Welcome';
@@ -14,17 +15,16 @@ import Dashboard from './views/Dashboard';
 import QrCode from './views/QrCode';
 
 
-
 const Stack = createStackNavigator();
 
 const App = () => {
-    const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
 
     const [token, setToken] = useState(null)
 
     useEffect(() => {
         const init = async () => {
             let token = null;
+
             try {
                 token = await AsyncStorage.getItem('token');
                 setToken(token);
@@ -32,6 +32,10 @@ const App = () => {
                 console.log(e);
             }
         };
+
+        init().finally(async () => {
+            await RNBootSplash({fade: true});
+        });
     }, []);
 
     useEffect(() => {
@@ -39,23 +43,8 @@ const App = () => {
             SplashScreen.hide();
         }, 1000);
 
-
-        AsyncStorage.getItem('alreadyLaunched').then(value => {
-            if (value === null) {
-                AsyncStorage.setItem('alreadyLaunched', 'true');
-                setIsFirstLaunch(true);
-            } else {
-                setIsFirstLaunch(false);
-            }
-        });
     }, []);
-
-    if (isFirstLaunch === null) {
-        return (
-            null
-        )
-
-    } else if (isFirstLaunch === true || token === null) {
+     if (token === null) {
         return (
             <NavigationContainer independent={true}>
                 <Stack.Navigator

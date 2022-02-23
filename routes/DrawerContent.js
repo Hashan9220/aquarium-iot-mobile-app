@@ -9,7 +9,7 @@ export default function DrawerContent({navigation}) {
     try {
       await AsyncStorage.removeItem('alreadyLaunched');
       await AsyncStorage.removeItem('@device_id');
-
+      await AsyncStorage.removeItem('token');
       navigation.navigate('StackNav');
     } catch (e) {}
   };

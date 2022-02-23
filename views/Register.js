@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import * as RNBootSplash from 'react-native';
+import {ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import RadioForm from 'react-native-simple-radio-button';
 //Common
 import {BasicInput} from '../common/BasicInput';
 import Dashboard from "./Dashboard";
-import SignIn from "./SignIn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const radio_props = [{label: 'Agree to Terms & Conditions', value: 0}];
 
@@ -16,6 +16,7 @@ export default function Register({navigation}) {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState('');
 
     //Validation---------------------------------------------------
 
@@ -38,7 +39,6 @@ export default function Register({navigation}) {
 
         }
     };
-
     const addressValidate = text => {
         let nameReg = /^[a-zA-Z ]{1,40}$/;
         if (nameReg.test(text) === false) {
@@ -79,14 +79,32 @@ export default function Register({navigation}) {
             setPassword({passwordError: false});
         }
     };
+
     function navigateToDashboard(token) {
-        console.log(token)
-        if (token){
+        setToken(token);
+        if (token) {
             navigation.navigate(Dashboard)
-        }else {
+
+        } else {
             Alert.alert('Sorry', 'Please try again');
         }
     }
+
+
+    useEffect(() => {
+        const init = async () => {
+            let token = null;
+            try {
+                token = await AsyncStorage.getItem('token');
+                setToken(token);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        init().finally(async () => {
+            await RNBootSplash({fade: true});
+        });
+    }, []);
     //User Register------------------------------------------------
     const registerUser = async () => {
         await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/register', {
@@ -104,19 +122,27 @@ export default function Register({navigation}) {
         })
             .then((response) => response.json())
             .then((json) => {
-                if (json.token){
+                if (json.token) {
                     navigateToDashboard(json.token)
-
-                }else {
+                    storeData(json, json.token)
+                } else {
                     Alert.alert('please fill input field..!', 'Please try again');
                 }
             })
             .then((json) => console.log(json));
-            Alert.alert('User Registered', 'Successfully registered as new user ');
+        Alert.alert('User Registered', 'Successfully registered as new user ');
     };
-
+    const storeData = async (value, token) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('alreadyLaunched', jsonValue);
+            await AsyncStorage.setItem('token', token);
+            console.log('Data saved in Async storage');
+        } catch (e) {
+            Alert.alert('Data not saved!', 'Please try again');
+        }
+    };
     return (
-        // <KeyboardAvoidingView style={styles.container}>
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.linearGradient}>
@@ -143,9 +169,9 @@ export default function Register({navigation}) {
                     source={require('../assets/logos/main_logo.png')}
                 />
             </View>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 {/*----------------------------Head Title----------------------------*/}
-                <Text style={styles.registerHeadTitle}>SMART {'\n'} AQUARIUM</Text>
+                <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
 
                 {/*---------------------------Common --------------------------------*/}
                 <BasicInput
@@ -194,26 +220,25 @@ export default function Register({navigation}) {
                      }*/
                     txtEntry={true}
                 />
-
-                {/*-------------------------- Radio Button ---------------------------*/}
-                <RadioForm
+            </ScrollView>
+            {/*-------------------------- Radio Button ---------------------------*/}
+            {/* <RadioForm
                     style={styles.rdBtn}
                     radio_props={radio_props}
                     initial={0}
                     animation={true}
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
-                />
+                />*/}
+            <ActivityIndicator size="small" color="#0000ff" animating={false}/>
+            {/*----------------Register Button-----------*/}
+            <TouchableOpacity
+                style={styles.btnRegister}
+                onPress={registerUser}>
+                <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+            </TouchableOpacity>
 
-                {/*----------------Register Button-----------*/}
-                <TouchableOpacity
-                    style={styles.btnRegister}
-                    onPress={registerUser}>
-                    <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
-                </TouchableOpacity>
-            </ScrollView>
         </LinearGradient>
-        // </KeyboardAvoidingView>
     );
 }
 console.log()
