@@ -1,4 +1,4 @@
-import React, {Fragment, Component} from 'react';
+import React, {Fragment, Component, useState, useEffect} from 'react';
 import {View, StyleSheet, TouchableOpacity, Image, Alert, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Text, Divider, TextInput} from 'react-native-paper';
@@ -8,37 +8,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {state} from "react-native-push-notification/component";
 
 export default function ProfileScreen({navigation}) {
+    const[userEmail,  setUserEmail] = useState('');
+    const[contact,  setUserContact] = useState('');
+    const[name,  setUserName] = useState('');
+    useEffect(async ()=>{
+        try{
+            let email = await AsyncStorage.getItem('email');
+            let contact = await AsyncStorage.getItem('contact');
+            let name = await AsyncStorage.getItem('name');
+            setUserEmail(email);
+            setUserContact(contact);
+            setUserName(name);
+            console.log(email)
+            console.log(contact)
+            console.log(name)
+        }
+        catch(error){
 
-    /* launchImageLibrary = () => {
-       let options = {
-         storageOptions: {
-           skipBackup: true,
-           path: 'images',
-           cameraRoll: true,
-           waitUntilSaved: true,
-         },
-       };*/
-    /* ImagePicker.launchImageLibrary(options, response => {
-       console.log('Response = ', response);
-       if (response.didCancel) {
-         console.log('User cancelled image picker');
-       } else if (response.error) {
-         console.log('ImagePicker Error: ', response.error);
-       } else if (response.customButton) {
-         console.log('User tapped custom button: ', response.customButton);
-         alert(response.customButton);
-       } else {
-         const source = {uri: response.uri};
-         console.log('response = ', response.assets[0].uri);
-         this.setState({
-           filePath: response,
-           fileData: response.assets[0].uri,
-           fileUri: response.uri,
-         });
-       }
-     });
-   };*/
+        }
 
+    },[])
     return (
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
@@ -58,30 +47,30 @@ export default function ProfileScreen({navigation}) {
                         source={require('../assets/icons/camera.png')}
                     />
                 </TouchableOpacity>
-                <Text style={styles.name}>Mindula Dilthushan</Text>
+                <Text style={styles.name}>{userEmail}</Text>
             </View>
 
             <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> First Name </Text>
+                    <Text style={styles.heading}> {userEmail} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Last Name </Text>
+                    <Text style={styles.heading}>{contact} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Email </Text>
+                    <Text style={styles.heading}> {name} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Phone </Text>
+                    <Text style={styles.heading}> {contact} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
