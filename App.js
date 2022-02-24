@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as RNBootSplash from "react-native";
 //Screens---------------------------------------------------------------------------------------------------------------
 import OnBoarding from './views/OnBoarding';
 import Welcome from './views/Welcome';
@@ -17,66 +18,70 @@ import QrCode from './views/QrCode';
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
 
-  useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 1000);
+    const [token, setToken] = useState(null)
 
+    useEffect(() => {
+        const init = async () => {
+            let token = null;
 
-    AsyncStorage.getItem('alreadyLaunched').then(value => {
-      if (value === null) {
-        AsyncStorage.setItem('alreadyLaunched', 'true');
-        setIsFirstLaunch(true);
-      } else {
-        setIsFirstLaunch(false);
-      }
-    });
-  }, []);
-  if (isFirstLaunch === null) {
-      return(
-          null
-      )
-  } else if (isFirstLaunch === true) {
-    return (
-      <NavigationContainer independent={true}>
-        <Stack.Navigator
-          shifting="true"
-          screenOptions={() => ({
-            headerShown: false,
-            gestureEnabled: true,
-            cardOverlayEnabled: false,
-            gestureDirection: 'horizontal',
-          })}>
-            <Stack.Screen name="OnBoarding" component={OnBoarding} />
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="QrCode" component={QrCode} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  } else {
-    return (
-      <NavigationContainer independent={true}>
-        <Stack.Navigator
-          shifting="true"
-          screenOptions={() => ({
-              headerShown: false,
-              gestureEnabled: true,
-              cardOverlayEnabled: false,
-              gestureDirection: 'horizontal',
-          })}
-        >
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+            try {
+                token = await AsyncStorage.getItem('token');
+                setToken(token);
+            } catch (e) {
+                console.log(e);
+            }
+        };
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+        init().finally(async () => {
+            await RNBootSplash({fade: true});
+        });
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            SplashScreen.hide();
+        }, 1000);
+
+    }, []);
+     if (token === null) {
+        return (
+            <NavigationContainer independent={true}>
+                <Stack.Navigator
+                    shifting="true"
+                    screenOptions={() => ({
+                        headerShown: false,
+                        gestureEnabled: true,
+                        cardOverlayEnabled: false,
+                        gestureDirection: 'horizontal',
+                    })}>
+                    <Stack.Screen name="OnBoarding" component={OnBoarding}/>
+                    <Stack.Screen name="Welcome" component={Welcome}/>
+                    <Stack.Screen name="SignIn" component={SignIn}/>
+                    <Stack.Screen name="Register" component={Register}/>
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+                    <Stack.Screen name="Dashboard" component={Dashboard}/>
+                    <Stack.Screen name="QrCode" component={QrCode}/>
+
+                </Stack.Navigator>
+            </NavigationContainer>
+        );
+    } else {
+        return (
+            <NavigationContainer independent={true}>
+                <Stack.Navigator
+                    shifting="true"
+                    screenOptions={() => ({
+                        headerShown: false,
+                        gestureEnabled: true,
+                        cardOverlayEnabled: false,
+                        gestureDirection: 'horizontal',
+                    })}>
+                    <Stack.Screen name="Dashboard" component={Dashboard}/>
+                </Stack.Navigator>
+            </NavigationContainer>
+        );
+    }
 };
 
 export default App;

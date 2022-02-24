@@ -1,13 +1,13 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {
-    StyleSheet,
+    ActivityIndicator,
+    Alert,
+    Image,
     KeyboardAvoidingView,
-    View,
+    StyleSheet,
     Text,
     TouchableOpacity,
-    Image,
-
-    Alert, ScrollView,
+    View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from 'react-native-simple-radio-button';
@@ -21,46 +21,73 @@ const radio_props = [{label: 'Remember the account ?', value: 0}];
 
 export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
 
     //User Login -----------------------------------------------------------------------------
-    /*userLogin = () => {
-        navigation.navigate('ForgotPassword');
-    };*/
 
-    /*storeData = async value => {
-      try {
-        const jsonValue = JSON.stringify(value);
-        await AsyncStorage.setItem('alreadyLaunched', jsonValue);
-        console.log('Data saved in Async storage');
-      } catch (e) {
-        Alert.alert('Device Not Found!', 'Please scan your device');
-      }
+    function navigateToDashboard(token) {
+        setToken(token);
+        if (token){
+            navigation.navigate(Dashboard)
+        }else {
+            Alert.alert('Sorry', 'Please try again');
+        }
+    }
+
+    const login = async () => {
+        await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                if (json.token){
+                    navigateToDashboard(json.token)
+                    storeData(json,json.token)
+                }else {
+                    Alert.alert('Login and Password not matched..!', 'Please try again');
+                }
+            })
     };
-  */
+
+
+    const storeData = async (value,token)=> {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('alreadyLaunched', jsonValue);
+            await AsyncStorage.setItem('token', token);
+            console.log('Data saved in Async storage');
+        } catch (e) {
+            Alert.alert('Data not saved!', 'Please try again');
+        }
+    };
     //Validate -----------------------------------------------------------------------------------
-    // const emailValidate = text => {
-    //   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    //   if (reg.test(text) === false) {
-    //     this.setState({emailError: true});
-    //     this.setState({email: text});
-    //     return false;
-    //   } else {
-    //     this.setState({email: text});
-    //     this.setState({emailError: false});
-    //   }
-    // };
-    // const passwordValidate = text => {
-    //   let pwReg =
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-    //   if (pwReg.test(text) === false) {
-    //     this.setState({passwordError: true});
-    //     this.setState({password: text});
-    //     return false;
-    //   } else {
-    //     this.setState({password: text});
-    //     this.setState({passwordError: false});
-    //   }
-    // };
+    const emailValidate = text => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+            setEmail(text);
+            return false;
+        } else {
+            setEmail(text);
+        }
+    };
+    const passwordValidate = text => {
+        let pwReg =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        if (pwReg.test(text) === false) {
+            setPassword(text);
+            return false;
+        } else {
+            setPassword(text);
+        }
+    };
 
     return (
         <KeyboardAvoidingView style={styles.container}>
@@ -68,11 +95,11 @@ export default function SignIn({navigation}) {
                 colors={['#a6d4ff', '#1E90FF']}
                 style={styles.linearGradient}>
                 {/*----------------------------Back Button----------------------------*/}
-                <TouchableOpacity
-                    style={styles.btnBack}
-                    onPress={() => {
-                        navigation.navigate('Welcome');
-                    }}>
+                <TouchableOpacity style={styles.btnBack}
+                                  onPress={() => {
+                                      navigation.navigate('Welcome');
+                                  }}
+                >
                     <Image
                         source={require('../assets/icons/left_arrow.png')}
                         style={styles.imgBack}
@@ -94,63 +121,37 @@ export default function SignIn({navigation}) {
                 <Text style={styles.signInHeadTitle}>SMART {'\n'} AQUARIUM</Text>
 
                 {/*---------------------------Common --------------------------------*/}
+
                 <BasicInput
                     viewLabel="Email"
+                    valuData={email}
+                    txtEntry={false}
+                    valueSet={text => emailValidate(text)}
                     autoCorrect={false}
                     autoCap="none"
                 />
 
                 <BasicInput
                     viewLabel="Password"
+                    valuData={password}
+                    txtEntry={true}
+                    valueSet={text => passwordValidate(text)}
                     autoCorrect={false}
                     autoCap="none"
                 />
 
-
-                {/*
-           <BasicInput
-              viewLabel="Email"
-              valuData={this.state.email}
-              txtEntry={false}
-              valueSet={text => this.emailValidate(text)}
-              autoCorrect={false}
-              autoCap="none"
-            />
-            {this.state.emailError ? (
-              <Text style={styles.txtError}> Invalid Email Address </Text>
-            ) : (
-              <></>
-            )}
-
-            <BasicInput
-              viewLabel="Password"
-              valuData={this.state.password}
-              txtEntry={true}
-              valueSet={text => this.passwordValidate(text)}
-              autoCorrect={false}
-              autoCap="none"
-            />
-            {this.state.passwordError ? (
-              <Text style={styles.txtPwError}> Invalid Password Format </Text>
-            ) : (
-              <></>
-            )}
-// */}
                 {/*-------------------------- Radio Button ---------------------------*/}
-                <RadioForm
+               {/* <RadioForm
                     style={styles.rdBtn}
                     radio_props={radio_props}
                     initial={0}
                     animation={true}
                     buttonColor="#ffffff"
-                    labelStyle={{fontSize: 17, color: '#ffffff', fontFamily: 'Montserrat-Regular',}}
-                />
-
+                    labelStyle={{fontSize: 15, color: '#ffffff'}}
+                />*/}
+                <ActivityIndicator size="small" color="#0000ff" />
                 {/*----------------Sign In Button-----------*/}
-                <TouchableOpacity style={styles.btnSignIn1}
-                                  onPress={() => {
-                                      navigation.navigate('Dashboard');
-                                  }}>
+                <TouchableOpacity style={styles.btnSignIn} onPress={login}>
                     <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                 </TouchableOpacity>
 
@@ -193,11 +194,10 @@ const styles = StyleSheet.create({
     btnBack: {
         width: 45,
         height: 45,
+        // backgroundColor:'#000000',
         backgroundColor: 'rgba(0,0,0,0)',
         marginRight: '90%',
-        top: '-5%',
-
-
+        top: '-12%',
     },
     imgBack: {
         width: 45,
@@ -206,10 +206,10 @@ const styles = StyleSheet.create({
         marginLeft: '20%',
     },
     backTitle: {
-        fontSize: 31,
-        fontFamily: 'Montserrat-Regular',
+        fontSize: 35,
+        fontFamily: 'Montserrat',
         color: '#ffffff',
-        marginTop: '-27%',
+        marginTop: '-40%',
     },
     txtError: {
         color: '#ff2020',
@@ -234,11 +234,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     signInHeadTitle: {
-        fontSize: 26,
+        fontSize: 30,
+        fontFamily: 'Roboto',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: 'center',
-        fontFamily: 'Montserrat-SemiBold',
     },
     rdBtn: {
         marginLeft: '-17%',
@@ -252,11 +252,10 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnForgotPasswordTxt: {
-        fontSize: 15,
+        fontSize: 17,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '2%',
-        fontFamily: 'Montserrat-Regular',
     },
     separator: {
         width: '80%',
@@ -272,13 +271,12 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnRegTxt: {
-        fontSize: 20,
+        fontSize: 19,
         color: '#ffffff',
         alignSelf: 'center',
         fontWeight: 'bold',
-        fontFamily: 'Montserrat-Medium',
     },
-    btnSignIn1: {
+    btnSignIn: {
         width: 280,
         height: 50,
         elevation: 8,
@@ -289,11 +287,10 @@ const styles = StyleSheet.create({
         marginTop: '6%',
     },
     btnSignInTxt: {
-        fontSize: 21,
+        fontSize: 24,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '-1%',
-        fontFamily: 'Montserrat-Medium',
     },
     logo: {
         width: 170,
