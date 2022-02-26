@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Image, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +15,17 @@ export default function DrawerContent({navigation}) {
   };
 
   const [active, setActive] = React.useState('');
+  const[name,  setUserName] = useState('');
+  useEffect(async ()=>{
+    try{
+      let name = await AsyncStorage.getItem('name');
+      setUserName(name);
+    }
+    catch(error){
+
+    }
+
+  },[])
 
   return (
     <View style={styles.drawerContainer}>
@@ -27,7 +38,7 @@ export default function DrawerContent({navigation}) {
             />
           </View>
           <Text style={{marginLeft: 100, marginTop: -65, fontSize: 20}}>
-            User Name
+            {name}
           </Text>
         </View>
         <Drawer.Section title=" ">

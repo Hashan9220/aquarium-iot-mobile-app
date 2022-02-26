@@ -1,27 +1,26 @@
-import React, {Fragment, Component, useState, useEffect} from 'react';
-import {View, StyleSheet, TouchableOpacity, Image, Alert, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, TouchableOpacity, Image,} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Text, Divider, TextInput} from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {state} from "react-native-push-notification/component";
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen() {
     const[userEmail,  setUserEmail] = useState('');
     const[contact,  setUserContact] = useState('');
     const[name,  setUserName] = useState('');
+    const[address,  setUserAddress] = useState('');
     useEffect(async ()=>{
         try{
             let email = await AsyncStorage.getItem('email');
-            let contact = await AsyncStorage.getItem('contact');
             let name = await AsyncStorage.getItem('name');
+            let contact = await AsyncStorage.getItem('contact');
+            let address = await AsyncStorage.getItem('address');
             setUserEmail(email);
             setUserContact(contact);
             setUserName(name);
-            console.log(email)
-            console.log(contact)
-            console.log(name)
+            setUserAddress(address);
         }
         catch(error){
 
@@ -47,24 +46,24 @@ export default function ProfileScreen({navigation}) {
                         source={require('../assets/icons/camera.png')}
                     />
                 </TouchableOpacity>
-                <Text style={styles.name}>{userEmail}</Text>
+                <Text style={styles.name}>{name}</Text>
             </View>
 
             <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> {userEmail} </Text>
-                    <Text style={styles.detail}> </Text>
-                </View>
-                <Divider/>
-
-                <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>{contact} </Text>
-                    <Text style={styles.detail}> </Text>
-                </View>
-                <Divider/>
-
-                <View style={styles.detailContainer}>
                     <Text style={styles.heading}> {name} </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider/>
+
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}>{userEmail} </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider/>
+
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}> {address}  </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
