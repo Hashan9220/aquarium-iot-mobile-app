@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, TouchableOpacity, Image,} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Text, Divider, TextInput} from 'react-native-paper';
+import {Text, Divider, TextInput, ActivityIndicator} from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,6 +11,7 @@ export default function ProfileScreen() {
     const[contact,  setUserContact] = useState('');
     const[name,  setUserName] = useState('');
     const[address,  setUserAddress] = useState('');
+    const [loading , setLoading] = useState(false);
     useEffect(async ()=>{
         try{
             let email = await AsyncStorage.getItem('email');
@@ -27,53 +28,72 @@ export default function ProfileScreen() {
         }
 
     },[])
+    const startLoading = () =>{
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+
+        }, 3000);
+    };
     return (
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
-            <View style={styles.card}>
-                <View style={styles.imgContainer}>
-                    <Image
-                        /* source={{uri: state.fileData}}*/
-                        style={styles.images}
+            {
+                loading ? (
+                    <ActivityIndicator
+                        visible ={loading}
+                        textStyle={styles.spinnerTextStyle}
                     />
-                </View>
-                <TouchableOpacity
-                    style={styles.cameraContainer}
-                    onPress={launchImageLibrary}>
-                    <Image
-                        style={{marginLeft: '5%'}}
-                        source={require('../assets/icons/camera.png')}
-                    />
-                </TouchableOpacity>
-                <Text style={styles.name}>{name}</Text>
-            </View>
+                ) : (
 
-            <View style={styles.mainContainer}>
+                    <View style={styles.card} onScroll={startLoading}>
+                        <View style={styles.imgContainer}>
+                            <Image
+                                /* source={{uri: state.fileData}}*/
+                                style={styles.images}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={styles.cameraContainer}
+                            onPress={launchImageLibrary}>
+                            <Image
+                                style={{marginLeft: '5%'}}
+                                source={require('../assets/icons/camera.png')}
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.name}>{name}</Text>
+                    </View>
+                )
+            }
+
+                <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> {name} </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Name    :- {name} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>{userEmail} </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Email     :- {userEmail} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> {address}  </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Address :-  {address}  </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> {contact} </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Contact :-  {contact} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
-            </View>
+                </View>
+
+
         </LinearGradient>
 
     );
