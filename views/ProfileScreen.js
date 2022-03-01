@@ -1,91 +1,99 @@
-import React, {Fragment, Component} from 'react';
-import {View, StyleSheet, TouchableOpacity, Image, Alert, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, TouchableOpacity, Image,} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Text, Divider, TextInput} from 'react-native-paper';
+import {Text, Divider, TextInput, ActivityIndicator} from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {state} from "react-native-push-notification/component";
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen() {
+    const[userEmail,  setUserEmail] = useState('');
+    const[contact,  setUserContact] = useState('');
+    const[name,  setUserName] = useState('');
+    const[address,  setUserAddress] = useState('');
+    const [loading , setLoading] = useState(false);
+    useEffect(async ()=>{
+        try{
+            let email = await AsyncStorage.getItem('email');
+            let name = await AsyncStorage.getItem('name');
+            let contact = await AsyncStorage.getItem('contact');
+            let address = await AsyncStorage.getItem('address');
+            setUserEmail(email);
+            setUserContact(contact);
+            setUserName(name);
+            setUserAddress(address);
+        }
+        catch(error){
 
-    /* launchImageLibrary = () => {
-       let options = {
-         storageOptions: {
-           skipBackup: true,
-           path: 'images',
-           cameraRoll: true,
-           waitUntilSaved: true,
-         },
-       };*/
-    /* ImagePicker.launchImageLibrary(options, response => {
-       console.log('Response = ', response);
-       if (response.didCancel) {
-         console.log('User cancelled image picker');
-       } else if (response.error) {
-         console.log('ImagePicker Error: ', response.error);
-       } else if (response.customButton) {
-         console.log('User tapped custom button: ', response.customButton);
-         alert(response.customButton);
-       } else {
-         const source = {uri: response.uri};
-         console.log('response = ', response.assets[0].uri);
-         this.setState({
-           filePath: response,
-           fileData: response.assets[0].uri,
-           fileUri: response.uri,
-         });
-       }
-     });
-   };*/
+        }
 
+    },[])
+    const startLoading = () =>{
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+
+        }, 3000);
+    };
     return (
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
-            <View style={styles.card}>
-                <View style={styles.imgContainer}>
-                    <Image
-                        /* source={{uri: state.fileData}}*/
-                        style={styles.images}
+            {
+                loading ? (
+                    <ActivityIndicator
+                        visible ={loading}
+                        textStyle={styles.spinnerTextStyle}
                     />
-                </View>
-                <TouchableOpacity
-                    style={styles.cameraContainer}
-                    onPress={launchImageLibrary}>
-                    <Image
-                        style={{marginLeft: '5%'}}
-                        source={require('../assets/icons/camera.png')}
-                    />
-                </TouchableOpacity>
-                <Text style={styles.name}>Mindula Dilthushan</Text>
-            </View>
+                ) : (
 
-            <View style={styles.mainContainer}>
+                    <View style={styles.card} onScroll={startLoading}>
+                        <View style={styles.imgContainer}>
+                            <Image
+                                /* source={{uri: state.fileData}}*/
+                                style={styles.images}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={styles.cameraContainer}
+                            onPress={launchImageLibrary}>
+                            <Image
+                                style={{marginLeft: '5%'}}
+                                source={require('../assets/icons/camera.png')}
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.name}>{name}</Text>
+                    </View>
+                )
+            }
+
+                <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> First Name </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Name    :- {name} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Last Name </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Email     :- {userEmail} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Email </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Address :-  {address}  </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}> Phone </Text>
-                    <Text style={styles.detail}> </Text>
+                <Text style={styles.heading}>Contact :-  {contact} </Text>
+                <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
-            </View>
+                </View>
+
+
         </LinearGradient>
 
     );

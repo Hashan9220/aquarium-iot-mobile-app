@@ -23,17 +23,9 @@ export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
-
+    const [loading , setLoading] = useState(false);
     //User Login -----------------------------------------------------------------------------
 
-    function navigateToDashboard(token) {
-        setToken(token);
-        if (token){
-            navigation.navigate(Dashboard)
-        }else {
-            Alert.alert('Sorry', 'Please try again');
-        }
-    }
 
     const login = async () => {
         await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/login', {
@@ -49,20 +41,30 @@ export default function SignIn({navigation}) {
             .then((response) => response.json())
             .then((json) => {
                 if (json.token){
-                    navigateToDashboard(json.token)
-                    storeData(json,json.token)
+                    setToken(token);
+                    navigation.navigate(Dashboard)
+                    storeData(json)
+
                 }else {
                     Alert.alert('Login and Password not matched..!', 'Please try again');
                 }
             })
+
+
     };
 
 
-    const storeData = async (value,token)=> {
+    const storeData = async (value)=> {
+
         try {
-            const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem('alreadyLaunched', jsonValue);
-            await AsyncStorage.setItem('token', token);
+            await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(value));
+            await AsyncStorage.setItem('token', value.token);
+            await AsyncStorage.setItem('email',value.user.email);
+            await AsyncStorage.setItem('contact', value.user.contact);
+            await AsyncStorage.setItem('name', value.user.name);
+            await AsyncStorage.setItem('address',value.user.address)
+            console.log(value.user.contact)
+            console.log(value.user.name)
             console.log('Data saved in Async storage');
         } catch (e) {
             Alert.alert('Data not saved!', 'Please try again');
@@ -87,6 +89,16 @@ export default function SignIn({navigation}) {
         } else {
             setPassword(text);
         }
+    };
+
+    //loader
+    const startLoading = () =>{
+        login();
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+
+        }, 3000);
     };
 
     return (
@@ -141,7 +153,7 @@ export default function SignIn({navigation}) {
                 />
 
                 {/*-------------------------- Radio Button ---------------------------*/}
-               {/* <RadioForm
+                {/* <RadioForm
                     style={styles.rdBtn}
                     radio_props={radio_props}
                     initial={0}
@@ -149,11 +161,20 @@ export default function SignIn({navigation}) {
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
                 />*/}
-                <ActivityIndicator size="small" color="#0000ff" />
+
                 {/*----------------Sign In Button-----------*/}
-                <TouchableOpacity style={styles.btnSignIn} onPress={login}>
-                    <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
-                </TouchableOpacity>
+                {
+                    loading ? (
+                        <ActivityIndicator
+                            visible ={loading}
+                            textStyle={styles.spinnerTextStyle}
+                        />
+                    ) : (
+                        <TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
+                            <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
+                        </TouchableOpacity>
+                    )
+                }
 
                 {/*----------------Forgot Password----------------*/}
                 <TouchableOpacity
@@ -295,5 +316,8 @@ const styles = StyleSheet.create({
     logo: {
         width: 170,
         height: 170,
+    },
+    spinnerTextStyle:{
+        color:'#000000',
     },
 });
