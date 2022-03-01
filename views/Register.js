@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         height: 45,
         backgroundColor: 'rgba(0,0,0,0)',
         marginRight: '90%',
-        marginTop: '8%',
+        marginTop: '6%',
     },
     imgBack: {
         width: 45,
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     },
     backTitle: {
         fontSize: 35,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
         marginTop: '-15%',
     },
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     },
     registerHeadTitle: {
         fontSize: 30,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Montserrat-SemiBold',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: 'center',
@@ -323,10 +323,10 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginTop: '6%',
+        marginTop: '5%',
     },
     btnRegisterTxt: {
-        fontSize: 24,
+        fontSize: 25,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '-1%',

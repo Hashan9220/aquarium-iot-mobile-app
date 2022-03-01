@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     headTitle: {
-        fontSize: 40,
+        fontSize: 35,
         fontFamily: 'Montserrat-Medium',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: "center"
     },
     detailTitle: {
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: 'Montserrat-Medium',
         color: '#ffffff',
         marginTop: '5%',
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     btnRegisterTxt: {
-        fontSize: 21,
+        fontSize: 20,
         color: "#5FB0FF",
         fontWeight: "bold",
         alignSelf: "center",
