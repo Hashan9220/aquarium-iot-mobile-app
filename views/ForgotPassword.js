@@ -51,7 +51,7 @@ export default function ForgotPassword ({navigation})  {
 
                     {/*----------------------------Head Title----------------------------*/}
                     <Text style={styles.HeadTitle}>
-                        SMART {"\n"} AQUARIUM
+                         SMART {"\n"}AQUARIUM
                     </Text>
 
                     {/*----------------------------Head Details------------------------------------------*/}

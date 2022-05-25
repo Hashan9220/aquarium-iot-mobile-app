@@ -130,7 +130,7 @@ export default function SignIn({navigation}) {
                 </View>
 
                 {/*----------------------------Head Title----------------------------*/}
-                <Text style={styles.signInHeadTitle}>SMART {'\n'} AQUARIUM</Text>
+                <Text style={styles.signInHeadTitle}>  SMART {'\n'}AQUARIUM</Text>
 
                 {/*---------------------------Common --------------------------------*/}
 
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         // backgroundColor:'#000000',
         backgroundColor: 'rgba(0,0,0,0)',
         marginRight: '90%',
-        top: '-12%',
+        top: '-5%',
     },
     imgBack: {
         width: 45,
@@ -227,10 +227,10 @@ const styles = StyleSheet.create({
         marginLeft: '20%',
     },
     backTitle: {
-        fontSize: 35,
-        fontFamily: 'Montserrat',
+        fontSize: 31,
+        fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
-        marginTop: '-40%',
+        marginTop: '-27%',
     },
     txtError: {
         color: '#ff2020',
@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     signInHeadTitle: {
-        fontSize: 30,
-        fontFamily: 'Roboto',
+        fontSize: 26,
+        fontFamily: 'Montserrat-SemiBold',
         color: '#ffffff',
         marginTop: '5%',
         textAlign: 'center',
@@ -273,10 +273,11 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnForgotPasswordTxt: {
-        fontSize: 17,
+        fontSize: 15,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '2%',
+        fontFamily: 'Montserrat-Regular',
     },
     separator: {
         width: '80%',
@@ -292,10 +293,11 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     btnRegTxt: {
-        fontSize: 19,
+        fontSize: 20,
         color: '#ffffff',
         alignSelf: 'center',
         fontWeight: 'bold',
+        fontFamily: 'Montserrat-Medium',
     },
     btnSignIn: {
         width: 280,
@@ -308,10 +310,11 @@ const styles = StyleSheet.create({
         marginTop: '6%',
     },
     btnSignInTxt: {
-        fontSize: 24,
+        fontSize: 21,
         color: '#ffffff',
         alignSelf: 'center',
         marginTop: '-1%',
+        fontFamily: 'Montserrat-Medium',
     },
     logo: {
         width: 170,
