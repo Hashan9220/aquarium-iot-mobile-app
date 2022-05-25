@@ -55,11 +55,11 @@ const App = () => {
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal',
                     })}>
-                    <Stack.Screen name="OnBoarding" component={OnBoarding}/>
+                    {/*<Stack.Screen name="OnBoarding" component={OnBoarding}/>
                     <Stack.Screen name="Welcome" component={Welcome}/>
                     <Stack.Screen name="SignIn" component={SignIn}/>
                     <Stack.Screen name="Register" component={Register}/>
-                    <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>*/}
                     <Stack.Screen name="Dashboard" component={Dashboard}/>
                     <Stack.Screen name="QrCode" component={QrCode}/>
 
