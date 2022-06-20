@@ -1,36 +1,65 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Pressable, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import database from '@react-native-firebase/database';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
-import SplashScreen from 'react-native-splash-screen';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import { Bubbles } from 'react-native-loader';
 
 export default function FeedScreen() {
 
     const [id, setId] = useState('');
     const [lottieOpacity, setLottieOpacity] = useState(0);
     const [rippleOpacity, setRippleOpacity] = useState(0);
-    const [txtOpacity, setTxtOpacity] = useState(1)
+    const [txtOpacity, setTxtOpacity] = useState(1);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        getData();
-    }, [id]);
+        getId();
+    }, []);
+
+
+    const getId = async () => {
+        const value = await AsyncStorage.getItem('@device_id')
+        if (value !== null) {
+            setId(value)
+        }
+    }
 
     const feed = () => {
+        console.log(id);
+        database()
+            .ref('/' + id + '/')
+            .update({
 
-    };
+                feed: 1,
+
+            })
+            .then(() => viewLottie());
+
+        gift();
+    }
+
+    const gift = () => {
+        {
+            visible ? <Image
+                style={styles.card_bubble}
+                source={require('../assets/gift/bubble3.png')}
+            /> : null
+        }
+
+    }
 
     const reset = () => {
-            setTimeout(() => {
-                setLottieOpacity(0)
-                setRippleOpacity(0)
-                setTxtOpacity(1)
-            }, 1500)
+        setTimeout(() => {
+            setLottieOpacity(0)
+            setRippleOpacity(0)
+            setTxtOpacity(1)
+        }, 1500)
     }
 
     const viewLottie = () => {
-        if (lottieOpacity === 0){
+        if (lottieOpacity === 0) {
             setLottieOpacity(1)
             setRippleOpacity(1)
             setTxtOpacity(0)
@@ -38,30 +67,39 @@ export default function FeedScreen() {
         }
     }
 
-    const getData = async () => {
-        const value = await AsyncStorage.getItem('@device_id');
-        if (value !== null) {
-            setId(value);
-        }
-    };
+    // const getData = async () => {
+    //     const value = await AsyncStorage.getItem(`device_id`);
+    //     if (value !== null) {
+    //         setId(value);
+    //     }
+    // };
+
 
     return (
+
         <LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}
         >
 
-            <View style={{width: '100%', height: '50%', opacity: lottieOpacity, marginLeft: '85%', marginTop: '20%'}}>
+
+
+            <View style={{ width: '100%', height: '50%', opacity: lottieOpacity, marginLeft: '90%' }}>
                 <Bubbles size={10} color="#FFF" />
             </View>
-            <LottieView style={{marginTop: 130}} source={require('../assets/animations/82892-wave.json')} autoPlay loop></LottieView>
-                <TouchableOpacity
-                    style={styles.btn}
-                    onPress={feed}
-                >
-                    <LottieView style={{opacity: rippleOpacity}} source={require('../assets/animations/82892-wave.json')} autoPlay loop></LottieView>
-                    <Text style={{ color: '#1E90FF', fontSize: 30, opacity: txtOpacity}}>FEED</Text>
-                </TouchableOpacity>
+            <LottieView style={{ marginTop: 170 }} source={require('../assets/animations/82892-wave.json')} autoPlay
+                loop />
+            <TouchableOpacity
+                style={styles.btn}
+                // onPress={() => {
+                //     setVisible(true)
+                // }}
+                onPress={feed}
+            >
+                <LottieView style={{ opacity: rippleOpacity }} source={require('../assets/animations/82892-wave.json')}
+                    autoPlay loop />
+                <Text style={{ color: '#1E90FF', fontSize: 30, opacity: txtOpacity }}>FEED</Text>
+            </TouchableOpacity>
         </LinearGradient>
     );
 }
@@ -79,7 +117,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 5,
-        marginTop: '-40%'
+        marginTop: '-10%'
     },
     body: {
         flex: 1,
@@ -87,4 +125,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    card_bubble: {
+        width: 300,
+        height: 500,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5,
+        // marginTop: '5%'
+    }
 });

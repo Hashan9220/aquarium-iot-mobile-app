@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
-import {Card, Title, Paragraph, Button, Dialog, Portal, Provider} from 'react-native-paper';
+import { Card, Title, Paragraph, Button, Dialog, Portal, Provider } from 'react-native-paper';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {riskyPhValueNotification} from '../services/LocalPushController'
-import {riskyTemperatureNotification} from '../services/LocalPushController'
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import { riskyPhValueNotification } from '../services/LocalPushController'
+import { riskyTemperatureNotification } from '../services/LocalPushController'
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
     const [visible, setVisible] = React.useState(false);
 
     const showDialog = () => setVisible(true);
@@ -35,12 +35,14 @@ export default function Home({navigation}) {
                 .ref('/' + id + '/')
                 .on('value', snapshot => {
                     setPh(snapshot.val().PH_Value.toFixed(2));
+
                     setTemp(snapshot.val().Temp.toFixed(2));
+
                 });
-        } else if (id === ""){
+        } else if (id === "") {
             showDialog()
         }
-    },[id])
+    }, [id])
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -48,7 +50,7 @@ export default function Home({navigation}) {
 
     useEffect(() => {
         checkNh3()
-              // scanIdPopUp()
+        // scanIdPopUp()
     })
 
     useEffect(() => {
@@ -121,6 +123,14 @@ export default function Home({navigation}) {
         }
     };
 
+    const Clickdone = () => {
+
+        hideDialog();
+
+
+
+    }
+
     const checkNh3 = () => {
         if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 32) {
             setNormalNh3(1)
@@ -138,6 +148,7 @@ export default function Home({navigation}) {
             setDangerIndicatorOpacity(1)
         }
     }
+    console.log(id);
 
     return (
         <Provider>
@@ -145,22 +156,30 @@ export default function Home({navigation}) {
                 colors={['#a6d4ff', '#1E90FF']}
                 style={styles.container}
             >
+                {/* onDismiss={hideDialog} */}
 
+                {id === "" && 
                 <View>
-                    <Portal>
-                        <Dialog visible={visible} onDismiss={hideDialog}>
-                            <Dialog.Title>No Device Found</Dialog.Title>
-                            <Dialog.Content>
-                                <Paragraph>Please Scan Your Device</Paragraph>
-                            </Dialog.Content>
-                            <Dialog.Actions>
-                                <TouchableOpacity
-                                    onPress={console.log('jnjnjnjnjnj')}><Text>Done</Text></TouchableOpacity>
-                            </Dialog.Actions>
-                        </Dialog>
-                    </Portal>
-                </View>
-                <StatusBar backgroundColor='#a6d4ff'/>
+                <Portal>
+                    <Dialog visible={visible}>
+                        <Dialog.Title>No Device Found</Dialog.Title>
+
+                        <Dialog.Content>
+                            <Paragraph>Please Scan Your Device</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    Clickdone();
+                                }}><Text>Done</Text></TouchableOpacity>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+            </View>
+                }
+                
+
+                <StatusBar backgroundColor='#a6d4ff' />
                 <View>
                     <View style={styles.deviceIdView}>
                         <Text style={styles.txtDeviceId}>{"Your ID : "}{id}</Text>
@@ -172,20 +191,20 @@ export default function Home({navigation}) {
                             borderWidth: ph > 7.50 ? 3 : ph >= 6.5 ? 3 : ph <= 6.5 ? 3 : 0
                         }}>
                             <Card.Content style={styles.cardContent}>
-                                <Title style={{color: '#1E90FF'}}>pH</Title>
+                                <Title style={{ color: '#1E90FF' }}>pH</Title>
                                 <Paragraph>{ph}</Paragraph>
                             </Card.Content>
                             <Card style={styles.subCard}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')}/>
+                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')} />
                                 </Card.Content>
                             </Card>
                         </Card>
                         <Card style={styles.rightCard}>
                             <Card.Content style={styles.cardContent}>
-                                <Title style={{color: '#1E90FF',}}>NH3</Title>
+                                <Title style={{ color: '#1E90FF', }}>NH3</Title>
 
-                                <View style={{marginTop: '12%'}}>
+                                <View style={{ marginTop: '12%' }}>
                                     <Paragraph style={{
                                         fontSize: 15,
                                         color: 'red',
@@ -199,8 +218,8 @@ export default function Home({navigation}) {
                                         opacity: normalNh3
                                     }}>Normal</Paragraph>
 
-                                    <View style={{marginTop: '-18%', marginLeft: '60%'}}>
-                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
+                                    <View style={{ marginTop: '-18%', marginLeft: '60%' }}>
+                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity} />
                                         <View style={{
                                             width: 15,
                                             height: 15,
@@ -214,19 +233,19 @@ export default function Home({navigation}) {
                             </Card.Content>
                             <Card style={styles.subCard}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
+                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')} />
                                 </Card.Content>
                             </Card>
                         </Card>
                     </View>
                     <View style={styles.tempSection}>
-                        <Text style={{fontSize: 25, color: 'white',}}>
+                        <Text style={{ fontSize: 25, color: 'white', }}>
                             Current Temperature
                         </Text>
                         <View progressBarContainer>
                             <Progress.Circle progress={temp / 50}
-                                             color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                                             size={300} style={styles.progressCircle} indeterminate={false}>
+                                color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
+                                size={300} style={styles.progressCircle} indeterminate={false}>
                                 <View style={styles.midCircle}>
                                     <Text style={styles.temperature}>
                                         {temp} °C

@@ -28,7 +28,7 @@ export default function SignIn({navigation}) {
 
 
     const login = async () => {
-        await fetch('http://aquariummonitoringapi-env.eba-n2krf6um.us-west-2.elasticbeanstalk.com/api/login', {
+        await fetch('http://54.245.177.239/api/login', {
             method: 'POST',
             body: JSON.stringify({
                 email: email,
@@ -58,13 +58,11 @@ export default function SignIn({navigation}) {
 
         try {
             await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(value));
-            await AsyncStorage.setItem('token', value.token);
             await AsyncStorage.setItem('email',value.user.email);
+            await AsyncStorage.setItem('token', value.token);
             await AsyncStorage.setItem('contact', value.user.contact);
             await AsyncStorage.setItem('name', value.user.name);
             await AsyncStorage.setItem('address',value.user.address)
-            console.log(value.user.contact)
-            console.log(value.user.name)
             console.log('Data saved in Async storage');
         } catch (e) {
             Alert.alert('Data not saved!', 'Please try again');

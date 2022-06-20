@@ -14,14 +14,23 @@ export default function ProfileScreen() {
     const [loading , setLoading] = useState(false);
     useEffect(async ()=>{
         try{
-            let email = await AsyncStorage.getItem('email');
             let name = await AsyncStorage.getItem('name');
-            let contact = await AsyncStorage.getItem('contact');
+            let email = await AsyncStorage.getItem('email');
             let address = await AsyncStorage.getItem('address');
+            let contact = await AsyncStorage.getItem('contact');
             setUserEmail(email);
             setUserContact(contact);
             setUserName(name);
             setUserAddress(address);
+
+            
+            console.log(name);
+           
+            console.log(email);
+           
+            console.log(address);
+           
+            console.log(contact);
         }
         catch(error){
 
@@ -50,7 +59,7 @@ export default function ProfileScreen() {
                     <View style={styles.card} onScroll={startLoading}>
                         <View style={styles.imgContainer}>
                             <Image
-                                /* source={{uri: state.fileData}}*/
+                                // source={{uri: state.fileData}}
                                 style={styles.images}
                             />
                         </View>
