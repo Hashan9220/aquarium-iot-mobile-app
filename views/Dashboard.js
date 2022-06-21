@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Image, StyleSheet,  } from "react-native";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import React,{} from "react";
+import {Image, StyleSheet,} from "react-native";
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerContent from "../routes/DrawerContent";
 import BottomTab from "../routes/BottomTab";
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import StackNav from "../routes/StackNav";
 import ForgotPassword from './ForgotPassword';
 import signIn from './SignIn';
@@ -15,34 +15,22 @@ import QrCode from './QrCode';
 const Drawer = createDrawerNavigator();
 
 export default function Dashboard() {
-    //  const { data } = route.params.data;
-  
-    // useEffect(()=>{
-   
-    //     console.log('consol log')
-    //     console.log(data);
-    // },[])
-    return (
-        <NavigationContainer independent={true}>
+
+    return (<NavigationContainer independent={true}>
             <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} />}>
-           {/* { console.log(data)} */}
+
                 <Drawer.Screen
                     options={{
-                        headerTintColor: '#FFFFFF',
-                        title: '',
-                        headerTitleStyle: { color: '#fff' },
-                        drawerStyle: {
+                        headerTintColor: '#FFFFFF', title: '', headerTitleStyle: {color: '#fff'}, drawerStyle: {
                             width: 320,
                             height: 580,
                             marginTop: 60,
                             borderTopRightRadius: 40,
                             borderBottomRightRadius: 40
-                        },
-                        headerStyle: { backgroundColor: '#a6d4ff' },
+                        }, headerStyle: {backgroundColor: '#a6d4ff'},
 
-                        drawerIcon: ({ focused, size }) => (
-                            <Image source={require('../assets/logos/notification_icon.png')} />
-                        ),
+                        drawerIcon: ({focused, size}) => (
+                            <Image source={require('../assets/logos/notification_icon.png')}/>),
                     }}
                     name="Bottom Tab" component={BottomTab}
                 />
@@ -56,19 +44,13 @@ export default function Dashboard() {
                 <Drawer.Screen options={{headerShown: true}} name={"QrCode"} component={QrCode}/>
 
             </Drawer.Navigator>
-        </NavigationContainer>
-    )
+        </NavigationContainer>)
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    drawerStyle: {
-        borderWidth: 0.5,
-        borderColor: 'black',
-        margin: 10,
+        flex: 1, justifyContent: 'center', alignItems: 'center'
+    }, drawerStyle: {
+        borderWidth: 0.5, borderColor: 'black', margin: 10,
     }
 })

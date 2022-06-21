@@ -24,13 +24,6 @@ export default function ProfileScreen() {
             setUserAddress(address);
             setUserContact(contact);
 
-            console.log(name);
-
-            console.log(email);
-
-            console.log(address);
-
-            console.log(contact);
         } catch (error) {
 
         }
@@ -43,59 +36,53 @@ export default function ProfileScreen() {
 
         }, 3000);
     };
-    return (
-        <LinearGradient
+    return (<LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
-            {
-                loading ? (
-                    <ActivityIndicator
-                        visible={loading}
-                        textStyle={styles.spinnerTextStyle}
-                    />
-                ) : (
+            {loading ? (<ActivityIndicator
+                    visible={loading}
+                    textStyle={styles.spinnerTextStyle}
+                />) : (
 
-                    <View style={styles.card} onScroll={startLoading}>
-                        <View style={styles.imgContainer}>
-                            <Image
-                                // source={{uri: state.fileData}}
-                                style={styles.images}
-                            />
-                        </View>
-                        <TouchableOpacity
-                            style={styles.cameraContainer}
-                            onPress={launchImageLibrary}>
-                            <Image
-                                style={{marginLeft: '5%'}}
-                                source={require('../assets/icons/camera.png')}
-                            />
-                        </TouchableOpacity>
-                        <Text style={styles.name}>{name}</Text>
+                <View style={styles.card} onScroll={startLoading}>
+                    <View style={styles.imgContainer}>
+                        <Image
+                            // source={{uri: state.fileData}}
+                            style={styles.images}
+                        />
                     </View>
-                )
-            }
+                    <TouchableOpacity
+                        style={styles.cameraContainer}
+                        onPress={launchImageLibrary}>
+                        <Image
+                            style={{marginLeft: '5%'}}
+                            source={require('../assets/icons/camera.png')}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.name}>{name}</Text>
+                </View>)}
 
             <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Name        :- {name} </Text>
+                    <Text style={styles.heading}>Name       :- {name}       </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Email        :- {userEmail} </Text>
+                    <Text style={styles.heading}>Email       :- {userEmail}  </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Address    :- {address}  </Text>
+                    <Text style={styles.heading}>Address   :- {address}    </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Contact    :- {contact} </Text>
+                    <Text style={styles.heading}>Contact    :- {contact}    </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
@@ -109,12 +96,8 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    card: {
+        flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center',
+    }, card: {
         padding: 5,
         width: '90%',
         height: '30%',
@@ -123,16 +106,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '-15%',
-    },
-    imgContainer: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#a6d4ff',
-    },
-    cameraContainer: {
+    }, imgContainer: {
+        width: 100, height: 100, borderRadius: 50, backgroundColor: '#fff', borderWidth: 1, borderColor: '#a6d4ff',
+    }, cameraContainer: {
         width: 35,
         height: 35,
         borderRadius: 20,
@@ -143,36 +119,17 @@ const styles = StyleSheet.create({
         marginLeft: '20%',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    name: {
-        marginTop: '5%',
-        fontSize: 25,
-        color: '#34495e',
-    },
-    heading: {
-        color: '#fff',
-        fontSize: 20,
-        textAlign: 'left',
-    },
-    detail: {
-        color: '#fff',
-        fontSize: 20,
-        textAlign: 'right',
-        marginTop: '-7%',
-    },
-    mainContainer: {
-        marginTop: '10%',
-        width: '90%',
-    },
-    detailContainer: {
-        width: '100%',
-        padding: 5,
-        marginTop: '5%',
-    },
-    images: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginLeft: '-1%',
+    }, name: {
+        marginTop: '5%', fontSize: 25, color: '#34495e',
+    }, heading: {
+        color: '#fff', fontSize: 20, textAlign: 'left',
+    }, detail: {
+        color: '#fff', fontSize: 20, textAlign: 'right', marginTop: '-7%',
+    }, mainContainer: {
+        marginTop: '10%', width: '90%',
+    }, detailContainer: {
+        width: '100%', padding: 5, marginTop: '5%',
+    }, images: {
+        width: 100, height: 100, borderRadius: 50, marginLeft: '-1%',
     },
 });

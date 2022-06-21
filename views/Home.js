@@ -28,26 +28,6 @@ export default function Home({navigation}) {
 
     const [count, setCount] = useState(0);
 
-    // const getData = async () => {
-    //     const value = await AsyncStorage.getItem('@device_id')
-    //     if (value !== null) {
-    //         setId(value)
-    //     }
-    //     console.log(value);
-    // }
-
-    // const retrieveData = async () => {
-    //     try {
-    //       const value = await AsyncStorage.getItem('@device_id');
-    //       if (value !== null) {
-    //         // We have data!!
-    //         console.log(value);
-    //       }
-    //     } catch (error) {
-    //       // Error retrieving data
-    //     }
-    //   };
-
     const getData = async () => {
         const value = await AsyncStorage.getItem('@device_id')
         console.log("value null");
@@ -178,40 +158,37 @@ export default function Home({navigation}) {
     }
 
 
-    return (
-        <Provider>
+    return (<Provider>
             <LinearGradient
                 colors={['#a6d4ff', '#1E90FF']}
                 style={styles.container}
             >
                 {/* onDismiss={hideDialog} */}
 
-                {id === "" &&
-                    <View>
-                        <Portal>
-                            <Dialog visible={visible}>
-                                <Dialog.Title>No Device Found</Dialog.Title>
+                {id === "" && <View>
+                    <Portal>
+                        <Dialog visible={visible}>
+                            <Dialog.Title>No Device Found</Dialog.Title>
 
-                                <Dialog.Content>
-                                    <Paragraph>scan Your Device</Paragraph>
+                            <Dialog.Content>
+                                <Paragraph>scan Your Device</Paragraph>
 
-                                </Dialog.Content>
-                                <Dialog.Actions>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            Clickdone();
-                                        }}><Text>Done</Text></TouchableOpacity>
-                                </Dialog.Actions>
-                            </Dialog>
-                        </Portal>
-                    </View>
-                }
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Clickdone();
+                                    }}><Text>Done</Text></TouchableOpacity>
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
+                </View>}
 
 
                 <StatusBar backgroundColor='#a6d4ff'/>
                 <View>
                     <View style={styles.deviceIdView}>
-                        {console.log(id)}
+
                         <Text style={styles.txtDeviceId}>{"Your ID : "}{id}</Text>
                     </View>
                     <View style={styles.cardSection}>
@@ -236,16 +213,10 @@ export default function Home({navigation}) {
 
                                 <View style={{marginTop: '12%'}}>
                                     <Paragraph style={{
-                                        fontSize: 15,
-                                        color: 'red',
-                                        opacity: dangerNh3,
-                                        marginTop: '-12%'
+                                        fontSize: 15, color: 'red', opacity: dangerNh3, marginTop: '-12%'
                                     }}>Dangerous</Paragraph>
                                     <Paragraph style={{
-                                        fontSize: 15,
-                                        color: 'green',
-                                        marginTop: '-15%',
-                                        opacity: normalNh3
+                                        fontSize: 15, color: 'green', marginTop: '-15%', opacity: normalNh3
                                     }}>Normal</Paragraph>
 
                                     <View style={{marginTop: '-18%', marginLeft: '60%'}}>
@@ -286,41 +257,21 @@ export default function Home({navigation}) {
                     </View>
                 </View>
             </LinearGradient>
-        </Provider>
-    )
+        </Provider>)
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 20
-    },
-    deviceIdView: {
-        width: "100%",
-        height: "5%",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    txtDeviceId: {
-        color: "#ffffff",
-        fontSize: 20,
-        fontWeight: "500"
-    },
-    cardSection: {
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
-        padding: 5,
-        display: 'flex',
-        marginTop: 10
-    },
-    leftCard: {
-        width: '47%',
-        height: 170,
-        borderRadius: 30,
-        elevation: 10,
-        shadowColor: 'black',
-    },
-    rightCard: {
+        flex: 1, padding: 20
+    }, deviceIdView: {
+        width: "100%", height: "5%", alignItems: "center", justifyContent: "center"
+    }, txtDeviceId: {
+        color: "#ffffff", fontSize: 20, fontWeight: "500"
+    }, cardSection: {
+        justifyContent: 'flex-end', alignItems: 'flex-start', padding: 5, display: 'flex', marginTop: 10
+    }, leftCard: {
+        width: '47%', height: 170, borderRadius: 30, elevation: 10, shadowColor: 'black',
+    }, rightCard: {
         width: '47%',
         height: 170,
         borderRadius: 30,
@@ -328,8 +279,7 @@ const styles = StyleSheet.create({
         marginTop: -170,
         elevation: 10,
         shadowColor: 'black',
-    },
-    subCard: {
+    }, subCard: {
         width: 70,
         height: 70,
         borderRadius: 20,
@@ -340,26 +290,15 @@ const styles = StyleSheet.create({
         shadowColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    cardContent: {
+    }, cardContent: {
         marginTop: 65,
-    },
-    card_logo: {
-        width: 50,
-        height: 50,
-        marginTop: -65,
-    },
-    tempSection: {
-        padding: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    progressCircle: {
-        marginTop: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    midCircle: {
+    }, card_logo: {
+        width: 50, height: 50, marginTop: -65,
+    }, tempSection: {
+        padding: 20, justifyContent: 'center', alignItems: 'center',
+    }, progressCircle: {
+        marginTop: 40, justifyContent: 'center', alignItems: 'center',
+    }, midCircle: {
         width: 250,
         height: 250,
         borderRadius: 250,
@@ -369,9 +308,7 @@ const styles = StyleSheet.create({
         elevation: 20,
         shadowColor: 'black',
         position: 'absolute'
-    },
-    temperature: {
-        fontSize: 30,
-        color: '#000'
+    }, temperature: {
+        fontSize: 30, color: '#000'
     },
 })
