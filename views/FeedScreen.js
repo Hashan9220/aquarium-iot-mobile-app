@@ -14,20 +14,23 @@ export default function FeedScreen() {
     const [txtOpacity, setTxtOpacity] = useState(1);
     const [visible, setVisible] = useState(false);
 
+    
+    const getId = async () => {
+        const values = await AsyncStorage.getItem('@device_id')
+        if (values !== null) {
+            setId(values)
+        }
+    }
+
     useEffect(() => {
         getId();
     }, []);
 
 
-    const getId = async () => {
-        const value = await AsyncStorage.getItem('@device_id')
-        if (value !== null) {
-            setId(value)
-        }
-    }
+    
 
     const feed = () => {
-        console.log(id);
+       
         database()
             .ref('/' + id + '/')
             .update({

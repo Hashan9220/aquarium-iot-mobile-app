@@ -7,37 +7,35 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
-    const[userEmail,  setUserEmail] = useState('');
-    const[contact,  setUserContact] = useState('');
-    const[name,  setUserName] = useState('');
-    const[address,  setUserAddress] = useState('');
-    const [loading , setLoading] = useState(false);
-    useEffect(async ()=>{
-        try{
+    const [userEmail, setUserEmail] = useState('');
+    const [contact, setUserContact] = useState('');
+    const [name, setUserName] = useState('');
+    const [address, setUserAddress] = useState('');
+    const [loading, setLoading] = useState(false);
+    useEffect(async () => {
+        try {
             let name = await AsyncStorage.getItem('name');
             let email = await AsyncStorage.getItem('email');
             let address = await AsyncStorage.getItem('address');
             let contact = await AsyncStorage.getItem('contact');
-            setUserEmail(email);
-            setUserContact(contact);
             setUserName(name);
+            setUserEmail(email);
             setUserAddress(address);
+            setUserContact(contact);
 
-            
             console.log(name);
-           
+
             console.log(email);
-           
+
             console.log(address);
-           
+
             console.log(contact);
-        }
-        catch(error){
+        } catch (error) {
 
         }
 
-    },[])
-    const startLoading = () =>{
+    }, [])
+    const startLoading = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
@@ -51,7 +49,7 @@ export default function ProfileScreen() {
             {
                 loading ? (
                     <ActivityIndicator
-                        visible ={loading}
+                        visible={loading}
                         textStyle={styles.spinnerTextStyle}
                     />
                 ) : (
@@ -76,31 +74,31 @@ export default function ProfileScreen() {
                 )
             }
 
-                <View style={styles.mainContainer}>
+            <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                <Text style={styles.heading}>Name    :- {name} </Text>
-                <Text style={styles.detail}> </Text>
+                    <Text style={styles.heading}>Name :- {name} </Text>
+                    <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                <Text style={styles.heading}>Email     :- {userEmail} </Text>
-                <Text style={styles.detail}> </Text>
+                    <Text style={styles.heading}>Email :- {userEmail} </Text>
+                    <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                <Text style={styles.heading}>Address :-  {address}  </Text>
-                <Text style={styles.detail}> </Text>
+                    <Text style={styles.heading}>Address :- {address}  </Text>
+                    <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                <Text style={styles.heading}>Contact :-  {contact} </Text>
-                <Text style={styles.detail}> </Text>
+                    <Text style={styles.heading}>Contact :- {contact} </Text>
+                    <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
-                </View>
+            </View>
 
 
         </LinearGradient>

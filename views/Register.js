@@ -7,7 +7,7 @@ import { BasicInput } from '../common/BasicInput';
 import Dashboard from "./Dashboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const radio_props = [{ label: 'Agree to Terms & Conditions', value: 0 }];
+// const radio_props = [{ label: 'Agree to Terms & Conditions', value: 0 }];
 
 export default function Register({ navigation }) {
     const [firstname, setFirstname] = useState("");
@@ -19,40 +19,8 @@ export default function Register({ navigation }) {
     const [token, setToken] = useState('');
 
 
-    //User Register------------------------------------------------
-    const registerUser = async () => {
-        await fetch('http://54.245.177.239/api/register', {
-            method: 'POST',
-
-            body: JSON.stringify({
-                name: firstname,
-                email: email,
-                password: password,
-                contact: phone,
-                address: address
-            }),
-
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-
-            .then((json) => {
 
 
-                if (json.token) {
-
-                    navigateToDashboard(json.token)
-                    storeData(json, json.token)
-
-                } else {
-                    Alert.alert('please fill input field..!', 'Please try again');
-                }
-            })
-            .then((json) => console.log(json));
-        Alert.alert('User Registered', 'Successfully registered as new user ');
-    };
 
     //Validation---------------------------------------------------
 
@@ -86,6 +54,7 @@ export default function Register({ navigation }) {
         }
     };
     const emailValidate = text => {
+
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
             setEmail(text);
@@ -95,7 +64,8 @@ export default function Register({ navigation }) {
         }
     };
     const phoneValidate = text => {
-        let reg = /^\d{10}$/;
+        let reg = /^[a-zA-Z ]{1,10}$/;
+        // let reg = /^\d{10}$/;
         if (reg.test(text) === false) {
             setPhone(text);
             return false;
@@ -120,7 +90,7 @@ export default function Register({ navigation }) {
         setToken(token);
         if (token) {
             navigation.navigate(Dashboard)
-
+            Alert.alert('Success');
         } else {
             Alert.alert('Sorry', 'Please try again');
         }
@@ -129,19 +99,54 @@ export default function Register({ navigation }) {
 
     useEffect(() => {
         const init = async () => {
-            // let token = null;
+            let token = null;
             try {
                 token = await AsyncStorage.getItem('token');
                 setToken(token);
+                console.log(token);
             } catch (e) {
                 console.log(e);
             }
+
         };
         init().finally(async () => {
             await RNBootSplash({ fade: true });
         });
     }, []);
+    //User Register------------------------------------------------
+    const registerUser = async () => {
+        await fetch('http://54.245.177.239/api/register', {
+            method: 'POST',
 
+            body: JSON.stringify({
+                name: firstname,
+                email: email,
+                password: password,
+                address: address,
+                contact: phone
+            }),
+
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+
+            .then((json) => {
+                console.log(json);
+
+                if (json.token) {
+
+                    navigateToDashboard(json.token)
+                    storeData(json, json.token)
+
+                } else {
+                    Alert.alert('please fill input field..!', 'Please try again');
+                }
+            })
+            .then((json) => console.log(json));
+        Alert.alert('User Registered', 'Successfully registered as new user ');
+    };
     const storeData = async (value, token) => {
         console.log(token);
         try {
@@ -150,7 +155,7 @@ export default function Register({ navigation }) {
             await AsyncStorage.setItem('token', token);
             console.log('Data saved in Async storage');
         } catch (e) {
-            Alert.alert('Data not saved!', 'Please try again');
+            console.log('Data not saved!', 'Please try again');
         }
     };
     return (
@@ -252,7 +257,7 @@ export default function Register({ navigation }) {
         </LinearGradient>
     );
 }
-console.log()
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

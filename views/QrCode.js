@@ -1,21 +1,23 @@
-import React, {useState} from 'react';
-import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useState } from 'react';
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function QrCode() {
 
     const [state, setState] = useState('');
     const onSuccess = e => {
-        Linking.openURL(e.data).catch(err => setState({data: e.data}));
+        Linking.openURL(e.data).catch(err => setState({ data: e.data }));
     };
 
     const getId = async () => {
         try {
             await AsyncStorage.setItem('@device_id', state.data);
+            console.log("state");
+            console.log(state);
             props.navigation.navigate('SignIn');
-        } catch (e) {
-        }
+        } catch (e) { }
     };
 
     return (
@@ -30,7 +32,7 @@ export default function QrCode() {
             }
             bottomContent={
                 <View style={styles.bottomView}>
-                    <TouchableOpacity style={styles.btnGoView} onPress={getId}>
+                    <TouchableOpacity style={styles.btnGoView} onPress={getId} >
                         <Text style={styles.txtGo}>Go</Text>
                     </TouchableOpacity>
                 </View>

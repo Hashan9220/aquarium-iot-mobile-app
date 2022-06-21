@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, StyleSheet,  } from "react-native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from "../routes/DrawerContent";
@@ -15,9 +15,17 @@ import QrCode from './QrCode';
 const Drawer = createDrawerNavigator();
 
 export default function Dashboard() {
+    //  const { data } = route.params.data;
+  
+    // useEffect(()=>{
+   
+    //     console.log('consol log')
+    //     console.log(data);
+    // },[])
     return (
         <NavigationContainer independent={true}>
             <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} />}>
+           {/* { console.log(data)} */}
                 <Drawer.Screen
                     options={{
                         headerTintColor: '#FFFFFF',

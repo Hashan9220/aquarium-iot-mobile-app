@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from "react";
+import {View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
-import { Card, Title, Paragraph, Button, Dialog, Portal, Provider } from 'react-native-paper';
+import {Card, Title, Paragraph, Button, Dialog, Portal, Provider} from 'react-native-paper';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { riskyPhValueNotification } from '../services/LocalPushController'
-import { riskyTemperatureNotification } from '../services/LocalPushController'
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import {riskyPhValueNotification} from '../services/LocalPushController'
+import {riskyTemperatureNotification} from '../services/LocalPushController'
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 
-export default function Home({ navigation }) {
+export default function Home({navigation}) {
     const [visible, setVisible] = React.useState(false);
 
     const showDialog = () => setVisible(true);
@@ -28,8 +28,40 @@ export default function Home({ navigation }) {
 
     const [count, setCount] = useState(0);
 
+    // const getData = async () => {
+    //     const value = await AsyncStorage.getItem('@device_id')
+    //     if (value !== null) {
+    //         setId(value)
+    //     }
+    //     console.log(value);
+    // }
+
+    // const retrieveData = async () => {
+    //     try {
+    //       const value = await AsyncStorage.getItem('@device_id');
+    //       if (value !== null) {
+    //         // We have data!!
+    //         console.log(value);
+    //       }
+    //     } catch (error) {
+    //       // Error retrieving data
+    //     }
+    //   };
+
+    const getData = async () => {
+        const value = await AsyncStorage.getItem('@device_id')
+        console.log("value null");
+        if (value !== null) {
+            setId(value)
+            console.log("value");
+            console.log(value);
+        }
+
+    }
+
+
     useEffect(() => {
-        getData()
+        getData();
         if (id !== "") {
             const onValueChange = database()
                 .ref('/' + id + '/')
@@ -39,10 +71,13 @@ export default function Home({ navigation }) {
                     setTemp(snapshot.val().Temp.toFixed(2));
 
                 });
+
         } else if (id === "") {
             showDialog()
         }
+
     }, [id])
+
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -65,11 +100,11 @@ export default function Home({ navigation }) {
 
 
     const scanIdPopUp = () => {
-        if (id === null) {
-            console.log("ID  NULL === NO QR CODE");
-            // showDialog()
-        } else {
+        if (id !== null) {
+
             showDialog()
+        } else {
+            hideDialog()
         }
     }
 
@@ -82,12 +117,6 @@ export default function Home({ navigation }) {
         riskyTemperatureNotification()
     }
 
-    const getData = async () => {
-        const value = await AsyncStorage.getItem('@device_id')
-        if (value !== null) {
-            setId(value)
-        }
-    }
 
     const reset = () => {
         if (count != 0) {
@@ -128,7 +157,6 @@ export default function Home({ navigation }) {
         hideDialog();
 
 
-
     }
 
     const checkNh3 = () => {
@@ -148,7 +176,7 @@ export default function Home({ navigation }) {
             setDangerIndicatorOpacity(1)
         }
     }
-    console.log(id);
+
 
     return (
         <Provider>
@@ -158,30 +186,32 @@ export default function Home({ navigation }) {
             >
                 {/* onDismiss={hideDialog} */}
 
-                {id === "" && 
-                <View>
-                <Portal>
-                    <Dialog visible={visible}>
-                        <Dialog.Title>No Device Found</Dialog.Title>
+                {id === "" &&
+                    <View>
+                        <Portal>
+                            <Dialog visible={visible}>
+                                <Dialog.Title>No Device Found</Dialog.Title>
 
-                        <Dialog.Content>
-                            <Paragraph>Please Scan Your Device</Paragraph>
-                        </Dialog.Content>
-                        <Dialog.Actions>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    Clickdone();
-                                }}><Text>Done</Text></TouchableOpacity>
-                        </Dialog.Actions>
-                    </Dialog>
-                </Portal>
-            </View>
+                                <Dialog.Content>
+                                    <Paragraph>scan Your Device</Paragraph>
+
+                                </Dialog.Content>
+                                <Dialog.Actions>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            Clickdone();
+                                        }}><Text>Done</Text></TouchableOpacity>
+                                </Dialog.Actions>
+                            </Dialog>
+                        </Portal>
+                    </View>
                 }
-                
 
-                <StatusBar backgroundColor='#a6d4ff' />
+
+                <StatusBar backgroundColor='#a6d4ff'/>
                 <View>
                     <View style={styles.deviceIdView}>
+                        {console.log(id)}
                         <Text style={styles.txtDeviceId}>{"Your ID : "}{id}</Text>
                     </View>
                     <View style={styles.cardSection}>
@@ -191,20 +221,20 @@ export default function Home({ navigation }) {
                             borderWidth: ph > 7.50 ? 3 : ph >= 6.5 ? 3 : ph <= 6.5 ? 3 : 0
                         }}>
                             <Card.Content style={styles.cardContent}>
-                                <Title style={{ color: '#1E90FF' }}>pH</Title>
+                                <Title style={{color: '#1E90FF'}}>pH</Title>
                                 <Paragraph>{ph}</Paragraph>
                             </Card.Content>
                             <Card style={styles.subCard}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')} />
+                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')}/>
                                 </Card.Content>
                             </Card>
                         </Card>
                         <Card style={styles.rightCard}>
                             <Card.Content style={styles.cardContent}>
-                                <Title style={{ color: '#1E90FF', }}>NH3</Title>
+                                <Title style={{color: '#1E90FF',}}>NH3</Title>
 
-                                <View style={{ marginTop: '12%' }}>
+                                <View style={{marginTop: '12%'}}>
                                     <Paragraph style={{
                                         fontSize: 15,
                                         color: 'red',
@@ -218,8 +248,8 @@ export default function Home({ navigation }) {
                                         opacity: normalNh3
                                     }}>Normal</Paragraph>
 
-                                    <View style={{ marginTop: '-18%', marginLeft: '60%' }}>
-                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity} />
+                                    <View style={{marginTop: '-18%', marginLeft: '60%'}}>
+                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
                                         <View style={{
                                             width: 15,
                                             height: 15,
@@ -233,19 +263,19 @@ export default function Home({ navigation }) {
                             </Card.Content>
                             <Card style={styles.subCard}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')} />
+                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
                                 </Card.Content>
                             </Card>
                         </Card>
                     </View>
                     <View style={styles.tempSection}>
-                        <Text style={{ fontSize: 25, color: 'white', }}>
+                        <Text style={{fontSize: 25, color: 'white',}}>
                             Current Temperature
                         </Text>
                         <View progressBarContainer>
                             <Progress.Circle progress={temp / 50}
-                                color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                                size={300} style={styles.progressCircle} indeterminate={false}>
+                                             color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
+                                             size={300} style={styles.progressCircle} indeterminate={false}>
                                 <View style={styles.midCircle}>
                                     <Text style={styles.temperature}>
                                         {temp} °C

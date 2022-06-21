@@ -8,22 +8,23 @@ import {
     Text,
     TouchableOpacity,
     View,
+    onPress
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import RadioForm from 'react-native-simple-radio-button';
+// import RadioForm from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Common---------------------------------------------------
 import {BasicInput} from '../common/BasicInput';
 import Dashboard from "./Dashboard";
 
-const radio_props = [{label: 'Remember the account ?', value: 0}];
+// const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
 
 export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
-    const [loading , setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     //User Login -----------------------------------------------------------------------------
 
 
@@ -40,13 +41,25 @@ export default function SignIn({navigation}) {
         })
             .then((response) => response.json())
             .then((json) => {
-                if (json.token){
+                console.log('json user contact');
+                console.log(json.user.contact);
+
+                if (json.token) {
                     setToken(token);
-                    navigation.navigate(Dashboard)
+                    const val = {
+                        name: json.user.name,
+                        email: json.user.email,
+                        address: json.user.address,
+                        contact: json.user.contact
+                    }
+
+                    navigation.navigate('Dashboard')
+
+                    {console.log(json.user.contact)}
                     storeData(json)
 
-                }else {
-                    Alert.alert('Login and Password not matched..!', 'Please try again');
+                } else {
+                    Alert.alert('Email or Password In Correct..!', 'Please try again');
                 }
             })
 
@@ -54,18 +67,29 @@ export default function SignIn({navigation}) {
     };
 
 
-    const storeData = async (value)=> {
+    const storeData = async (val) => {
 
         try {
-            await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(value));
-            await AsyncStorage.setItem('email',value.user.email);
-            await AsyncStorage.setItem('token', value.token);
-            await AsyncStorage.setItem('contact', value.user.contact);
-            await AsyncStorage.setItem('name', value.user.name);
-            await AsyncStorage.setItem('address',value.user.address)
+
+            await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
+            await AsyncStorage.setItem('token', val.token);
+            await AsyncStorage.setItem('name', val.user.name);
+            await AsyncStorage.setItem('email', val.user.email);
+            await AsyncStorage.setItem('address', val.user.address)
+            await AsyncStorage.setItem('contact', val.user.contact);
+
+
+            console.log(name);
+
+            console.log(email);
+
+            console.log(address);
+
+            console.log(contact);
+
             console.log('Data saved in Async storage');
         } catch (e) {
-            Alert.alert('Data not saved!', 'Please try again');
+            console.log('Data not saved!', 'Please try again');
         }
     };
     //Validate -----------------------------------------------------------------------------------
@@ -73,10 +97,13 @@ export default function SignIn({navigation}) {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
             setEmail(text);
+
             return false;
         } else {
             setEmail(text);
+
         }
+        // Alert.alert('Email is In Correct','Please try again');
     };
     const passwordValidate = text => {
         let pwReg =
@@ -90,12 +117,17 @@ export default function SignIn({navigation}) {
     };
 
     //loader
-    const startLoading = () =>{
+    const startLoading = () => {
         login();
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
 
+
+            // overlayColor="rgba(255,255,255,0.75)"
+            // source={require("./loader.json")}
+            // animationStyle={styles.lottie}
+            // speed={1}
         }, 3000);
     };
 
@@ -128,7 +160,7 @@ export default function SignIn({navigation}) {
                 </View>
 
                 {/*----------------------------Head Title----------------------------*/}
-                <Text style={styles.signInHeadTitle}>  SMART {'\n'}AQUARIUM</Text>
+                <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
 
                 {/*---------------------------Common --------------------------------*/}
 
@@ -158,13 +190,13 @@ export default function SignIn({navigation}) {
                     animation={true}
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
-                />*/}
+                /> */}
 
                 {/*----------------Sign In Button-----------*/}
                 {
                     loading ? (
                         <ActivityIndicator
-                            visible ={loading}
+                            visible={loading}
                             textStyle={styles.spinnerTextStyle}
                         />
                     ) : (
@@ -318,7 +350,7 @@ const styles = StyleSheet.create({
         width: 170,
         height: 170,
     },
-    spinnerTextStyle:{
-        color:'#000000',
+    spinnerTextStyle: {
+        color: '#000000',
     },
 });
