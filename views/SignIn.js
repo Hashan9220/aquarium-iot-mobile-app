@@ -55,7 +55,7 @@ export default function SignIn({navigation}) {
 
                     navigation.navigate('Dashboard')
 
-                    {console.log(json.user.contact)}
+
                     storeData(json)
 
                 } else {

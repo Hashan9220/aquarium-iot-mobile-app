@@ -18,6 +18,7 @@ export default function ProfileScreen() {
             let email = await AsyncStorage.getItem('email');
             let address = await AsyncStorage.getItem('address');
             let contact = await AsyncStorage.getItem('contact');
+            console.log(contact);
             setUserName(name);
             setUserEmail(email);
             setUserAddress(address);
@@ -76,25 +77,25 @@ export default function ProfileScreen() {
 
             <View style={styles.mainContainer}>
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Name :- {name} </Text>
+                    <Text style={styles.heading}>Name        :- {name} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Email :- {userEmail} </Text>
+                    <Text style={styles.heading}>Email        :- {userEmail} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Address :- {address}  </Text>
+                    <Text style={styles.heading}>Address    :- {address}  </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
 
                 <View style={styles.detailContainer}>
-                    <Text style={styles.heading}>Contact :- {contact} </Text>
+                    <Text style={styles.heading}>Contact    :- {contact} </Text>
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider/>
