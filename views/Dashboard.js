@@ -27,7 +27,8 @@ export default function Dashboard() {
                             marginTop: 60,
                             borderTopRightRadius: 40,
                             borderBottomRightRadius: 40
-                        }, headerStyle: {backgroundColor: '#a6d4ff'},
+                        }, headerStyle: {backgroundColor:'#a6d4ff'},
+                        // '#a6d4ff'
 
                         drawerIcon: ({focused, size}) => (
                             <Image source={require('../assets/logos/notification_icon.png')}/>),
