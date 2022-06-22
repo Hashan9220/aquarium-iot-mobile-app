@@ -3,6 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Image,} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Text, Divider, TextInput, ActivityIndicator} from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
+
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -29,6 +30,8 @@ export default function ProfileScreen() {
         }
 
     }, [])
+
+
     const startLoading = () => {
         setLoading(true);
         setTimeout(() => {
@@ -36,6 +39,22 @@ export default function ProfileScreen() {
 
         }, 3000);
     };
+const options={
+    title: 'Select Image',
+    type: 'library',
+    options: {
+        maxHeight: 200,
+        maxWidth: 200,
+        selectionLimit: 1,
+        mediaType: 'photo',
+        includeBase64: false,
+
+    },
+}
+    const openGallery=async()=>{
+        const images = await launchImageLibrary(options);
+        console.log(images);
+    }
     return (<LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
@@ -53,7 +72,7 @@ export default function ProfileScreen() {
                     </View>
                     <TouchableOpacity
                         style={styles.cameraContainer}
-                        onPress={launchImageLibrary}>
+                        onPress={openGallery}>
                         <Image
                             style={{marginLeft: '5%'}}
                             source={require('../assets/icons/camera.png')}
