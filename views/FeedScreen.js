@@ -39,16 +39,17 @@ export default function FeedScreen() {
                 feed: 1,
 
             })
+
             .then(() => viewLottie());
 
-        gift();
+
     }
 
     const gift = () => {
         {
             visible ? <Image
                 style={styles.card_bubble}
-                source={require('../assets/gift/bubble3.png')}
+                source={require('../assets/gift/bubble.png')}
             /> : null
         }
 
@@ -87,10 +88,12 @@ export default function FeedScreen() {
                         loop/>
             <TouchableOpacity
                 style={styles.btn}
-                // onPress={() => {
-                //     setVisible(true)
-                // }}
-                onPress={feed}
+                onPress={() => {
+                    gift()
+                    setVisible(true)
+
+                }}
+                // onPress={gift}
             >
                 <LottieView style={{opacity: rippleOpacity}} source={require('../assets/animations/82892-wave.json')}
                             autoPlay loop/>

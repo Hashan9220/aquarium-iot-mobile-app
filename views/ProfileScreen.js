@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
     const [userEmail, setUserEmail] = useState('');
+    const [pic, setPic] = useState('');
     const [contact, setUserContact] = useState('');
     const [name, setUserName] = useState('');
     const [address, setUserAddress] = useState('');
@@ -39,22 +40,33 @@ export default function ProfileScreen() {
 
         }, 3000);
     };
-const options={
-    title: 'Select Image',
-    type: 'library',
-    options: {
-        maxHeight: 200,
-        maxWidth: 200,
-        selectionLimit: 1,
-        mediaType: 'photo',
-        includeBase64: false,
 
-    },
-}
-    const openGallery=async()=>{
-        const images = await launchImageLibrary(options);
-        console.log(images);
+    const imageUpload = () =>{
+    let options = {
+        mediaType:'photo',
+        quality:1,
+        includeBase64: true,
+    };
+    launchImageLibrary(options,response => {
+       setPic(response.assets[0].base64);
+    })
     }
+// const options={
+//     title: 'Select Image',
+//     type: 'library',
+//     options: {
+//         maxHeight: 200,
+//         maxWidth: 200,
+//         selectionLimit: 1,
+//         mediaType: 'photo',
+//         includeBase64: true,
+//
+//     },
+// }
+//     const openGallery=async()=>{
+//         const images = await launchImageLibrary(options);
+//         console.log(images);
+//     }
     return (<LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
@@ -66,13 +78,14 @@ const options={
                 <View style={styles.card} onScroll={startLoading}>
                     <View style={styles.imgContainer}>
                         <Image
-                            // source={{uri: state.fileData}}
+                            size={100}
+                            source={{uri: 'data:image/png;base64,'+pic}}
                             style={styles.images}
                         />
                     </View>
                     <TouchableOpacity
                         style={styles.cameraContainer}
-                        onPress={openGallery}>
+                        onPress={imageUpload}>
                         <Image
                             style={{marginLeft: '5%'}}
                             source={require('../assets/icons/camera.png')}
@@ -125,9 +138,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '-15%',
-    }, imgContainer: {
+    },
+    imgContainer: {
         width: 100, height: 100, borderRadius: 50, backgroundColor: '#fff', borderWidth: 1, borderColor: '#a6d4ff',
-    }, cameraContainer: {
+    },
+    cameraContainer: {
         width: 35,
         height: 35,
         borderRadius: 20,

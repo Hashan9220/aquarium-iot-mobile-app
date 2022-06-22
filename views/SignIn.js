@@ -63,7 +63,7 @@ export default function SignIn({navigation}) {
             await AsyncStorage.setItem('name', val.user.name);
             await AsyncStorage.setItem('email', val.user.email);
             await AsyncStorage.setItem('address', val.user.address);
-            await AsyncStorage.setItem('contact', val.user.contact);
+            await AsyncStorage.setItem('contact', JSON.stringify(val.user.contact));
 
 
             console.log('Data saved in Async storage');
