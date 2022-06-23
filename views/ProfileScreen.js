@@ -51,22 +51,7 @@ export default function ProfileScreen() {
        setPic(response.assets[0].base64);
     })
     }
-// const options={
-//     title: 'Select Image',
-//     type: 'library',
-//     options: {
-//         maxHeight: 200,
-//         maxWidth: 200,
-//         selectionLimit: 1,
-//         mediaType: 'photo',
-//         includeBase64: true,
-//
-//     },
-// }
-//     const openGallery=async()=>{
-//         const images = await launchImageLibrary(options);
-//         console.log(images);
-//     }
+
     return (<LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>

@@ -203,7 +203,7 @@ export default function Home({navigation}) {
                     }}>
                         <Card.Content style={styles.cardContent}>
                             <Title style={{color: '#1E90FF'}}>pH</Title>
-                            <Paragraph>{ph}</Paragraph>
+                            <Paragraph style={{color: '#050505'}}>{ph}</Paragraph>
                         </Card.Content>
                         <Card style={styles.subCard}>
                             <Card.Content style={styles.cardContent}>
@@ -296,7 +296,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }, cardContent: {
         marginTop: 65,
-
     }, card_logo: {
         width: 50, height: 50, marginTop: -65,
     }, tempSection: {
