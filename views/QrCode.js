@@ -10,7 +10,6 @@ export default function QrCode() {
     const onSuccess = e => {
         Linking.openURL(e.data).catch(err => setState({ data: e.data }));
     };
-
     const getId = async () => {
         try {
             await AsyncStorage.setItem('@device_id', state.data);
@@ -19,7 +18,6 @@ export default function QrCode() {
             props.navigation.navigate('SignIn');
         } catch (e) { }
     };
-
     return (
         <QRCodeScanner
             onRead={onSuccess}
@@ -39,41 +37,40 @@ export default function QrCode() {
             }
         />
     );
-}
-
-const styles = StyleSheet.create({
-    topView: {
-        flex: 1,
-        backgroundColor: '#a6d4ff',
-        width: '100%',
-        height: '20%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    txtData: {
-        color: '#ffffff',
-        fontWeight: '500',
-        fontSize: 20,
-        marginTop: '-17%',
-    },
-    bottomView: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#1E90FF',
-    },
-    btnGoView: {
-        width: '50%',
-        height: '30%',
-        borderRadius: 10,
-        borderColor: '#a6d4ff',
-        borderWidth: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    txtGo: {
-        color: '#FFF',
-        fontSize: 23,
-    },
-});
+    }
+    const styles = StyleSheet.create({
+        topView: {
+            flex: 1,
+            backgroundColor: '#a6d4ff',
+            width: '100%',
+            height: '20%',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        txtData: {
+            color: '#ffffff',
+            fontWeight: '500',
+            fontSize: 20,
+            marginTop: '-17%',
+        },
+        bottomView: {
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#1E90FF',
+        },
+        btnGoView: {
+            width: '50%',
+            height: '30%',
+            borderRadius: 10,
+            borderColor: '#a6d4ff',
+            borderWidth: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        txtGo: {
+            color: '#FFF',
+            fontSize: 23,
+        },
+    });

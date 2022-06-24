@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //Common---------------------------------------------------
 import {BasicInput} from '../common/BasicInput';
 import Dashboard from "./Dashboard";
+import baseURL from "../services/baseURL";
 
 // const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
 
@@ -21,7 +22,7 @@ export default function SignIn({navigation}) {
 
 
     const login = async () => {
-        await fetch('http://54.245.177.239/api/login', {
+        await fetch(baseURL+'login', {
             method: 'POST', body: JSON.stringify({
                 email: email, password: password,
             }), headers: {

@@ -1,21 +1,16 @@
 import React, {useRef} from 'react';
 import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
-
 import Page from '../components/Page';
 import Footer from '../components/Footer';
 import {Card, Paragraph, Title} from "react-native-paper";
-import {Pulse} from "react-native-loader";
-import LinearGradient from "react-native-linear-gradient";
 
 export default function OnBoarding({navigation}) {
     const pagerRef = useRef(null);
     let pageNo = 1;
-
     const handlePageChange = pageNumber => {
         pagerRef.current.setPage(pageNumber);
     };
-
     return (
         <View style={{flex: 1}}>
             <StatusBar backgroundColor={'#a6d4ff'}/>
@@ -27,7 +22,6 @@ export default function OnBoarding({navigation}) {
                     <Text style={styles.logoTitle}>SMART {'\n'}AQUARIUM</Text>
                 </View>
             </View>
-
             <ViewPager style={{flex: 1}} initialPage={0} ref={pagerRef}>
                 <View key="1">
                     <Page
@@ -51,7 +45,6 @@ export default function OnBoarding({navigation}) {
                     />
                 </View>
             </ViewPager>
-
             <Footer
                 backgroundColor="#1E90FF"
                 leftButtonLabel="Skip"
@@ -68,32 +61,32 @@ export default function OnBoarding({navigation}) {
         </View>
     );
 }
-const styles = StyleSheet.create({
-    logoContainer: {
-        width: '60%',
-        height: '15%',
-    },
-    subCard: {
-        width: 50,
-        height: 50,
-        borderRadius: 15,
-        marginLeft: '10%',
-        marginTop: '13%',
-        backgroundColor: '#fff',
-        elevation: 20,
-        shadowColor: 'grey',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    logoTitle: {
-        marginLeft: '40%',
-        marginTop: '-21%',
-        fontSize: 20,
-        color: '#FFF',
-        fontFamily: 'Montserrat-SemiBold',
-    },
-    card_logo: {
-        width: 50,
-        height: 50,
-    },
-})
+        const styles = StyleSheet.create({
+            logoContainer: {
+                width: '60%',
+                height: '15%',
+            },
+            subCard: {
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+                marginLeft: '10%',
+                marginTop: '13%',
+                backgroundColor: '#fff',
+                elevation: 20,
+                shadowColor: 'grey',
+                justifyContent: 'center',
+                alignItems: 'center'
+            },
+            logoTitle: {
+                marginLeft: '40%',
+                marginTop: '-21%',
+                fontSize: 20,
+                color: '#FFF',
+                fontFamily: 'Montserrat-SemiBold',
+            },
+            card_logo: {
+                width: 50,
+                height: 50,
+            },
+        })
