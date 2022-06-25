@@ -12,14 +12,12 @@ import Dashboard from "./Dashboard";
 import baseURL from "../services/baseURL";
 
 // const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
-
 export default function SignIn({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(false);
     //User Login -----------------------------------------------------------------------------
-
 
     const login = async () => {
         await fetch(baseURL+'login', {
@@ -31,7 +29,6 @@ export default function SignIn({navigation}) {
         })
             .then((response) => response.json())
             .then((json) => {
-
                 if (json.token) {
                     // setToken(token);
                     const val = {
@@ -40,33 +37,21 @@ export default function SignIn({navigation}) {
                         address: json.user.address,
                         contact: json.user.contact
                     }
-
                     navigation.navigate('Dashboard')
-
-
                     storeData(json)
-
                 } else {
                     Alert.alert('Email or Password In Correct..!', 'Please try again');
                 }
             })
-
-
     };
-
-
     const storeData = async (val) => {
-
         try {
-
             await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
             await AsyncStorage.setItem('token', val.token);
             await AsyncStorage.setItem('name', val.user.name);
             await AsyncStorage.setItem('email', val.user.email);
             await AsyncStorage.setItem('address', val.user.address);
             await AsyncStorage.setItem('contact', JSON.stringify(val.user.contact));
-
-
             console.log('Data saved in Async storage');
         } catch (e) {
             console.log('Data not saved!', 'Please try again');
@@ -77,13 +62,10 @@ export default function SignIn({navigation}) {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
             setEmail(text);
-
             return false;
         } else {
             setEmail(text);
-
         }
-
     };
     const passwordValidate = text => {
         let pwReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
@@ -94,14 +76,12 @@ export default function SignIn({navigation}) {
             setPassword(text);
         }
     };
-
     //loader
     const startLoading = () => {
         login();
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-
         }, 3000);
     };
 
@@ -120,7 +100,6 @@ export default function SignIn({navigation}) {
                         style={styles.imgBack}
                     />
                 </TouchableOpacity>
-
                 {/*----------------------------Back Title----------------------------*/}
                 <Text style={styles.backTitle}>Sign In</Text>
 
@@ -131,12 +110,10 @@ export default function SignIn({navigation}) {
                         source={require('../assets/logos/main_logo.png')}
                     />
                 </View>
-
                 {/*----------------------------Head Title----------------------------*/}
                 <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
 
                 {/*---------------------------Common --------------------------------*/}
-
                 <BasicInput
                     viewLabel="Email"
                     valuData={email}
@@ -145,7 +122,6 @@ export default function SignIn({navigation}) {
                     autoCorrect={false}
                     autoCap="none"
                 />
-
                 <BasicInput
                     viewLabel="Password"
                     valuData={password}
@@ -154,7 +130,6 @@ export default function SignIn({navigation}) {
                     autoCorrect={false}
                     autoCap="none"
                 />
-
                 {/*-------------------------- Radio Button ---------------------------*/}
                 {/* <RadioForm
                     style={styles.rdBtn}
@@ -164,7 +139,6 @@ export default function SignIn({navigation}) {
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
                 /> */}
-
                 {/*----------------Sign In Button-----------*/}
                 {loading ? (<ActivityIndicator
                     visible={loading}
@@ -172,7 +146,6 @@ export default function SignIn({navigation}) {
                 />) : (<TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
                     <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
                 </TouchableOpacity>)}
-
                 {/*----------------Forgot Password----------------*/}
                 <TouchableOpacity
                     style={styles.btnForgotPassword}
@@ -183,9 +156,7 @@ export default function SignIn({navigation}) {
                         {'Forgot Password ?'}
                     </Text>
                 </TouchableOpacity>
-
                 <View style={styles.separator}/>
-
                 {/*----------------Register----------------*/}
                 <TouchableOpacity
                     style={styles.btnReg}
@@ -196,63 +167,108 @@ export default function SignIn({navigation}) {
                 </TouchableOpacity>
             </LinearGradient>
         </KeyboardAvoidingView>
-
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    }, linearGradient: {
-        flex: 1, justifyContent: 'center', alignItems: 'center',
-    }, btnBack: {
-        width: 45, height: 45, // backgroundColor:'#000000',
-        backgroundColor: 'rgba(0,0,0,0)', marginRight: '90%', top: '-5%',
-    }, imgBack: {
-        width: 45, height: 45, marginTop: '-55%', marginLeft: '20%',
-    }, backTitle: {
-        fontSize: 31, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginTop: '-27%',
-    }, txtError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
-    }, txtPwError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-31%', marginTop: '-2%',
-    }, signInCircle: {
-        width: 160,
-        height: 160,
-        backgroundColor: '#ffffff',
-        borderRadius: 230,
-        elevation: 8,
-        marginTop: '5%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }, signInHeadTitle: {
-        fontSize: 26, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginTop: '5%', textAlign: 'center',
-    }, rdBtn: {
-        marginLeft: '-17%', marginTop: '3%',
-    }, btnForgotPassword: {
-        width: '40%', height: '4%', backgroundColor: 'rgba(255,0,0,0)', textAlign: 'center', marginTop: '5%',
-    }, btnForgotPasswordTxt: {
-        fontSize: 15, color: '#ffffff', alignSelf: 'center', marginTop: '2%', fontFamily: 'Montserrat-Regular',
-    }, separator: {
-        width: '80%', height: 1, backgroundColor: 'rgb(255,255,255)', marginTop: '5%',
-    }, btnReg: {
-        width: '40%', height: '4%', backgroundColor: 'rgba(255,0,0,0)', textAlign: 'center', marginTop: '5%',
-    }, btnRegTxt: {
-        fontSize: 20, color: '#ffffff', alignSelf: 'center', fontWeight: 'bold', fontFamily: 'Montserrat-Medium',
-    }, btnSignIn: {
-        width: 280,
-        height: 50,
-        elevation: 8,
-        backgroundColor: '#A9D4FF',
-        borderRadius: 15,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        marginTop: '6%',
-    }, btnSignInTxt: {
-        fontSize: 21, color: '#ffffff', alignSelf: 'center', marginTop: '-1%', fontFamily: 'Montserrat-Medium',
-    }, logo: {
-        width: 170, height: 170,
-    }, spinnerTextStyle: {
-        color: '#000000',
-    },
-});
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+        }, linearGradient: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }, btnBack: {
+            width: 45,
+            height: 45,
+            // backgroundColor:'#000000',
+            backgroundColor: 'rgba(0,0,0,0)',
+            marginRight: '90%',
+            top: '-5%',
+        }, imgBack: {
+            width: 45,
+            height: 45,
+            marginTop: '-55%',
+            marginLeft: '20%',
+        }, backTitle: {
+            fontSize: 31,
+            fontFamily: 'Montserrat-Regular',
+            color: '#ffffff',
+            marginTop: '-27%',
+        }, txtError: {
+            color: '#ff2020',
+            fontSize: 15,
+            marginLeft: '-38%',
+            marginTop: '-2%',
+        }, txtPwError: {
+            color: '#ff2020',
+            fontSize: 15,
+            marginLeft: '-31%',
+            marginTop: '-2%',
+        }, signInCircle: {
+            width: 160,
+            height: 160,
+            backgroundColor: '#ffffff',
+            borderRadius: 230,
+            elevation: 8,
+            marginTop: '5%',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }, signInHeadTitle: {
+            fontSize: 26,
+            fontFamily: 'Montserrat-SemiBold',
+            color: '#ffffff',
+            marginTop: '5%',
+            textAlign: 'center',
+        }, rdBtn: {
+            marginLeft: '-17%',
+            marginTop: '3%',
+        }, btnForgotPassword: {
+            width: '40%',
+            height: '4%',
+            backgroundColor: 'rgba(255,0,0,0)',
+            textAlign: 'center',
+            marginTop: '5%',
+        }, btnForgotPasswordTxt: {
+            fontSize: 15,
+            color: '#ffffff',
+            alignSelf: 'center',
+            marginTop: '2%',
+            fontFamily: 'Montserrat-Regular',
+        }, separator: {
+            width: '80%',
+            height: 1,
+            backgroundColor: 'rgb(255,255,255)',
+            marginTop: '5%',
+        }, btnReg: {
+            width: '40%',
+            height: '4%',
+            backgroundColor: 'rgba(255,0,0,0)',
+            textAlign: 'center',
+            marginTop: '5%',
+        }, btnRegTxt: {
+            fontSize: 20,
+            color: '#ffffff',
+            alignSelf: 'center',
+            fontWeight: 'bold',
+            fontFamily: 'Montserrat-Medium',
+        }, btnSignIn: {
+            width: 280,
+            height: 50,
+            elevation: 8,
+            backgroundColor: '#A9D4FF',
+            borderRadius: 15,
+            paddingVertical: 10,
+            paddingHorizontal: 12,
+            marginTop: '6%',
+        }, btnSignInTxt: {
+            fontSize: 21,
+            color: '#ffffff',
+            alignSelf: 'center',
+            marginTop: '-1%',
+            fontFamily: 'Montserrat-Medium',
+        }, logo: {
+            width: 170, height: 170,
+        }, spinnerTextStyle: {
+            color: '#000000',
+        },
+    });
