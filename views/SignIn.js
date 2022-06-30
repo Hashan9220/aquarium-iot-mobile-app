@@ -32,6 +32,7 @@ export default function SignIn({navigation}) {
                 if (json.token) {
                     // setToken(token);
                     const val = {
+                        id:json.user.id,
                         name: json.user.name,
                         email: json.user.email,
                         address: json.user.address,
@@ -48,6 +49,7 @@ export default function SignIn({navigation}) {
         try {
             await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
             await AsyncStorage.setItem('token', val.token);
+            await AsyncStorage.setItem('id', JSON.stringify(val.user.id));
             await AsyncStorage.setItem('name', val.user.name);
             await AsyncStorage.setItem('email', val.user.email);
             await AsyncStorage.setItem('address', val.user.address);
