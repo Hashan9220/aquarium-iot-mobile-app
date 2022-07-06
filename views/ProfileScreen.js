@@ -8,9 +8,8 @@ import baseURL from "../services/baseURL";
 
 export default function ProfileScreen() {
 
-    const [id, setId] = useState('');
-    const [token, setToken] = useState('');
-    const [data, setData] = useState({});
+    const [id, setId] = useState(null);
+    const [token, setToken] = useState(null);
     const [userEmail, setUserEmail] = useState('');
     const [pic, setPic] = useState('');
     const [contact, setUserContact] = useState('');
@@ -19,7 +18,7 @@ export default function ProfileScreen() {
     const [loading, setLoading] = useState(false);
     const formdata = new FormData();
 
-    useEffect(() => {
+    const getUserData = () => {
         fetch(baseURL + 'user/' + id, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -28,30 +27,37 @@ export default function ProfileScreen() {
         })
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
                 setUserName(json.name);
                 setUserEmail(json.email);
                 setUserAddress(json.address);
                 setUserContact(json.contact);
                 setPic(json.user_image);
+                console.log(json.user_image);
             })
-    });
+    }
     useEffect(() => {
         getId();
         getToken();
+
+
     }, []);
+    useEffect(() => {
+        if (id && token) {
+            getUserData();
+        }
+    }, [id, token])
 
     const getId = async () => {
         let value = await AsyncStorage.getItem('id');
         if (value !== null) {
-            setId(value)
+            setId(value);
         }
     }
 
     const getToken = async () => {
         let token = await AsyncStorage.getItem('token');
         if (token !== null) {
-            setToken(token)
+            setToken(token);
         }
     }
 
@@ -61,11 +67,14 @@ export default function ProfileScreen() {
             quality: 1,
             includeBase64: true,
         };
+
         launchImageLibrary(options, response => {
             if (response.didCancel === true) {
-                alert("cancel image upload")
+                alert("cancel image upload");
             } else if (response.errorCode && parseInt(response.errorCode)) {
-                alert("error image upload")
+                alert("error image upload");
+            }else if(response.assets[0].fileSize >1000000) {
+                alert('Maximum image size exceeded Please Choose image under 2 MB')
             } else {
                 setPic(response.assets[0].base64);
                 const file = {
@@ -75,14 +84,13 @@ export default function ProfileScreen() {
                 };
                 formdata.append('image', file);
                 uploadImage();
-                alert("Image Update Success")
-                console.log(token);
+                alert("Image Update Success");
             }
         })
     }
 
-    const uploadImage = async () => {
-        await fetch(baseURL + 'uploadImage/' + id, {
+    const uploadImage = () => {
+        fetch(baseURL + 'uploadImage/' + id, {
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -93,7 +101,10 @@ export default function ProfileScreen() {
         })
             .then(response => response.json())
             .then((responseData) => {
-            })
+                getUserData();
+            }).catch(error => {
+            console.log(error);
+        })
     }
 
     const startLoading = () => {
@@ -112,7 +123,6 @@ export default function ProfileScreen() {
         />) : (<View style={styles.card} onScroll={startLoading}>
             <View style={styles.imgContainer}>
                 <Image
-                    size={100}
                     source={{uri: 'http://54.245.177.239/storage/user_images/' + pic}}
                     style={styles.images}
                 />
@@ -129,22 +139,22 @@ export default function ProfileScreen() {
         </View>)}
         <View style={styles.mainContainer}>
             <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Name        :- {name}       </Text>
+                <Text style={styles.heading}> Name :- {name}       </Text>
                 <Text style={styles.detail}> </Text>
             </View>
             <Divider/>
             <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Email         :- {userEmail}  </Text>
+                <Text style={styles.heading}> Email :- {userEmail}  </Text>
                 <Text style={styles.detail}> </Text>
             </View>
             <Divider/>
             <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Address    :- {address}    </Text>
+                <Text style={styles.heading}> Address :- {address}    </Text>
                 <Text style={styles.detail}> </Text>
             </View>
             <Divider/>
             <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Contact     :- {contact}    </Text>
+                <Text style={styles.heading}> Contact :- {contact}    </Text>
                 <Text style={styles.detail}> </Text>
             </View>
             <Divider/>

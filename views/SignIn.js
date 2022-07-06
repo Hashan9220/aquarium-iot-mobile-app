@@ -24,7 +24,7 @@ export default function SignIn({navigation}) {
     const [loading, setLoading] = useState(false);
     //User Login -----------------------------------------------------------------------------
     const login = async () => {
-        await fetch(baseURL + 'login', {
+        fetch(baseURL + 'login', {
             method: 'POST', body: JSON.stringify({
                 email: email, password: password,
             }), headers: {
@@ -36,6 +36,9 @@ export default function SignIn({navigation}) {
                 if (json.token) {
                     const val = {
                         id: json.user.id,
+                        image:json.user.images,
+
+
                     }
                     navigation.navigate('Dashboard')
                     storeData(json)
@@ -45,12 +48,13 @@ export default function SignIn({navigation}) {
             })
     };
     const storeData = async (val) => {
-        try {
-            await AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
-            await AsyncStorage.setItem('token', val.token);
-            await AsyncStorage.setItem('id', JSON.stringify(val.user.id));
-        } catch (e) {
-        }
+
+        AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
+        AsyncStorage.setItem('token', val.token);
+        AsyncStorage.setItem('id', JSON.stringify(val.user.id));
+
+
+
     };
     //Validate -----------------------------------------------------------------------------------
     const emailValidate = text => {
