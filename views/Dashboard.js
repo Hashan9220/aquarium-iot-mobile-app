@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, StyleSheet,} from "react-native";
+import {Image, StyleSheet,onPress} from "react-native";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerContent from "../routes/DrawerContent";
 import BottomTab from "../routes/BottomTab";
@@ -17,10 +17,10 @@ const Drawer = createDrawerNavigator();
 export default function Dashboard() {
 
     return (<NavigationContainer independent={true}>
-        <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} onPress={props} />}>
             <Drawer.Screen
                 options={{
-                    headerTintColor: '#FFFFFF', title: '', headerTitleStyle: {color: '#fff'}, drawerStyle: {
+                    headerTintColor: '#fff', title: '', headerTitleStyle: {color: '#fff'}, drawerStyle: {
                         width: 320,
                         height: 580,
                         marginTop: 60,
@@ -28,7 +28,7 @@ export default function Dashboard() {
                         borderBottomRightRadius: 40
                     }, headerStyle: {backgroundColor: '#a6d4ff'},
                     drawerIcon: ({focused, size}) => (
-                        <Image source={require('../assets/logos/notification_icon.png')}/>),
+                        <Image source={require('../assets/logos/notification_icon.png')} />),
                 }}
                 name="Bottom Tab" component={BottomTab}/>
             <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>

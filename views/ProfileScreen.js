@@ -32,15 +32,16 @@ export default function ProfileScreen() {
                 setUserAddress(json.address);
                 setUserContact(json.contact);
                 setPic(json.user_image);
-                console.log(json.user_image);
             })
     }
+
     useEffect(() => {
         getId();
         getToken();
 
 
     }, []);
+
     useEffect(() => {
         if (id && token) {
             getUserData();
@@ -103,7 +104,6 @@ export default function ProfileScreen() {
             .then((responseData) => {
                 getUserData();
             }).catch(error => {
-            console.log(error);
         })
     }
 

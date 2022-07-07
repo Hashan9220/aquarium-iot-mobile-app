@@ -47,13 +47,12 @@ export default function SignIn({navigation}) {
                 }
             })
     };
+
     const storeData = async (val) => {
 
         AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
         AsyncStorage.setItem('token', val.token);
         AsyncStorage.setItem('id', JSON.stringify(val.user.id));
-
-
 
     };
     //Validate -----------------------------------------------------------------------------------

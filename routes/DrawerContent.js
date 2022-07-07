@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Drawer, Text} from 'react-native-paper';
 import baseURL from "../services/baseURL";
 
-    const ModelPoup = ({visible, children}) => {
+const ModelPoup = ({visible, children}) => {
     const [showModel, setShowModel] = React.useState(visible);
     const scaleValue = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
@@ -35,7 +35,7 @@ import baseURL from "../services/baseURL";
     </Modal>)
 }
 
-export default function DrawerContent({navigation}) {
+export default function DrawerContent({navigation,onPress}) {
 
     const signOut = async () => {
         try {
@@ -57,17 +57,14 @@ export default function DrawerContent({navigation}) {
     useEffect(() => {
         getId();
         getToken();
-        if (images !== null) {
-            imageSet();
-        }
+
     }, [])
 
     useEffect(() => {
         if (id && token) {
             imageSet();
         }
-
-    }, [id, token])
+    }, [id, token,onPress])
 
     const imageSet = () => {
         fetch(baseURL + 'user/' + id, {

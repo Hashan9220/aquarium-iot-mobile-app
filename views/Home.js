@@ -27,7 +27,6 @@
 
         Appearance.addChangeListener((scheme) => {
             setTheme(scheme.colorScheme);
-            console.log(theme);
         })
         const getData = async () => {
             const value = await AsyncStorage.getItem('@device_id')
