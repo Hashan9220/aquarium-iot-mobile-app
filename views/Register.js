@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BasicInput} from '../common/BasicInput';
+import {BasicInput} from "../common/BasicInput";
 import Dashboard from "./Dashboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import baseURL from "../services/baseURL";
-import RadioForm from 'react-native-simple-radio-button';
 
-const radio_props = [{label: 'Agree to Terms & Conditions', value: 0 }];
+// const radio_props = [{label: 'Agree to Terms & Conditions', value: 0}];
 
 export default function Register({navigation}) {
     const [firstname, setFirstname] = useState("");
@@ -70,12 +69,10 @@ export default function Register({navigation}) {
             setPassword(text);
             return false;
         } else {
-            console.log("password txt" + text)
             setPassword({password: text});
             setPassword({passwordError: false});
         }
     };
-
     function navigateToDashboard(token) {
         setToken(token);
         if (token) {
@@ -85,23 +82,13 @@ export default function Register({navigation}) {
             Alert.alert('Sorry', 'Please try again');
         }
     }
-
     useEffect(() => {
-        const init = async () => {
-            let token = null;
-            try {
-                token = await AsyncStorage.getItem('token');
+              let token = AsyncStorage.getItem('token');
                 setToken(token);
-                console.log(token);
-            } catch (e) {
-                console.log(e);
-            }
-        };
     }, []);
-
     //User Register------------------------------------------------
     const registerUser = async () => {
-        await fetch(baseURL + 'register', {
+        await fetch(baseURL+'register', {
             method: 'POST',
             body: JSON.stringify({
                 name: firstname, email: email, password: password, address: address, contact: contact
@@ -112,7 +99,6 @@ export default function Register({navigation}) {
         })
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
                 if (json.token) {
                     navigateToDashboard(json.token)
                     storeData(json, json.token)
@@ -124,19 +110,18 @@ export default function Register({navigation}) {
         Alert.alert('User Registered', 'Successfully registered as new user ');
     };
     const storeData = async (value, token) => {
-        console.log(token);
         try {
             const jsonValue = JSON.stringify(value);
             await AsyncStorage.setItem('alreadyLaunched', jsonValue);
             await AsyncStorage.setItem('token', token);
-            console.log('Data saved in Async storage');
         } catch (e) {
-            console.log('Data not saved!', 'Please try again');
         }
     };
-    return (<LinearGradient
+    return (
+        <LinearGradient
         colors={['#a6d4ff', '#1E90FF']}
         style={styles.linearGradient}>
+
         {/*----------------------------Back Button----------------------------*/}
         <TouchableOpacity
             style={styles.btnBack}
@@ -161,143 +146,105 @@ export default function Register({navigation}) {
             {/*----------------------------Head Title----------------------------*/}
             <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
             {/*---------------------------Common --------------------------------*/}
+
+
             <BasicInput
                 viewLabel="First Name"
-                valuData={setFirstname}
+                valuData={firstname}
                 valueSet={text => firstNameValidate(text)}
                 txtEntry={false}
+                autoCorrect={false}
+                autoCap="none"
             />
             <BasicInput
                 viewLabel="Last Name"
-                valuData={setLastname}
+                valuData={lastname}
                 valueSet={text => lastNameValidate(text)}
                 txtEntry={false}
             />
             <BasicInput
                 viewLabel="Email"
-                valuData={setEmail}
+                valuData={email}
                 valueSet={text => emailValidate(text)}
                 txtEntry={false}
             />
             <BasicInput
                 viewLabel="phone"
-                valuData={setContact}
+                valuData={contact}
                 valueSet={text => phoneValidate(text)}
                 txtEntry={false}
             />
             <BasicInput
                 viewLabel="Address"
-                valuData={setAddress}
+                valuData={address}
                 valueSet={text => addressValidate(text)}
                 txtEntry={false}
             />
             <BasicInput
                 viewLabel="Password"
-                valuData={setPassword}
+                valuData={password}
                 valueSet={text => passwordValidate(text)}
                 txtEntry={true}
             />
             <BasicInput
                 viewLabel="Confirm Password"
-                valuData={setPassword}
-                valueSet={text =>
-                     setPassword({
-                         confirmpassword: text,
-                     })
-                 }
+                valueSet={text => setPassword({
+                    confirmpassword: text,
+                })}
                 txtEntry={true}
             />
         </ScrollView>
         {/*-------------------------- Radio Button ---------------------------*/}
-        <RadioForm
-                        style={styles.ridBtn}
-                        radio_props={radio_props}
-                        initial={0}
-                        animation={true}
-                        buttonColor="#ffffff"
-                        labelStyle={{fontSize: 15, color: '#ffffff'}}
-                        />
+        {/*<RadioForm*/}
+        {/*                style={styles.ridBtn}*/}
+        {/*                radio_props={radio_props}*/}
+        {/*                initial={0}*/}
+        {/*                animation={true}*/}
+        {/*                buttonColor="#ffffff"*/}
+        {/*                labelStyle={{fontSize: 15, color: '#ffffff'}}*/}
+        {/*                />*/}
         <ActivityIndicator size="small" color="#0000ff" animating={false}/>
         {/*----------------Register Button-----------*/}
-        <View style={{marginTop:'-20%'}}>
+
             <TouchableOpacity
                 style={styles.btnRegister}
                 onPress={registerUser}>
                 <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
             </TouchableOpacity>
-        </View>
-
-    </LinearGradient>);
+    </LinearGradient>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1, justifyContent: 'center', alignItems: 'center',
     }, linearGradient: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1, justifyContent: 'center', alignItems: 'center',
     }, btnBack: {
-        width: 45,
-        height: 45,
-        backgroundColor: 'rgba(0,0,0,0)',
-        marginRight: '90%',
-        marginTop: '6%',
+        width: 45, height: 45, backgroundColor: 'rgba(0,0,0,0)', marginRight: '90%', marginTop: '6%',
     }, imgBack: {
-        width: 45,
-        height: 45,
-        marginTop: '-55%',
-        marginLeft: '20%',
+        width: 45, height: 45, marginTop: '-55%', marginLeft: '20%',
     }, txtError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-38%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
     }, txtPwError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-31%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-31%', marginTop: '-2%',
     }, txtUserError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-45%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-45%', marginTop: '-2%',
     }, txtCPWError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-40%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-40%', marginTop: '-2%',
     }, backTitle: {
-        fontSize: 30,
-        fontFamily: 'Montserrat-Regular',
-        color: '#ffffff',
-        marginTop: '-15%',
+        fontSize: 30, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginTop: '-15%',
     }, registerCircle: {
-        width: 140,
-        height: 140,
-        backgroundColor: '#ffffff',
-        borderRadius: 230,
-        elevation: 8,
-        marginTop: '5%',
+        width: 140, height: 140, backgroundColor: '#ffffff', borderRadius: 230, elevation: 8, marginTop: '5%',
 
-    },  ridBtn: {
-        backgroundColor:'balck',
-        marginLeft: '-17%',
-        marginTop: '3%',
-    },registerHeadTitle: {
-        fontSize: 25,
-        fontFamily: 'Montserrat-SemiBold',
-        color: '#ffffff',
-        marginTop: '5%',
-        textAlign: 'center',
-    },
-    //  rdBtn: {
+    }, ridBtn: {
+        backgroundColor: 'balck', marginLeft: '-17%', marginTop: '3%',
+    }, registerHeadTitle: {
+        fontSize: 25, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginTop: '5%', textAlign: 'center',
+    }, //  rdBtn: {
     //     marginTop: '3%',
     // },
-        btnRegister: {
+    btnRegister: {
         width: 280,
         height: 50,
         elevation: 8,
@@ -305,16 +252,10 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginTop: '-20%',
+        marginTop: '5%',
     }, btnRegisterTxt: {
-        fontSize: 25,
-        color: '#ffffff',
-        alignSelf: 'center',
-        // marginTop: '-1%',
+        fontSize: 25, color: '#ffffff', alignSelf: 'center', marginTop: '-1%',
     }, logo: {
-        width: 140,
-        height: 140,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: 140, height: 140, justifyContent: 'center', alignItems: 'center',
     },
 });

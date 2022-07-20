@@ -1,4 +1,4 @@
-    import React, {Component} from 'react'
+    import React from 'react'
     import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, StatusBar} from 'react-native';
     import LinearGradient from "react-native-linear-gradient";
 

@@ -38,8 +38,6 @@ export default function ProfileScreen() {
     useEffect(() => {
         getId();
         getToken();
-
-
     }, []);
 
     useEffect(() => {

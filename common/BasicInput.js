@@ -2,6 +2,7 @@ import * as React from 'react'
 import {View, StyleSheet, TextInput} from 'react-native';
 
 export function BasicInput({viewLabel,valuData,valueSet,txtEntry,autoCap,autoCorrect}) {
+
     return (
         <View style={styles.inputView}>
             <TextInput style={styles.txt}
@@ -12,8 +13,7 @@ export function BasicInput({viewLabel,valuData,valueSet,txtEntry,autoCap,autoCor
                        secureTextEntry={txtEntry}
                        autoCapitalize={autoCap}
                        autoCorrect={autoCorrect}
-            >
-            </TextInput>
+            />
         </View>
     )
 }

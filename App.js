@@ -4,7 +4,6 @@ import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNBootSplash from "react-native";
 //Screens---------------------------------------------------------------------------------------------------------------
 import OnBoarding from './views/OnBoarding';
 import Welcome from './views/Welcome';
@@ -32,10 +31,6 @@ const App = () => {
                 console.log(e);
             }
         };
-
-        init().finally(async () => {
-            await RNBootSplash({fade: true});
-        });
     }, []);
 
     useEffect(() => {
@@ -44,7 +39,7 @@ const App = () => {
         }, 1000);
 
     }, []);
-     if (token === null) {
+    if (token === null) {
         return (
             <NavigationContainer independent={true}>
                 <Stack.Navigator

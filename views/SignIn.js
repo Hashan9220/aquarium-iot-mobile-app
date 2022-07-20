@@ -37,8 +37,6 @@ export default function SignIn({navigation}) {
                     const val = {
                         id: json.user.id,
                         image:json.user.images,
-
-
                     }
                     navigation.navigate('Dashboard')
                     storeData(json)

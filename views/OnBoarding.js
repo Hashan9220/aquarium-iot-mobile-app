@@ -3,7 +3,7 @@
     import ViewPager from '@react-native-community/viewpager';
     import Page from '../components/Page';
     import Footer from '../components/Footer';
-    import {Card, Paragraph, Title} from "react-native-paper";
+    import {Card} from "react-native-paper";
 
     export default function OnBoarding({navigation}) {
 
