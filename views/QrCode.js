@@ -12,8 +12,6 @@
         const getId = async () => {
             try {
                 await AsyncStorage.setItem('@device_id', state.data);
-                console.log("state");
-                console.log(state);
                 props.navigation.navigate('SignIn');
             } catch (e) { }
         };
