@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     ActivityIndicator,
     Alert,
@@ -7,18 +7,20 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
+    View, ScrollView, Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // import RadioForm from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Common---------------------------------------------------
-import {BasicInput} from '../common/BasicInput';
+import { BasicInput } from '../common/BasicInput';
 import Dashboard from "./Dashboard";
 import baseURL from "../services/baseURL";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 // const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
-export default function SignIn({navigation}) {
+export default function SignIn({ navigation }) {
+    const { width: WIDTH, height: height } = Dimensions.get('window');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -36,7 +38,7 @@ export default function SignIn({navigation}) {
                 if (json.token) {
                     const val = {
                         id: json.user.id,
-                        image:json.user.images,
+                        image: json.user.images,
                     }
                     navigation.navigate('Dashboard')
                     storeData(json)
@@ -48,7 +50,7 @@ export default function SignIn({navigation}) {
 
     const storeData = async (val) => {
 
-        AsyncStorage.setItem('alreadyLaunched', JSON.stringify(val));
+        AsyncStorage.setItem('alreadyLaunched', JSON.stringify(true));
         AsyncStorage.setItem('token', val.token);
         AsyncStorage.setItem('id', JSON.stringify(val.user.id));
 
@@ -81,23 +83,30 @@ export default function SignIn({navigation}) {
         }, 3000);
     };
 
-    return (<KeyboardAvoidingView style={styles.container}>
-            <LinearGradient
-                colors={['#a6d4ff', '#1E90FF']}
-                style={styles.linearGradient}>
-                {/*----------------------------Back Button----------------------------*/}
+    return (
+        <LinearGradient
+            colors={['#a6d4ff', '#1E90FF']}
+            style={styles.linearGradient}>
+            {/*----------------------------Back Button----------------------------*/}
+            <View style={{ marginLeft: 10, width: '100%', }}>
                 <TouchableOpacity style={styles.btnBack}
-                                  onPress={() => {
-                                      navigation.navigate('Welcome');
-                                  }}
+                    onPress={() => {
+                        navigation.navigate('Welcome');
+                    }}
                 >
                     <Image
                         source={require('../assets/icons/left_arrow.png')}
                         style={styles.imgBack}
                     />
                 </TouchableOpacity>
+            </View>
+            <ScrollView style={{ width: wp('75%'), padding: 20, marginBottom: 10 }}>
+
+
                 {/*----------------------------Back Title----------------------------*/}
-                <Text style={styles.backTitle}>Sign In</Text>
+                <View style={{ width: wp('20%'), marginLeft: 80 }}>
+                    <Text style={styles.backTitle}>Sign In</Text>
+                </View>
 
                 {/*----------------------------Head Image----------------------------*/}
                 <View style={styles.signInCircle}>
@@ -106,8 +115,12 @@ export default function SignIn({navigation}) {
                         source={require('../assets/logos/main_logo.png')}
                     />
                 </View>
+
                 {/*----------------------------Head Title----------------------------*/}
-                <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
+                <View style={{ width: wp('30%'), marginLeft: 60 }}>
+                    <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
+                </View>
+
                 {/*---------------------------Common --------------------------------*/}
                 <BasicInput
                     viewLabel="Email"
@@ -151,7 +164,7 @@ export default function SignIn({navigation}) {
                         {'Forgot Password ?'}
                     </Text>
                 </TouchableOpacity>
-                <View style={styles.separator}/>
+                <View style={styles.separator} />
                 {/*----------------Register----------------*/}
                 <TouchableOpacity
                     style={styles.btnReg}
@@ -160,34 +173,31 @@ export default function SignIn({navigation}) {
                     }}>
                     <Text style={styles.btnRegTxt}>{'Register'}</Text>
                 </TouchableOpacity>
-            </LinearGradient>
-        </KeyboardAvoidingView>
+            </ScrollView>
+        </LinearGradient>
+
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    }, linearGradient: {
+    linearGradient: {
+        display: 'flex',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     }, btnBack: {
-        width: 45,
+        width: wp('10%'),
         height: 45,
-        backgroundColor: 'rgba(0,0,0,0)',
-        marginRight: '90%',
-        top: '-5%',
     }, imgBack: {
-        width: 45,
+        width: wp('10%'),
         height: 45,
-        marginTop: '-55%',
-        marginLeft: '20%',
+
     }, backTitle: {
         fontSize: 31,
         fontFamily: 'Montserrat-Regular',
         color: '#ffffff',
-        marginTop: '-27%',
+        marginBottom: 10
+
     }, txtError: {
         color: '#ff2020',
         fontSize: 15,
@@ -199,29 +209,32 @@ const styles = StyleSheet.create({
         marginLeft: '-31%',
         marginTop: '-2%',
     }, signInCircle: {
-        width: 160,
-        height: 160,
+        width: wp('40%'),
+        height: hp('18%'),
+        marginLeft: 40,
         backgroundColor: '#ffffff',
         borderRadius: 230,
         elevation: 8,
-        marginTop: '5%',
+        marginBottom: 20,
         justifyContent: 'center',
         alignItems: 'center',
     }, signInHeadTitle: {
         fontSize: 26,
         fontFamily: 'Montserrat-SemiBold',
         color: '#ffffff',
-        marginTop: '5%',
+        marginBottom: 20,
         textAlign: 'center',
-    }, rdBtn: {
-        marginLeft: '-17%',
-        marginTop: '3%',
-    }, btnForgotPassword: {
-        width: '40%',
+    },
+    //  rdBtn: {
+    //     marginLeft: '-17%',
+    //     marginTop: '3%',
+    // }, 
+    btnForgotPassword: {
+        width: wp('65%'),
         height: '4%',
         backgroundColor: 'rgba(255,0,0,0)',
         textAlign: 'center',
-        marginTop: '5%',
+        marginTop: '2%',
     }, btnForgotPasswordTxt: {
         fontSize: 15,
         color: '#ffffff',
@@ -229,36 +242,40 @@ const styles = StyleSheet.create({
         marginTop: '2%',
         fontFamily: 'Montserrat-Regular',
     }, separator: {
-        width: '80%',
+        width: wp('65%'),
         height: 1,
         backgroundColor: 'rgb(255,255,255)',
         marginTop: '5%',
     }, btnReg: {
-        width: '40%',
+        width: wp('65%'),
         height: '4%',
         backgroundColor: 'rgba(255,0,0,0)',
         textAlign: 'center',
-        marginTop: '5%',
-    }, btnRegTxt: {
+        marginBottom: '20%'
+    },
+    btnRegTxt: {
         fontSize: 20,
         color: '#ffffff',
         alignSelf: 'center',
         fontWeight: 'bold',
         fontFamily: 'Montserrat-Medium',
-    }, btnSignIn: {
-        width: 280,
+    },
+    btnSignIn: {
+        width: wp('65%'),
         height: 50,
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginTop: '6%',
+        marginBottom: 10,
+        marginTop: 10
+
     }, btnSignInTxt: {
         fontSize: 21,
         color: '#ffffff',
         alignSelf: 'center',
-        marginTop: '-1%',
+
         fontFamily: 'Montserrat-Medium',
     }, logo: {
         width: 170, height: 170,

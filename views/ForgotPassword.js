@@ -78,7 +78,7 @@
                     width: 45,
                     height: 45,
                     backgroundColor: "rgba(0,0,0,0)",
-                    marginRight: '90%',
+                    marginRight: '80%',
                     top: '-7%',
                 },
                 imgBack: {

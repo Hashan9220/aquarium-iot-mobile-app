@@ -3,7 +3,7 @@ import {Alert, Animated, Image, Linking, Modal, StyleSheet, TouchableOpacity, Vi
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Drawer, Text} from 'react-native-paper';
-import baseURL from "../services/baseURL";
+import baseURL from '../services/baseURL';
 
 const ModelPoup = ({visible, children}) => {
     const [showModel, setShowModel] = React.useState(visible);
@@ -30,19 +30,20 @@ const ModelPoup = ({visible, children}) => {
     return (<Modal transparent visible={showModel}>
         <View style={styles.modalBackGround}>
             <Animated.View style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-                {children}</Animated.View>
+                {children}
+            </Animated.View>
         </View>
     </Modal>)
 }
 
-export default function DrawerContent({navigation,onPress}) {
+export default function DrawerContent({navigation, onPress}) {
 
     const signOut = async () => {
         try {
             await AsyncStorage.removeItem('alreadyLaunched');
             await AsyncStorage.removeItem('@device_id');
             await AsyncStorage.removeItem('token');
-            navigation.navigate('StackNav');
+            navigation.navigate('Welcome');
         } catch (e) {
         }
     }
@@ -64,7 +65,7 @@ export default function DrawerContent({navigation,onPress}) {
         if (id && token) {
             imageSet();
         }
-    }, [id, token,onPress])
+    }, [id, token, onPress])
 
     const imageSet = () => {
         fetch(baseURL + 'user/' + id, {

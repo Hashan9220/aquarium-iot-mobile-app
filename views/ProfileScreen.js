@@ -38,6 +38,8 @@ export default function ProfileScreen() {
     useEffect(() => {
         getId();
         getToken();
+        defaultImage();
+        
     }, []);
 
     useEffect(() => {
@@ -45,6 +47,10 @@ export default function ProfileScreen() {
             getUserData();
         }
     }, [id, token])
+
+const defaultImage =() =>{
+   
+}
 
     const getId = async () => {
         let value = await AsyncStorage.getItem('id');
@@ -59,7 +65,7 @@ export default function ProfileScreen() {
             setToken(token);
         }
     }
-
+ 
     const imageUpload = async () => {
         let options = {
             mediaType: 'photo',
@@ -69,7 +75,6 @@ export default function ProfileScreen() {
 
         launchImageLibrary(options, response => {
             if (response.didCancel === true) {
-                alert("cancel image upload");
             } else if (response.errorCode && parseInt(response.errorCode)) {
                 alert("error image upload");
             }else if(response.assets[0].fileSize >1000000) {
@@ -83,7 +88,6 @@ export default function ProfileScreen() {
                 };
                 formdata.append('image', file);
                 uploadImage();
-                alert("Image Update Success");
             }
         })
     }
@@ -120,7 +124,8 @@ export default function ProfileScreen() {
             textStyle={styles.spinnerTextStyle}
         />) : (<View style={styles.card} onScroll={startLoading}>
             <View style={styles.imgContainer}>
-                <Image
+            {/* <Image style={styles.images} source={require('../assets/icons/profile.png')}/> */}
+                <Image 
                     source={{uri: 'http://54.245.177.239/storage/user_images/' + pic}}
                     style={styles.images}
                 />

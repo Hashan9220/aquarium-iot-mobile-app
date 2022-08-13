@@ -1,8 +1,18 @@
 import * as React from 'react'
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, Dimensions} from 'react-native';
 
-export function BasicInput({viewLabel,valuData,valueSet,txtEntry,autoCap,autoCorrect}) {
+const { width: WIDTH, height: height } = Dimensions.get('window');
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
+export function BasicInput({
+  viewLabel,
+  valuData,
+  valueSet,
+  txtEntry,
+  autoCap,
+  autoCorrect,
+}) {
+   
     return (
         <View style={styles.inputView}>
             <TextInput style={styles.txt}
@@ -23,8 +33,8 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
     },
     txt: {
-        width: 300,
-        height: 45,
+        width: wp('65%'),
+        height: hp('5%'),
         borderColor: '#ffffff',
         borderWidth: 3,
         borderRadius: 7,
@@ -34,6 +44,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 10,
         fontSize: 18,
-        marginTop: "2%"
+        marginBottom:10
+
     },
 });

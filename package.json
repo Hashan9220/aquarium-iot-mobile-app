@@ -51,6 +51,7 @@
     "react-native-push-notification": "^8.1.1",
     "react-native-qrcode-scanner": "^1.5.4",
     "react-native-reanimated": "^1.0.0",
+    "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
     "react-native-simple-radio-button": "^2.7.4",
@@ -74,5 +75,17 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hotcat-Technologies/aquarium-iot-mobile-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hotcat-Technologies/aquarium-iot-mobile-app/issues"
+  },
+  "homepage": "https://github.com/Hotcat-Technologies/aquarium-iot-mobile-app#readme",
+  "description": ""
 }

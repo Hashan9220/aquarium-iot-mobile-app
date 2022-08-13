@@ -1,21 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BasicInput} from "../common/BasicInput";
+import { BasicInput } from "../common/BasicInput";
 import Dashboard from "./Dashboard";
+// import responsive from '../common/diamesions/responsive';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import baseURL from "../services/baseURL";
+// import RadioForm from 'react-native-simple-radio-button';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+// const radio_props = [{ label: 'Agree to Terms & Conditions', value: 0 }];
+const { width: WIDTH, height: height } = Dimensions.get('window');
+export default function Register({ navigation }) {
 
-// const radio_props = [{label: 'Agree to Terms & Conditions', value: 0}];
-
-export default function Register({navigation}) {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [textInputValue, setTextInputValue] = useState('');
+    const [errorState, setErrorState] = useState(true);
     const [token, setToken] = useState('');
+    const [checked, setChecked] = React.useState('first');
+
     //Validation---------------------------------------------------
     const firstNameValidate = text => {
         let nameReg = /^[a-zA-Z ]{1,40}$/;
@@ -55,7 +64,6 @@ export default function Register({navigation}) {
     };
     const phoneValidate = text => {
         let reg = /^[a-zA-Z ]{1,10}$/;
-        // let reg = /^\d{10}$/;
         if (reg.test(text) === false) {
             setContact(text);
             return false;
@@ -69,10 +77,11 @@ export default function Register({navigation}) {
             setPassword(text);
             return false;
         } else {
-            setPassword({password: text});
-            setPassword({passwordError: false});
+            setPassword({ password: text });
+            setPassword({ passwordError: false });
         }
     };
+
     function navigateToDashboard(token) {
         setToken(token);
         if (token) {
@@ -82,32 +91,36 @@ export default function Register({navigation}) {
             Alert.alert('Sorry', 'Please try again');
         }
     }
+
     useEffect(() => {
-              let token = AsyncStorage.getItem('token');
-                setToken(token);
+        let token = AsyncStorage.getItem('token');
+        setToken(token);
     }, []);
     //User Register------------------------------------------------
+
     const registerUser = async () => {
-        await fetch(baseURL+'register', {
-            method: 'POST',
-            body: JSON.stringify({
-                name: firstname, email: email, password: password, address: address, contact: contact
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                if (json.token) {
-                    navigateToDashboard(json.token)
-                    storeData(json, json.token)
-                } else {
-                    Alert.alert('please fill input field..!', 'Please try again');
-                }
+        if (password === confirmPassword) {
+            await fetch(baseURL + 'register', {
+                method: 'POST', body: JSON.stringify({
+                    name: firstname, email: email, password: password, address: address, contact: contact
+                }), headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
             })
-            .then((json) => console.log(json));
-        Alert.alert('User Registered', 'Successfully registered as new user ');
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json.token) {
+                        navigateToDashboard(json.token)
+                        storeData(json, json.token)
+                    } else {
+                        Alert.alert('please fill input field..!', 'Please try again');
+                    }
+                }).catch((error));
+
+            Alert.alert('User Registered', 'Successfully registered as new user ');
+        } else {
+            Alert.alert('Password Not Match ');
+        }
     };
     const storeData = async (value, token) => {
         try {
@@ -117,8 +130,28 @@ export default function Register({navigation}) {
         } catch (e) {
         }
     };
-    return (
-        <LinearGradient
+    const startLoading = () => {
+        Register();
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    };
+    const onEnterText = (TextInputValue) => {
+        if (TextInputValue.trim() != 0) {
+            this.setState({ TextInputValue: TextInputValue, ErrorStatus: true });
+        } else {
+            this.setState({ TextInputValue: TextInputValue, ErrorStatus: false });
+        }
+    }
+    {
+        errorState == false ? (
+            <Text style={styles.errorMessage}>
+                * Please enter the text to proceed.
+            </Text>
+        ) : null
+    }
+    return (<LinearGradient
         colors={['#a6d4ff', '#1E90FF']}
         style={styles.linearGradient}>
 
@@ -133,18 +166,24 @@ export default function Register({navigation}) {
                 style={styles.imgBack}
             />
         </TouchableOpacity>
-        {/*----------------------------Back Title----------------------------*/}
-        <Text style={styles.backTitle}>Register</Text>
-        {/*----------------------------Head Image----------------------------*/}
-        <View style={styles.registerCircle}>
-            <Image
-                style={styles.logo}
-                source={require('../assets/logos/main_logo.png')}
-            />
-        </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            {/*----------------------------Head Title----------------------------*/}
-            <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ display: 'flex' }}>
+            <View style={{width:wp('30%'),alignItems:'center',justifyContent:'center',marginLeft:70}}>
+                {/*----------------------------Back Title----------------------------*/}
+                <Text style={styles.backTitle}>Register</Text>
+                {/*----------------------------Head Image----------------------------*/}
+            </View>
+
+            <View style={styles.registerCircle}>
+                <Image
+                    style={styles.logo}
+                    source={require('../assets/logos/main_logo.png')}
+                />
+            </View>
+
+            <View style={{ width: wp('30%'), marginLeft: 70}}>
+                {/*----------------------------Head Title----------------------------*/}
+                <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
+            </View>
             {/*---------------------------Common --------------------------------*/}
 
 
@@ -169,9 +208,10 @@ export default function Register({navigation}) {
                 txtEntry={false}
             />
             <BasicInput
-                viewLabel="phone"
+                viewLabel="Phone"
                 valuData={contact}
                 valueSet={text => phoneValidate(text)}
+                onChangeText={TextInputValue => onEnterText(TextInputValue)}
                 txtEntry={false}
             />
             <BasicInput
@@ -188,42 +228,32 @@ export default function Register({navigation}) {
             />
             <BasicInput
                 viewLabel="Confirm Password"
-                valueSet={text => setPassword({
-                    confirmpassword: text,
-                })}
+                valueSet={setConfirmPassword}
                 txtEntry={true}
             />
-        </ScrollView>
-        {/*-------------------------- Radio Button ---------------------------*/}
-        {/*<RadioForm*/}
-        {/*                style={styles.ridBtn}*/}
-        {/*                radio_props={radio_props}*/}
-        {/*                initial={0}*/}
-        {/*                animation={true}*/}
-        {/*                buttonColor="#ffffff"*/}
-        {/*                labelStyle={{fontSize: 15, color: '#ffffff'}}*/}
-        {/*                />*/}
-        <ActivityIndicator size="small" color="#0000ff" animating={false}/>
-        {/*----------------Register Button-----------*/}
+
+            {/*----------------Register Button-----------*/}
+
 
             <TouchableOpacity
                 style={styles.btnRegister}
                 onPress={registerUser}>
                 <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
             </TouchableOpacity>
-    </LinearGradient>
-    );
+        </ScrollView>
+
+    </LinearGradient>);
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1, justifyContent: 'center', alignItems: 'center',
     }, linearGradient: {
-        flex: 1, justifyContent: 'center', alignItems: 'center',
+        flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
     }, btnBack: {
-        width: 45, height: 45, backgroundColor: 'rgba(0,0,0,0)', marginRight: '90%', marginTop: '6%',
+        width: wp('10%'), height: hp('5%'), backgroundColor: 'rgba(0,0,0,0)', marginRight: '90%', marginTop: '6%',
     }, imgBack: {
-        width: 45, height: 45, marginTop: '-55%', marginLeft: '20%',
+        width: wp('10%'), height: hp('5%'), marginTop: '-55%', marginLeft: '20%',
     }, txtError: {
         color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
     }, txtPwError: {
@@ -233,29 +263,39 @@ const styles = StyleSheet.create({
     }, txtCPWError: {
         color: '#ff2020', fontSize: 15, marginLeft: '-40%', marginTop: '-2%',
     }, backTitle: {
-        fontSize: 30, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginTop: '-15%',
+        fontSize: 30, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 15,
     }, registerCircle: {
-        width: 140, height: 140, backgroundColor: '#ffffff', borderRadius: 230, elevation: 8, marginTop: '5%',
+        width: wp('35%'), height: hp('15%'), backgroundColor: '#ffffff', borderRadius: 230, elevation: 8, marginLeft: 60
 
-    }, ridBtn: {
-        backgroundColor: 'balck', marginLeft: '-17%', marginTop: '3%',
-    }, registerHeadTitle: {
+    },
+    // ridBtn: {
+    //     marginLeft: '10%', marginTop: '7%',
+    // }, 
+    registerHeadTitle: {
         fontSize: 25, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginTop: '5%', textAlign: 'center',
-    }, //  rdBtn: {
-    //     marginTop: '3%',
-    // },
+    }, //rdBtn: {
+    //      marginTop: '3%',
+    //  },
     btnRegister: {
-        width: 280,
-        height: 50,
+        width: wp('60%'),
+        height: hp('5%'),
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginTop: '5%',
+        marginTop: 15,
+        marginBottom: 15,
+        marginLeft: 10
     }, btnRegisterTxt: {
-        fontSize: 25, color: '#ffffff', alignSelf: 'center', marginTop: '-1%',
+        fontSize: 25, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', alignSelf: 'center', marginTop: '-1%',
     }, logo: {
-        width: 140, height: 140, justifyContent: 'center', alignItems: 'center',
+        width: wp('35%'), height: hp('15%'), justifyContent: 'center', alignItems: 'center',
+    }, spinnerTextStyle: {
+        color: '#000000',
+    }, errorMessage: {
+        fontSize: 20,
+        color: "red",
+        marginLeft: -80,
     },
 });

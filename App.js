@@ -31,13 +31,17 @@ const App = () => {
                 console.log(e);
             }
         };
+            // init().finally(async () => {
+            //     await RNBootSplash.hide({fade: true});
+            // });
+       
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             SplashScreen.hide();
         }, 1000);
-
+     
     }, []);
     if (token === null) {
         return (

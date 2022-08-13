@@ -20,5 +20,6 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "smart_aqua";
   }
+  
 
 }
