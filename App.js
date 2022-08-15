@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Screens---------------------------------------------------------------------------------------------------------------
 import OnBoarding from './views/OnBoarding';
@@ -31,17 +31,17 @@ const App = () => {
                 console.log(e);
             }
         };
-            // init().finally(async () => {
-            //     await RNBootSplash.hide({fade: true});
-            // });
-       
+        init().finally(async () => {
+            await RNBootSplash.hide({ fade: true });
+        });
+
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             SplashScreen.hide();
         }, 1000);
-     
+
     }, []);
     if (token === null) {
         return (
@@ -54,13 +54,13 @@ const App = () => {
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal',
                     })}>
-                    <Stack.Screen name="OnBoarding" component={OnBoarding}/>
-                    <Stack.Screen name="Welcome" component={Welcome}/>
-                    <Stack.Screen name="SignIn" component={SignIn}/>
-                    <Stack.Screen name="Register" component={Register}/>
-                    <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
-                    <Stack.Screen name="Dashboard" component={Dashboard}/>
-                    <Stack.Screen name="QrCode" component={QrCode}/>
+                    <Stack.Screen name="OnBoarding" component={OnBoarding} />
+                    <Stack.Screen name="Welcome" component={Welcome} />
+                    <Stack.Screen name="SignIn" component={SignIn} />
+                    <Stack.Screen name="Register" component={Register} />
+                    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+                    <Stack.Screen name="Dashboard" component={Dashboard} />
+                    <Stack.Screen name="QrCode" component={QrCode} />
 
                 </Stack.Navigator>
             </NavigationContainer>
@@ -76,7 +76,7 @@ const App = () => {
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal',
                     })}>
-                    <Stack.Screen name="Dashboard" component={Dashboard}/>
+                    <Stack.Screen name="Dashboard" component={Dashboard} />
                 </Stack.Navigator>
             </NavigationContainer>
         );

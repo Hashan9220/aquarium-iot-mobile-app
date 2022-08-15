@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View,} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {ActivityIndicator, Divider, Text} from 'react-native-paper';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { ActivityIndicator, Divider, Text } from 'react-native-paper';
+import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseURL from "../services/baseURL";
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 export default function ProfileScreen() {
 
     const [id, setId] = useState(null);
@@ -39,7 +39,7 @@ export default function ProfileScreen() {
         getId();
         getToken();
         defaultImage();
-        
+
     }, []);
 
     useEffect(() => {
@@ -48,9 +48,9 @@ export default function ProfileScreen() {
         }
     }, [id, token])
 
-const defaultImage =() =>{
-   
-}
+    const defaultImage = () => {
+
+    }
 
     const getId = async () => {
         let value = await AsyncStorage.getItem('id');
@@ -65,7 +65,7 @@ const defaultImage =() =>{
             setToken(token);
         }
     }
- 
+
     const imageUpload = async () => {
         let options = {
             mediaType: 'photo',
@@ -77,7 +77,7 @@ const defaultImage =() =>{
             if (response.didCancel === true) {
             } else if (response.errorCode && parseInt(response.errorCode)) {
                 alert("error image upload");
-            }else if(response.assets[0].fileSize >1000000) {
+            } else if (response.assets[0].fileSize > 1000000) {
                 alert('Maximum image size exceeded Please Choose image under 2 MB')
             } else {
                 setPic(response.assets[0].base64);
@@ -106,7 +106,7 @@ const defaultImage =() =>{
             .then((responseData) => {
                 getUserData();
             }).catch(error => {
-        })
+            })
     }
 
     const startLoading = () => {
@@ -119,49 +119,51 @@ const defaultImage =() =>{
     return (<LinearGradient
         colors={['#a6d4ff', '#1E90FF']}
         style={styles.container}>
-        {loading ? (<ActivityIndicator
-            visible={loading}
-            textStyle={styles.spinnerTextStyle}
-        />) : (<View style={styles.card} onScroll={startLoading}>
-            <View style={styles.imgContainer}>
-            {/* <Image style={styles.images} source={require('../assets/icons/profile.png')}/> */}
-                <Image 
-                    source={{uri: 'http://54.245.177.239/storage/user_images/' + pic}}
-                    style={styles.images}
-                />
+        <ScrollView showsVerticalScrollIndicator={false}>
+            {loading ? (<ActivityIndicator
+                visible={loading}
+                textStyle={styles.spinnerTextStyle}
+            />) : (<View style={styles.card} onScroll={startLoading}>
+                <View style={styles.imgContainer}>
+                    {/* <Image style={styles.images} source={require('../assets/icons/profile.png')}/> */}
+                    <Image
+                        source={{ uri: 'http://54.245.177.239/storage/user_images/' + pic }}
+                        style={styles.images}
+                    />
+                </View>
+                <TouchableOpacity
+                    style={styles.cameraContainer}
+                    onPress={() => imageUpload()}>
+                    <Image
+                        style={{ marginLeft: '5%' }}
+                        source={require('../assets/icons/camera.png')}
+                    />
+                </TouchableOpacity>
+                <Text style={styles.name}>{name}</Text>
+            </View>)}
+            <View style={styles.mainContainer}>
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}> Name :- {name}         </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider />
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}> Email :- {userEmail} </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider />
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}> Address :- {address}       </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider />
+                <View style={styles.detailContainer}>
+                    <Text style={styles.heading}> Contact :- {contact}           </Text>
+                    <Text style={styles.detail}> </Text>
+                </View>
+                <Divider />
             </View>
-            <TouchableOpacity
-                style={styles.cameraContainer}
-                onPress={() => imageUpload()}>
-                <Image
-                    style={{marginLeft: '5%'}}
-                    source={require('../assets/icons/camera.png')}
-                />
-            </TouchableOpacity>
-            <Text style={styles.name}>{name}</Text>
-        </View>)}
-        <View style={styles.mainContainer}>
-            <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Name :- {name}       </Text>
-                <Text style={styles.detail}> </Text>
-            </View>
-            <Divider/>
-            <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Email :- {userEmail}  </Text>
-                <Text style={styles.detail}> </Text>
-            </View>
-            <Divider/>
-            <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Address :- {address}    </Text>
-                <Text style={styles.detail}> </Text>
-            </View>
-            <Divider/>
-            <View style={styles.detailContainer}>
-                <Text style={styles.heading}> Contact :- {contact}    </Text>
-                <Text style={styles.detail}> </Text>
-            </View>
-            <Divider/>
-        </View>
+        </ScrollView>
     </LinearGradient>);
 }
 
@@ -172,20 +174,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }, card: {
-        padding: 5,
-        width: '90%',
-        height: '30%',
+
+        width: wp('100%'),
+        height: hp('40%'),
         borderRadius: 25,
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '-15%',
+
     }, imgContainer: {
         width: 100,
-        height: 100,
         borderRadius: 50,
         backgroundColor: '#fff',
         borderWidth: 1,
+        marginBottom:-20,
         borderColor: '#a6d4ff',
     }, cameraContainer: {
         width: 35,
@@ -194,12 +196,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#a6d4ff',
         borderWidth: 3,
         borderColor: '#a6d4ff',
-        marginTop: '-12%',
-        marginLeft: '20%',
+        marginLeft: '15%',
         justifyContent: 'center',
         alignItems: 'center',
     }, name: {
-        marginTop: '5%',
+        marginTop:20,
         fontSize: 25,
         color: '#34495e',
     }, heading: {
@@ -209,15 +210,15 @@ const styles = StyleSheet.create({
     }, detail: {
         color: '#fff',
         fontSize: 20,
-        textAlign: 'right',
-        marginTop: '-7%',
+        textAlign: 'left',
     }, mainContainer: {
         marginTop: '10%',
-        width: '90%',
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+      
     }, detailContainer: {
-        width: '100%',
         padding: 5,
-        marginTop: '5%',
     }, images: {
         width: 100,
         height: 100,

@@ -22,31 +22,32 @@ export default function QrCode(navigation) {
         getId();
     }
     return (
+        <View style={{ flex: 1}}>
+           
 
+            <View style={{backgroundColor:'green',width:'100%',height:'100%'}}>
+                 <QRCodeScanner
+                reactivate={true}
+                showMarker={true}
+                onRead={onSuccess}
+                // topContent={
+                //     <View style={styles.topView}>
+                //         <Text style={styles.centerText}>
+                //             <Text style={styles.txtData}>Your Device Id :{state.data}</Text>
+                //         </Text>
+                //     </View>
+                // }
 
-        <QRCodeScanner
-            reactivate={true}
-            showMarker={true}
-            
-            onRead={onSuccess}
-
-            topContent={
-                <View style={styles.topView}>
-                    <Text style={styles.centerText}>
-                        <Text style={styles.txtData}>Your Device Id :{state.data}</Text>
-                    </Text>
-                </View>
-            }
-            bottomContent={
-                <View style={styles.bottomView}>
-                    <TouchableOpacity style={styles.btnGoView} onPress={goDashabord} >
-                        <Text style={styles.txtGo}>Go</Text>
-                    </TouchableOpacity>
-                </View>
-            }
-        />
-
-
+                // bottomContent={
+                //     <View style={styles.bottomView}>
+                //         <TouchableOpacity style={styles.btnGoView} onPress={goDashabord} >
+                //             <Text style={styles.txtGo}>Go</Text>
+                //         </TouchableOpacity>
+                //     </View>
+                // }
+            />
+            </View>
+        </View>
 
 
     );
