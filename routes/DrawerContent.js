@@ -6,6 +6,7 @@ import {Drawer, Text} from 'react-native-paper';
 import baseURL from '../services/baseURL';
 
 const ModelPoup = ({visible, children}) => {
+
     const [showModel, setShowModel] = React.useState(visible);
     const scaleValue = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {

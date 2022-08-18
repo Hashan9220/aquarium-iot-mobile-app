@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Image,
-    KeyboardAvoidingView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View, ScrollView, Dimensions
+    ActivityIndicator, Alert, Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // import RadioForm from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Common---------------------------------------------------
-import { BasicInput } from '../common/BasicInput';
+import {BasicInput} from '../common/BasicInput';
 import Dashboard from "./Dashboard";
 import baseURL from "../services/baseURL";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 // const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
-export default function SignIn({ navigation }) {
-    const { width: WIDTH, height: height } = Dimensions.get('window');
+export default function SignIn({navigation}) {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -37,8 +30,7 @@ export default function SignIn({ navigation }) {
             .then((json) => {
                 if (json.token) {
                     const val = {
-                        id: json.user.id,
-                        image: json.user.images,
+                        id: json.user.id, image: json.user.images,
                     }
                     navigation.navigate('Dashboard')
                     storeData(json)
@@ -83,16 +75,15 @@ export default function SignIn({ navigation }) {
         }, 3000);
     };
 
-    return (
-        <LinearGradient
+    return (<LinearGradient
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.linearGradient}>
             {/*----------------------------Back Button----------------------------*/}
-            <View style={{ marginLeft: 10, width: '100%', }}>
+            <View style={{marginLeft: 10, width: '100%',}}>
                 <TouchableOpacity style={styles.btnBack}
-                    onPress={() => {
-                        navigation.navigate('Welcome');
-                    }}
+                                  onPress={() => {
+                                      navigation.navigate('Welcome');
+                                  }}
                 >
                     <Image
                         source={require('../assets/icons/left_arrow.png')}
@@ -100,11 +91,11 @@ export default function SignIn({ navigation }) {
                     />
                 </TouchableOpacity>
             </View>
-            <ScrollView style={{ width: wp('75%'), padding: 20, marginBottom: 10 }}>
+            <ScrollView style={{width: wp('75%'), padding: 20, marginBottom: 10}}>
 
 
                 {/*----------------------------Back Title----------------------------*/}
-                <View style={{ width: wp('20%'), marginLeft: 80 }}>
+                <View style={{width: wp('20%'), marginLeft: 80}}>
                     <Text style={styles.backTitle}>Sign In</Text>
                 </View>
 
@@ -117,7 +108,7 @@ export default function SignIn({ navigation }) {
                 </View>
 
                 {/*----------------------------Head Title----------------------------*/}
-                <View style={{ width: wp('30%'), marginLeft: 60 }}>
+                <View style={{width: wp('30%'), marginLeft: 60}}>
                     <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
                 </View>
 
@@ -164,7 +155,7 @@ export default function SignIn({ navigation }) {
                         {'Forgot Password ?'}
                     </Text>
                 </TouchableOpacity>
-                <View style={styles.separator} />
+                <View style={styles.separator}/>
                 {/*----------------Register----------------*/}
                 <TouchableOpacity
                     style={styles.btnReg}
@@ -181,33 +172,19 @@ export default function SignIn({ navigation }) {
 
 const styles = StyleSheet.create({
     linearGradient: {
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center',
     }, btnBack: {
-        width: wp('10%'),
-        height: 45,
+        width: wp('10%'), height: 45,
     }, imgBack: {
-        width: wp('10%'),
-        height: 45,
+        width: wp('10%'), height: 45,
 
     }, backTitle: {
-        fontSize: 31,
-        fontFamily: 'Montserrat-Regular',
-        color: '#ffffff',
-        marginBottom: 10
+        fontSize: 31, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 10
 
     }, txtError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-38%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
     }, txtPwError: {
-        color: '#ff2020',
-        fontSize: 15,
-        marginLeft: '-31%',
-        marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginLeft: '-31%', marginTop: '-2%',
     }, signInCircle: {
         width: wp('40%'),
         height: hp('18%'),
@@ -219,48 +196,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }, signInHeadTitle: {
-        fontSize: 26,
-        fontFamily: 'Montserrat-SemiBold',
-        color: '#ffffff',
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    //  rdBtn: {
+        fontSize: 26, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginBottom: 20, textAlign: 'center',
+    }, //  rdBtn: {
     //     marginLeft: '-17%',
     //     marginTop: '3%',
     // }, 
     btnForgotPassword: {
-        width: wp('65%'),
-        height: '4%',
-        backgroundColor: 'rgba(255,0,0,0)',
-        textAlign: 'center',
-        marginTop: '2%',
+        width: wp('65%'), height: '4%', backgroundColor: 'rgba(255,0,0,0)', textAlign: 'center', marginTop: '2%',
     }, btnForgotPasswordTxt: {
-        fontSize: 15,
-        color: '#ffffff',
-        alignSelf: 'center',
-        marginTop: '2%',
-        fontFamily: 'Montserrat-Regular',
+        fontSize: 15, color: '#ffffff', alignSelf: 'center', marginTop: '2%', fontFamily: 'Montserrat-Regular',
     }, separator: {
-        width: wp('65%'),
-        height: 1,
-        backgroundColor: 'rgb(255,255,255)',
-        marginTop: '5%',
+        width: wp('65%'), height: 1, backgroundColor: 'rgb(255,255,255)', marginTop: '5%',
     }, btnReg: {
-        width: wp('65%'),
-        height: '4%',
-        backgroundColor: 'rgba(255,0,0,0)',
-        textAlign: 'center',
-        marginBottom: '20%'
-    },
-    btnRegTxt: {
-        fontSize: 20,
-        color: '#ffffff',
-        alignSelf: 'center',
-        fontWeight: 'bold',
-        fontFamily: 'Montserrat-Medium',
-    },
-    btnSignIn: {
+        width: wp('65%'), height: '4%', backgroundColor: 'rgba(255,0,0,0)', textAlign: 'center', marginBottom: '20%'
+    }, btnRegTxt: {
+        fontSize: 20, color: '#ffffff', alignSelf: 'center', fontWeight: 'bold', fontFamily: 'Montserrat-Medium',
+    }, btnSignIn: {
         width: wp('65%'),
         height: 50,
         elevation: 8,
@@ -272,9 +223,7 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     }, btnSignInTxt: {
-        fontSize: 21,
-        color: '#ffffff',
-        alignSelf: 'center',
+        fontSize: 21, color: '#ffffff', alignSelf: 'center',
 
         fontFamily: 'Montserrat-Medium',
     }, logo: {

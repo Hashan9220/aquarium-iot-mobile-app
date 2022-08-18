@@ -6,7 +6,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseURL from "../services/baseURL";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
 
     const [id, setId] = useState(null);
     const [token, setToken] = useState(null);
@@ -162,6 +162,13 @@ export default function ProfileScreen() {
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider />
+
+                <TouchableOpacity style={styles.btnRegister}
+                                  onPress={() => {
+                                      navigation.navigate('QrCode');
+                                  }}>
+                    <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     </LinearGradient>);

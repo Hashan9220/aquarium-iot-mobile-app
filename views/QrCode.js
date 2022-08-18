@@ -1,29 +1,24 @@
 import React, {useState} from 'react';
-import {Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions, Alert} from 'react-native';
+import {
+    Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions,
+} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Animatable from "react-native-animatable";
-import Dashboard from "./Dashboard";
-import SignIn from "./SignIn";
-import ProfileScreen from "./ProfileScreen";
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const overlayColor = "rgba(0,0,0,0.5)"; // this gives us a black color with a 50% transparency
-
-const rectDimensions = SCREEN_WIDTH * 0.65; // this is equivalent to 255 from a 393 device width
-const rectBorderWidth = SCREEN_WIDTH * 0.005; // this is equivalent to 2 from a 393 device width
+const overlayColor = "rgba(0,0,0,0.5)";
+const rectDimensions = SCREEN_WIDTH * 0.65;
+const rectBorderWidth = SCREEN_WIDTH * 0.005;
 const rectBorderColor = "#fff";
-
-const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
-const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
+const scanBarWidth = SCREEN_WIDTH * 0.46;
+const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = "red";
-const iconScanColor = "#fff";
 
-export default function QrCode({navigation}) {
+export default function QrCode() {
 
     const makeSlideOutTranslation = (translationType, fromValue) => {
         return {
@@ -37,29 +32,24 @@ export default function QrCode({navigation}) {
 
     const [state, setState] = useState('');
     const onSuccess = e => {
-        Linking.openURL(e.data).catch(err => setState({data: e.data}));
-
+        Linking.openURL(e.data).catch(_err => setState({data: e.data}));
     };
+
     const getId = async () => {
         console.log(state.data);
         try {
             await AsyncStorage.setItem('@device_id', state.data);
-            if (state.data){
-                console.log("navigate")
-                navigation.navigate(ProfileScreen);
+            if (state.data) {
+                console.log('navigate')
+                // navigation.navigate('Home');
             }
         } catch (e) {
         }
     };
+
     const goDashabord = () => {
-        console.log("goDashbord");
         getId();
-
     }
-
-
-
-
 
     return (<QRCodeScanner
             showMarker
@@ -94,41 +84,14 @@ export default function QrCode({navigation}) {
                 </View>
 
                 <View style={styles.bottomOverlay}>
-                   <TouchableOpacity style={styles.btnGoView} onPress={goDashabord} >
-
+                    {/* eslint-disable-next-line no-undef */}
+                    <TouchableOpacity style={styles.btnGoView} onPress={goDashabord}>
                         <Text style={styles.txtGo}>Go</Text>
                     </TouchableOpacity>
 
                 </View>
-            </View>
-
-            }
-
+            </View>}
         />
-
-
-
-        // <QRCodeScanner
-        // reactivate={true}
-        // showMarker={true}
-        // onRead={onSuccess}
-        // topContent={
-        //     <View style={styles.topView}>
-        //         <Text style={styles.centerText}>
-        //             <Text style={styles.txtData}>Your Device Id :{state.data}</Text>
-        //         </Text>
-        //     </View>
-        // }
-
-        // bottomContent={
-        //     <View style={styles.bottomView}>
-        //         <TouchableOpacity style={styles.btnGoView} onPress={goDashabord} >
-        //             <Text style={styles.txtGo}>Go</Text>
-        //         </TouchableOpacity>
-        //     </View>
-        // }
-        //  />
-
 
     );
 }
@@ -184,14 +147,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }, txtData: {
         color: '#ffffff', fontWeight: '500', fontSize: 25,
-    }, // bottomView: {
-    //     width: '100%',
-    //     height: '100%',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     backgroundColor: '#1E90FF',
-    // },
-    btnGoView: {
+    }, btnGoView: {
         width: '50%',
         height: '15%',
         borderRadius: 10,

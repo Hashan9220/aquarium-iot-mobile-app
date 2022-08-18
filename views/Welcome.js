@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, ScrollView, Dimensions,StatusBar
+    StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, Dimensions, StatusBar
 } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -58,8 +58,16 @@ const styles = StyleSheet.create({
     }, linearGradient: {
         flex: 1, justifyContent: "center", alignItems: "center"
     }, titleName: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', fontSize: 25, //fontFamily:'Roboto-Bold',
-        fontFamily: 'Montserrat-Bold', color: '#ffffff', marginBottom: '10%',marginLeft:'15%',marginTop:'30%',paddingTop:StatusBar.currentHeight,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 25, //fontFamily:'Roboto-Bold',
+        fontFamily: 'Montserrat-Bold',
+        color: '#ffffff',
+        marginBottom: '10%',
+        marginLeft: '15%',
+        marginTop: '30%',
+        paddingTop: StatusBar.currentHeight,
     }, imgCircle: {
         width: wp('45%'),
         height: hp('20%'),
@@ -96,7 +104,7 @@ const styles = StyleSheet.create({
     }, btnSignIn: {
         width: wp('60%'),
         height: hp('6%'),
-        marginLeft:'5%',
+        marginLeft: '5%',
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        marginLeft:'5%',
+        marginLeft: '5%',
         marginTop: 20,
         marginBottom: 30
     }, btnRegisterTxt: {

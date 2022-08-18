@@ -11,11 +11,36 @@ import welcome from './Welcome';
 import register from './Register';
 import FeedScreen from './FeedScreen';
 import QrCode from './QrCode';
+import Home from "./Home";
 
 const Drawer = createDrawerNavigator();
 
 export default function Dashboard() {
-
+    function HomeStack() {
+        return (
+            <Stack.Navigator
+                initialRouteName="Home">
+                <Stack.Screen
+                    name="Home"
+                    component={Home}
+                    options={{ title: 'Home Page' }}
+                />
+            </Stack.Navigator>
+        );
+    }
+    function QrCodeStack() {
+        return (
+            <Stack.Navigator
+                initialRouteName="QrCode">
+                <Stack.Screen
+                    name="QrCode"
+                    component={QrCode}
+                    options={{ title: 'QrCode Page' }}
+                />
+            </Stack.Navigator>
+        );
+    }
+    
     return (<NavigationContainer independent={true}>
         <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} onPress={props} />}>
             <Drawer.Screen
@@ -31,14 +56,17 @@ export default function Dashboard() {
                         <Image source={require('../assets/logos/notification_icon.png')} />),
                 }}
                 name="Bottom Tab" component={BottomTab}/>
-            <Drawer.Screen options={{headerShown: null}} name={"StackNav"} component={StackNav}/>
-            <Drawer.Screen options={{headerShown: null}} name={"Dashboard"} component={Dashboard}/>
-            <Drawer.Screen options={{headerShown: null}} name={"Welcome"} component={welcome}/>
-            <Drawer.Screen options={{headerShown: null}} name={"ForgotPassword"} component={ForgotPassword}/>
-            <Drawer.Screen options={{headerShown: null}} name={"Register"} component={register}/>
-            <Drawer.Screen options={{headerShown: null}} name={"SignIn"} component={signIn}/>
-            <Drawer.Screen options={{headerShown: true}} name={"FeedScreen"} component={FeedScreen}/>
-            <Drawer.Screen options={{headerShown: true}} name={"QrCode"} component={QrCode}/>
+            <Drawer.Screen options={{headerShown: null}} name={'StackNav'} component={StackNav}/>
+            <Drawer.Screen options={{headerShown: null}} name={'Dashboard'} component={Dashboard}/>
+            <Drawer.Screen options={{headerShown: null}} name={'Welcome'} component={welcome}/>
+            <Drawer.Screen options={{headerShown: null}} name={'ForgotPassword'} component={ForgotPassword}/>
+            <Drawer.Screen options={{headerShown: null}} name={'Register'} component={register}/>
+            <Drawer.Screen options={{headerShown: null}} name={'SignIn'} component={signIn}/>
+            <Drawer.Screen options={{headerShown: null}} name={'QrCode'} component={QrCode}/>
+            <Drawer.Screen options={{headerShown: true}} name={'Home'} component={Home}/>
+            <Drawer.Screen options={{headerShown: true}} name={'FeedScreen'} component={FeedScreen}/>
+
+
         </Drawer.Navigator>
     </NavigationContainer>)
 }

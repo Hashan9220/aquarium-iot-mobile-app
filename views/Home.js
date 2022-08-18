@@ -1,17 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity, Appearance,ScrollView } from 'react-native';
+import React, {useEffect, useState} from "react";
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    Image,
+    Alert,
+    LogBox,
+    TouchableOpacity,
+    Appearance,
+    ScrollView
+} from 'react-native';
 import darkMode from "./darkMode";
 import LinearGradient from "react-native-linear-gradient";
-import { Card, Title, Paragraph, Button, Dialog, Portal, Provider } from 'react-native-paper';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {Card, Title, Paragraph, Button, Dialog, Portal, Provider} from 'react-native-paper';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { riskyPhValueNotification } from '../services/LocalPushController'
-import { riskyTemperatureNotification } from '../services/LocalPushController'
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import {riskyPhValueNotification} from '../services/LocalPushController'
+import {riskyTemperatureNotification} from '../services/LocalPushController'
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
-export default function Home({ navigation }) {
+export default function Home({onPress}) {
+    console.log("onpress", onPress);
     const [visible, setVisible] = React.useState(false);
     const showDialog = () => setVisible(true);
     const hideDialog = () => setVisible(false);
@@ -130,95 +142,95 @@ export default function Home({ navigation }) {
 
             colors={['#a6d4ff', '#1E90FF']}
             style={styles.container}>
-                 <ScrollView style={{ width: wp('100%'),}}>
-            {id === "" && <View>
-                <Portal>
-                    <Dialog visible={visible}>
-                        <Dialog.Title>No Device Found</Dialog.Title>
-                        <Dialog.Content>
-                            <Paragraph>scan Your Device</Paragraph>
-                        </Dialog.Content>
-                        <Dialog.Actions>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    Clickdone();
-                                }}><Text>Done</Text></TouchableOpacity>
-                        </Dialog.Actions>
-                    </Dialog>
-                </Portal>
-            </View>}
-            <StatusBar backgroundColor='#a6d4ff' />
-            <View>
-                <View style={styles.deviceIdView}>
-                    <Text style={styles.txtDeviceId}>{"Your ID : "}{id}</Text>
-                </View>
-                <View style={styles.cardSection}>
-                    <Card style={{
-                        ...theme === 'light' ? styles.leftCard : darkMode.leftCard,
-                        borderColor: ph >= 7.50 ? 'red' : ph >= 6.5 ? 'yellow' : ph <= 6.5 ? 'green' : '#fff',
-                        borderWidth: ph > 7.50 ? 3 : ph >= 6.5 ? 3 : ph <= 6.5 ? 3 : 0
-                    }}>
-                        <Card.Content style={styles.cardContent}>
-                            <Title style={{ color: '#1E90FF' }}>pH</Title>
-                            <Paragraph style={{ color: '#050505' }}>{ph}</Paragraph>
-                        </Card.Content>
-                        <Card style={styles.subCard}>
-                            <Card.Content style={styles.cardContent}>
-                                <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')} />
-                            </Card.Content>
-                        </Card>
-                    </Card>
-                    <Card style={theme === 'light' ? styles.rightCard : darkMode.rightCard}>
-                        <Card.Content style={styles.cardContent}>
-                            <Title style={{ color: '#1E90FF', }}>NH3</Title>
-
-                            <View style={{ marginTop: '12%' }}>
-                                <Paragraph style={{
-                                    fontSize: 15, color: 'red', opacity: dangerNh3, marginTop: '-12%'
-                                }}>Dangerous</Paragraph>
-                                <Paragraph style={{
-                                    fontSize: 15, color: 'green', marginTop: '-15%', opacity: normalNh3
-                                }}>Normal</Paragraph>
-
-                                <View style={{ marginTop: '-18%', marginLeft: '60%' }}>
-                                    <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity} />
-                                    <View style={{
-                                        width: 15,
-                                        height: 15,
-                                        borderRadius: 50,
-                                        backgroundColor: 'green',
-                                        marginTop: '-28%',
-                                        opacity: normalIndicatorOpacity
-                                    }}></View>
-                                </View>
-                            </View>
-                        </Card.Content>
-                        <Card style={styles.subCard}>
-                            <Card.Content style={styles.cardContent}>
-                                <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')} />
-                            </Card.Content>
-                        </Card>
-                    </Card>
-                </View>
-
-                <View style={styles.tempSection}>
-                    <Text style={{ fontSize: 25, color: 'white', }}>
-                        Current Temperature
-                    </Text>
-                    <View progressBarContainer>
-                        <Progress.Circle progress={temp / 50}
-                            color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                            size={250} style={styles.progressCircle} indeterminate={false}>
-                            <View style={styles.midCircle}>
-                                <Text style={styles.temperature}>
-                                    {temp} °C
-                                </Text>
-                            </View>
-                        </Progress.Circle>
+            <ScrollView style={{width: wp('100%'),}}>
+                {id === "" && <View>
+                    <Portal>
+                        <Dialog visible={visible}>
+                            <Dialog.Title>No Device Found</Dialog.Title>
+                            <Dialog.Content>
+                                <Paragraph>scan Your Device</Paragraph>
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Clickdone();
+                                    }}><Text>Done</Text></TouchableOpacity>
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
+                </View>}
+                <StatusBar backgroundColor='#a6d4ff'/>
+                <View>
+                    <View style={styles.deviceIdView}>
+                        <Text style={styles.txtDeviceId}>{"Your ID : "}{id}</Text>
                     </View>
-                </View>
+                    <View style={styles.cardSection}>
+                        <Card style={{
+                            ...theme === 'light' ? styles.leftCard : darkMode.leftCard,
+                            borderColor: ph >= 7.50 ? 'red' : ph >= 6.5 ? 'yellow' : ph <= 6.5 ? 'green' : '#fff',
+                            borderWidth: ph > 7.50 ? 3 : ph >= 6.5 ? 3 : ph <= 6.5 ? 3 : 0
+                        }}>
+                            <Card.Content style={styles.cardContent}>
+                                <Title style={{color: '#1E90FF'}}>pH</Title>
+                                <Paragraph style={{color: '#050505'}}>{ph}</Paragraph>
+                            </Card.Content>
+                            <Card style={styles.subCard}>
+                                <Card.Content style={styles.cardContent}>
+                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')}/>
+                                </Card.Content>
+                            </Card>
+                        </Card>
+                        <Card style={theme === 'light' ? styles.rightCard : darkMode.rightCard}>
+                            <Card.Content style={styles.cardContent}>
+                                <Title style={{color: '#1E90FF',}}>NH3</Title>
 
-            </View>
+                                <View style={{marginTop: '12%'}}>
+                                    <Paragraph style={{
+                                        fontSize: 15, color: 'red', opacity: dangerNh3, marginTop: '-12%'
+                                    }}>Dangerous</Paragraph>
+                                    <Paragraph style={{
+                                        fontSize: 15, color: 'green', marginTop: '-15%', opacity: normalNh3
+                                    }}>Normal</Paragraph>
+
+                                    <View style={{marginTop: '-18%', marginLeft: '60%'}}>
+                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
+                                        <View style={{
+                                            width: 15,
+                                            height: 15,
+                                            borderRadius: 50,
+                                            backgroundColor: 'green',
+                                            marginTop: '-28%',
+                                            opacity: normalIndicatorOpacity
+                                        }}></View>
+                                    </View>
+                                </View>
+                            </Card.Content>
+                            <Card style={styles.subCard}>
+                                <Card.Content style={styles.cardContent}>
+                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
+                                </Card.Content>
+                            </Card>
+                        </Card>
+                    </View>
+
+                    <View style={styles.tempSection}>
+                        <Text style={{fontSize: 25, color: 'white',}}>
+                            Current Temperature
+                        </Text>
+                        <View progressBarContainer>
+                            <Progress.Circle progress={temp / 50}
+                                             color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
+                                             size={250} style={styles.progressCircle} indeterminate={false}>
+                                <View style={styles.midCircle}>
+                                    <Text style={styles.temperature}>
+                                        {temp} °C
+                                    </Text>
+                                </View>
+                            </Progress.Circle>
+                        </View>
+                    </View>
+
+                </View>
             </ScrollView>
         </LinearGradient>
     </Provider>)
@@ -226,31 +238,15 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems:'center',
-        justifyContent:'center',
-        padding: 20
+        flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20
     }, deviceIdView: {
-        width:wp('95%'),
-        height: "5%",
-        alignItems: "center",
-        justifyContent: "center"
+        width: wp('95%'), height: "5%", alignItems: "center", justifyContent: "center"
     }, txtDeviceId: {
-        color: "#ffffff",
-        fontSize: 20,
-        fontWeight: "500"
+        color: "#ffffff", fontSize: 20, fontWeight: "500"
     }, cardSection: {
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
-        padding: 5, display: 'flex',
-        marginTop: 10
+        justifyContent: 'flex-end', alignItems: 'flex-start', padding: 5, display: 'flex', marginTop: 10
     }, leftCard: {
-        width:wp('40%'),
-        height: 165,
-        marginLeft:'5%',
-        borderRadius: 30,
-        elevation: 10,
-        shadowColor: 'black'
+        width: wp('40%'), height: 165, marginLeft: '5%', borderRadius: 30, elevation: 10, shadowColor: 'black'
     }, rightCard: {
         width: wp('40%'),
         height: 165,
@@ -260,7 +256,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         shadowColor: 'black',
     }, subCard: {
-        width:wp('18%'),
+        width: wp('18%'),
         height: 70,
         borderRadius: 20,
         marginLeft: '50%',
@@ -270,29 +266,17 @@ const styles = StyleSheet.create({
         shadowColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    cardContent: {
+    }, cardContent: {
         marginTop: 65,
-    },
-    card_logo: {
-        width: 50,
-        height: 50,
-        marginTop: -65,
-    },
-    tempSection: {
-        padding: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    progressCircle: {
-        width:wp('80%'),
-        height: 300,
-        marginTop: '10%',
-        justifyContent: 'center',
-        alignItems: 'center',
+    }, card_logo: {
+        width: 50, height: 50, marginTop: -65,
+    }, tempSection: {
+        padding: 20, justifyContent: 'center', alignItems: 'center',
+    }, progressCircle: {
+        width: wp('80%'), height: 300, marginTop: '10%', justifyContent: 'center', alignItems: 'center',
 
     }, midCircle: {
-        width:wp('50%'),
+        width: wp('50%'),
         height: 200,
         borderRadius: 200,
         backgroundColor: '#fff',
@@ -305,7 +289,6 @@ const styles = StyleSheet.create({
         position: 'absolute'
 
     }, temperature: {
-        fontSize: 30,
-        color: '#000'
+        fontSize: 30, color: '#000'
     },
 })

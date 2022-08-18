@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { BasicInput } from "../common/BasicInput";
+import {BasicInput} from "../common/BasicInput";
 import Dashboard from "./Dashboard";
-// import responsive from '../common/diamesions/responsive';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import baseURL from "../services/baseURL";
 // import RadioForm from 'react-native-simple-radio-button';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 // const radio_props = [{ label: 'Agree to Terms & Conditions', value: 0 }];
-const { width: WIDTH, height: height } = Dimensions.get('window');
-export default function Register({ navigation }) {
+
+export default function Register({navigation}) {
 
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -20,10 +20,8 @@ export default function Register({ navigation }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [textInputValue, setTextInputValue] = useState('');
     const [errorState, setErrorState] = useState(true);
     const [token, setToken] = useState('');
-    const [checked, setChecked] = React.useState('first');
 
     //Validation---------------------------------------------------
     const firstNameValidate = text => {
@@ -77,8 +75,8 @@ export default function Register({ navigation }) {
             setPassword(text);
             return false;
         } else {
-            setPassword({ password: text });
-            setPassword({ passwordError: false });
+            setPassword({password: text});
+            setPassword({passwordError: false});
         }
     };
 
@@ -115,6 +113,7 @@ export default function Register({ navigation }) {
                     } else {
                         Alert.alert('please fill input field..!', 'Please try again');
                     }
+                    // eslint-disable-next-line no-undef
                 }).catch((error));
 
             Alert.alert('User Registered', 'Successfully registered as new user ');
@@ -139,17 +138,15 @@ export default function Register({ navigation }) {
     };
     const onEnterText = (TextInputValue) => {
         if (TextInputValue.trim() != 0) {
-            this.setState({ TextInputValue: TextInputValue, ErrorStatus: true });
+            this.setState({TextInputValue: TextInputValue, ErrorStatus: true});
         } else {
-            this.setState({ TextInputValue: TextInputValue, ErrorStatus: false });
+            this.setState({TextInputValue: TextInputValue, ErrorStatus: false});
         }
     }
     {
-        errorState == false ? (
-            <Text style={styles.errorMessage}>
+        errorState == false ? (<Text style={styles.errorMessage}>
                 * Please enter the text to proceed.
-            </Text>
-        ) : null
+            </Text>) : null
     }
     return (<LinearGradient
         colors={['#a6d4ff', '#1E90FF']}
@@ -166,8 +163,8 @@ export default function Register({ navigation }) {
                 style={styles.imgBack}
             />
         </TouchableOpacity>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ display: 'flex' }}>
-            <View style={{width:wp('30%'),alignItems:'center',justifyContent:'center',marginLeft:70}}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{display: 'flex'}}>
+            <View style={{width: wp('30%'), alignItems: 'center', justifyContent: 'center', marginLeft: 70}}>
                 {/*----------------------------Back Title----------------------------*/}
                 <Text style={styles.backTitle}>Register</Text>
                 {/*----------------------------Head Image----------------------------*/}
@@ -180,7 +177,7 @@ export default function Register({ navigation }) {
                 />
             </View>
 
-            <View style={{ width: wp('30%'), marginLeft: 70}}>
+            <View style={{width: wp('30%'), marginLeft: 70}}>
                 {/*----------------------------Head Title----------------------------*/}
                 <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
             </View>
@@ -267,8 +264,7 @@ const styles = StyleSheet.create({
     }, registerCircle: {
         width: wp('35%'), height: hp('15%'), backgroundColor: '#ffffff', borderRadius: 230, elevation: 8, marginLeft: 60
 
-    },
-    // ridBtn: {
+    }, // ridBtn: {
     //     marginLeft: '10%', marginTop: '7%',
     // }, 
     registerHeadTitle: {
@@ -288,14 +284,18 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         marginLeft: 10
     }, btnRegisterTxt: {
-        fontSize: 25, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', alignSelf: 'center', marginTop: '-1%',
+        fontSize: 25,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#ffffff',
+        alignSelf: 'center',
+        marginTop: '-1%',
     }, logo: {
         width: wp('35%'), height: hp('15%'), justifyContent: 'center', alignItems: 'center',
     }, spinnerTextStyle: {
         color: '#000000',
     }, errorMessage: {
-        fontSize: 20,
-        color: "red",
-        marginLeft: -80,
+        fontSize: 20, color: "red", marginLeft: -80,
     },
 });
