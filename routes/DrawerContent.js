@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Animated, Image, Linking, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
+import BottomTab from './StackNav';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Drawer, Text} from 'react-native-paper';
 import baseURL from '../services/baseURL';

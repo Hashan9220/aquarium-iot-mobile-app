@@ -22,7 +22,7 @@ import {riskyPhValueNotification} from '../services/LocalPushController'
 import {riskyTemperatureNotification} from '../services/LocalPushController'
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
-export default function Home({onPress}) {
+export default function Home({onPress,navigation, route }) {
     console.log("onpress", onPress);
     const [visible, setVisible] = React.useState(false);
     const showDialog = () => setVisible(true);

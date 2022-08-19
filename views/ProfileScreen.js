@@ -127,7 +127,7 @@ export default function ProfileScreen({navigation}) {
                 <View style={styles.imgContainer}>
                     {/* <Image style={styles.images} source={require('../assets/icons/profile.png')}/> */}
                     <Image
-                        source={{ uri: 'http://54.245.177.239/storage/user_images/' + pic }}
+                        source={{ uri: 'baseURL/storage/user_images/' + pic }}
                         style={styles.images}
                     />
                 </View>
@@ -162,13 +162,6 @@ export default function ProfileScreen({navigation}) {
                     <Text style={styles.detail}> </Text>
                 </View>
                 <Divider />
-
-                <TouchableOpacity style={styles.btnRegister}
-                                  onPress={() => {
-                                      navigation.navigate('QrCode');
-                                  }}>
-                    <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
-                </TouchableOpacity>
             </View>
         </ScrollView>
     </LinearGradient>);

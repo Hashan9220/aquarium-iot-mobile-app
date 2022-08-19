@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-    Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions,
+    Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions,onPress
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Animatable from "react-native-animatable";
+import { CommonActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import BottomTab from '../routes/BottomTab';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -17,9 +21,8 @@ const rectBorderColor = "#fff";
 const scanBarWidth = SCREEN_WIDTH * 0.46;
 const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = "red";
-
-export default function QrCode() {
-
+export default function QrCode({navigation}) {
+console.log("nav",navigation);
     const makeSlideOutTranslation = (translationType, fromValue) => {
         return {
             from: {
@@ -32,7 +35,7 @@ export default function QrCode() {
 
     const [state, setState] = useState('');
     const onSuccess = e => {
-        Linking.openURL(e.data).catch(_err => setState({data: e.data}));
+        Linking.openURL(e.data).catch(_err => setState({ data: e.data }));
     };
 
     const getId = async () => {
@@ -41,7 +44,7 @@ export default function QrCode() {
             await AsyncStorage.setItem('@device_id', state.data);
             if (state.data) {
                 console.log('navigate')
-                // navigation.navigate('Home');
+                navigation.navigate('Dashboard');
             }
         } catch (e) {
         }
@@ -52,46 +55,46 @@ export default function QrCode() {
     }
 
     return (<QRCodeScanner
-            showMarker
-            onRead={onSuccess}
-            cameraStyle={{height: SCREEN_HEIGHT}}
-            customMarker={<View style={styles.rectangleContainer}>
-                <View style={styles.topOverlay}>
-                    <Text style={styles.txtData}>Your Device Id :{state.data}</Text>
+        showMarker
+        onRead={onSuccess}
+        cameraStyle={{ height: SCREEN_HEIGHT }}
+        customMarker={<View style={styles.rectangleContainer}>
+            <View style={styles.topOverlay}>
+                <Text style={styles.txtData}>Your Device Id :{state.data}</Text>
+            </View>
+
+            <View style={{ flexDirection: 'row' }}>
+
+                <View style={styles.leftAndRightOverlay} />
+
+                <View style={styles.rectangle}>
+                    <Icon
+
+                        size={SCREEN_WIDTH * 0.73}
+
+                    />
+                    <Animatable.View
+                        style={styles.scanBar}
+                        direction="alternate-reverse"
+                        iterationCount="infinite"
+                        duration={1700}
+                        easing="linear"
+                        animation={makeSlideOutTranslation('translateY', SCREEN_WIDTH * -0.54)}
+                    />
                 </View>
 
-                <View style={{flexDirection: 'row'}}>
+                <View style={styles.leftAndRightOverlay} />
+            </View>
 
-                    <View style={styles.leftAndRightOverlay}/>
+            <View style={styles.bottomOverlay}>
+                {/* eslint-disable-next-line no-undef */}
+                <TouchableOpacity style={styles.btnGoView }   onPress={goDashabord}>
+                    <Text style={styles.txtGo}>Go</Text>
+                </TouchableOpacity>
 
-                    <View style={styles.rectangle}>
-                        <Icon
-
-                            size={SCREEN_WIDTH * 0.73}
-
-                        />
-                        <Animatable.View
-                            style={styles.scanBar}
-                            direction="alternate-reverse"
-                            iterationCount="infinite"
-                            duration={1700}
-                            easing="linear"
-                            animation={makeSlideOutTranslation('translateY', SCREEN_WIDTH * -0.54)}
-                        />
-                    </View>
-
-                    <View style={styles.leftAndRightOverlay}/>
-                </View>
-
-                <View style={styles.bottomOverlay}>
-                    {/* eslint-disable-next-line no-undef */}
-                    <TouchableOpacity style={styles.btnGoView} onPress={goDashabord}>
-                        <Text style={styles.txtGo}>Go</Text>
-                    </TouchableOpacity>
-
-                </View>
-            </View>}
-        />
+            </View>
+        </View>}
+    />
 
     );
 }
