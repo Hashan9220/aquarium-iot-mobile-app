@@ -1,22 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Animated, Image, Linking, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import BottomTab from './StackNav';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Drawer, Text} from 'react-native-paper';
 import baseURL from '../services/baseURL';
+import SignIn from "../views/SignIn";
+
 
 const ModelPoup = ({visible, children}) => {
 
     const [showModel, setShowModel] = React.useState(visible);
     const scaleValue = React.useRef(new Animated.Value(0)).current;
+
+
+
     React.useEffect(() => {
         toggleModal();
     }, [visible]);
 
     const toggleModal = () => {
-        if (visible) {
+        if (visible && SignIn) {
             setShowModel(true);
+
             Animated.spring(scaleValue, {
                 toValue: 1, duration: 300, useNativeDriver: true,
             }).start();
@@ -45,7 +50,8 @@ export default function DrawerContent({navigation, onPress}) {
             await AsyncStorage.removeItem('alreadyLaunched');
             await AsyncStorage.removeItem('@device_id');
             await AsyncStorage.removeItem('token');
-            navigation.navigate('Welcome');
+            navigation.navigate('StackNav');
+
         } catch (e) {
         }
     }
@@ -56,6 +62,7 @@ export default function DrawerContent({navigation, onPress}) {
     const [token, setToken] = useState('');
     const [id, setId] = useState('');
     const [visible, setVisible] = useState(false);
+
 
     useEffect(() => {
         getId();
@@ -97,7 +104,7 @@ export default function DrawerContent({navigation, onPress}) {
     };
 
     return (<View style={styles.drawerContainer}>
-        <DrawerContentScrollView>
+        <DrawerContentScrollView >
             <View style={styles.userInfoSection}>
                 <View style={styles.profilePicSection}>
                     <Image

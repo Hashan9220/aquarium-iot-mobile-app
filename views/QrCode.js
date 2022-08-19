@@ -7,10 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Animatable from "react-native-animatable";
-import { CommonActions } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import BottomTab from '../routes/BottomTab';
-
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -21,6 +17,7 @@ const rectBorderColor = "#fff";
 const scanBarWidth = SCREEN_WIDTH * 0.46;
 const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = "red";
+
 export default function QrCode({navigation}) {
 console.log("nav",navigation);
     const makeSlideOutTranslation = (translationType, fromValue) => {

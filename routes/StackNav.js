@@ -10,7 +10,6 @@ const Stack = createNativeStackNavigator();
 
 export default function StackNav() {
     return (<Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="OnBoarding" component={OnBoarding} />
         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
         <Stack.Screen options={{ headerShown: false }} name="SignIn" component={SignIn} />
         <Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />

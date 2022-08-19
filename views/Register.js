@@ -145,26 +145,27 @@ export default function Register({navigation}) {
     }
     {
         errorState == false ? (<Text style={styles.errorMessage}>
-                * Please enter the text to proceed.
-            </Text>) : null
+            * Please enter the text to proceed.
+        </Text>) : null
     }
-    return (<LinearGradient
-        colors={['#a6d4ff', '#1E90FF']}
-        style={styles.linearGradient}>
+    return (<ScrollView showsVerticalScrollIndicator={false} style={StyleSheet.container}>
+        <LinearGradient
+            colors={['#a6d4ff', '#1E90FF']}
+            style={styles.linearGradient}>
 
-        {/*----------------------------Back Button----------------------------*/}
-        <TouchableOpacity
-            style={styles.btnBack}
-            onPress={() => {
-                navigation.navigate('Welcome');
-            }}>
-            <Image
-                source={require('../assets/icons/left_arrow.png')}
-                style={styles.imgBack}
-            />
-        </TouchableOpacity>
-        <ScrollView showsVerticalScrollIndicator={false} style={{display: 'flex'}}>
-            <View style={{width: wp('30%'), alignItems: 'center', justifyContent: 'center', marginLeft: 70}}>
+            {/*----------------------------Back Button----------------------------*/}
+            <TouchableOpacity
+                style={styles.btnBack}
+                onPress={() => {
+                    navigation.navigate('Welcome');
+                }}>
+                <Image
+                    source={require('../assets/icons/left_arrow.png')}
+                    style={styles.imgBack}
+                />
+            </TouchableOpacity>
+
+            <View style={{width: wp('30%'), alignItems: 'center', justifyContent: 'center',}}>
                 {/*----------------------------Back Title----------------------------*/}
                 <Text style={styles.backTitle}>Register</Text>
                 {/*----------------------------Head Image----------------------------*/}
@@ -177,7 +178,7 @@ export default function Register({navigation}) {
                 />
             </View>
 
-            <View style={{width: wp('30%'), marginLeft: 70}}>
+            <View style={{width: wp('30%')}}>
                 {/*----------------------------Head Title----------------------------*/}
                 <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
             </View>
@@ -237,9 +238,8 @@ export default function Register({navigation}) {
                 onPress={registerUser}>
                 <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
             </TouchableOpacity>
-        </ScrollView>
-
-    </LinearGradient>);
+        </LinearGradient>
+    </ScrollView>);
 }
 
 const styles = StyleSheet.create({
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     }, backTitle: {
         fontSize: 30, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 15,
     }, registerCircle: {
-        width: wp('35%'), height: hp('15%'), backgroundColor: '#ffffff', borderRadius: 230, elevation: 8, marginLeft: 60
+        width: wp('35%'), height: hp('16%'), backgroundColor: '#ffffff', borderRadius: 360, elevation: 8,
 
     }, // ridBtn: {
     //     marginLeft: '10%', marginTop: '7%',
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 15,
         marginBottom: 15,
-        marginLeft: 10
+
     }, btnRegisterTxt: {
         fontSize: 25,
         display: 'flex',

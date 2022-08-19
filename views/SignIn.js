@@ -75,27 +75,27 @@ export default function SignIn({navigation}) {
         }, 3000);
     };
 
-    return (<LinearGradient
-            colors={['#a6d4ff', '#1E90FF']}
-            style={styles.linearGradient}>
-            {/*----------------------------Back Button----------------------------*/}
-            <View style={{marginLeft: 10, width: '100%',}}>
-                <TouchableOpacity style={styles.btnBack}
-                                  onPress={() => {
-                                      navigation.navigate('Welcome');
-                                  }}
-                >
-                    <Image
-                        source={require('../assets/icons/left_arrow.png')}
-                        style={styles.imgBack}
-                    />
-                </TouchableOpacity>
-            </View>
-            <ScrollView style={{width: wp('75%'), padding: 20, marginBottom: 10}}>
+    return (<ScrollView showsVerticalScrollIndicator={false}  style={StyleSheet.sconterner}>
+            <LinearGradient
+                colors={['#a6d4ff', '#1E90FF']}
+                style={styles.linearGradient}>
+                {/*----------------------------Back Button----------------------------*/}
+                <View style={{marginLeft: 10, width: '100%',}}>
+                    <TouchableOpacity style={styles.btnBack}
+                                      onPress={() => {
+                                          navigation.navigate('Welcome');
+                                      }}
+                    >
+                        <Image
+                            source={require('../assets/icons/left_arrow.png')}
+                            style={styles.imgBack}
+                        />
+                    </TouchableOpacity>
+                </View>
 
 
                 {/*----------------------------Back Title----------------------------*/}
-                <View style={{width: wp('20%'), marginLeft: 80}}>
+                <View style={{width: wp('20%')}}>
                     <Text style={styles.backTitle}>Sign In</Text>
                 </View>
 
@@ -108,7 +108,7 @@ export default function SignIn({navigation}) {
                 </View>
 
                 {/*----------------------------Head Title----------------------------*/}
-                <View style={{width: wp('30%'), marginLeft: 60}}>
+                <View style={{width: wp('30%')}}>
                     <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
                 </View>
 
@@ -164,15 +164,16 @@ export default function SignIn({navigation}) {
                     }}>
                     <Text style={styles.btnRegTxt}>{'Register'}</Text>
                 </TouchableOpacity>
-            </ScrollView>
-        </LinearGradient>
-
-    );
+            </LinearGradient>
+        </ScrollView>);
 }
 
 const styles = StyleSheet.create({
+    sconterner:{
+        flex: 1, justifyContent: 'center', alignItems: 'center',height:hp('100%')
+    },
     linearGradient: {
-        display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center',
+       flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center',height:hp('100%')
     }, btnBack: {
         width: wp('10%'), height: 45,
     }, imgBack: {
@@ -182,13 +183,12 @@ const styles = StyleSheet.create({
         fontSize: 31, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 10
 
     }, txtError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginTop: '-2%',
     }, txtPwError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-31%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15,  marginTop: '-2%',
     }, signInCircle: {
         width: wp('40%'),
         height: hp('18%'),
-        marginLeft: 40,
         backgroundColor: '#ffffff',
         borderRadius: 230,
         elevation: 8,

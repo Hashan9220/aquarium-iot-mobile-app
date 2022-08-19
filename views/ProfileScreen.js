@@ -32,8 +32,10 @@ export default function ProfileScreen({navigation}) {
                 setUserAddress(json.address);
                 setUserContact(json.contact);
                 setPic(json.user_image);
+                console.log("json",json.user_image);
             })
     }
+
 
     useEffect(() => {
         getId();
@@ -127,7 +129,7 @@ export default function ProfileScreen({navigation}) {
                 <View style={styles.imgContainer}>
                     {/* <Image style={styles.images} source={require('../assets/icons/profile.png')}/> */}
                     <Image
-                        source={{ uri: 'baseURL/storage/user_images/' + pic }}
+                        source={{ uri: 'http://54.245.177.239:8060/storage/user_images/' + pic }}
                         style={styles.images}
                     />
                 </View>

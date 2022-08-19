@@ -51,7 +51,7 @@ const App = () => {
                     shifting="true"
                     screenOptions={() => ({
                         headerShown: false,
-                        gestureEnabled: true,
+                        gestureEnabled: false,
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal',
                     })}>
@@ -62,8 +62,6 @@ const App = () => {
                     <Stack.Screen name="Register" component={Register}/>
                     <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
                     <Stack.Screen name="Dashboard" component={Dashboard}/>
-                    <Stack.Screen name="QrCode" component={QrCode}/>
-                    <Stack.Screen name="Home" component={Home}/>
                 </Stack.Navigator>
             </NavigationContainer>);
     } else {
@@ -72,7 +70,7 @@ const App = () => {
                     shifting="true"
                     screenOptions={() => ({
                         headerShown: false,
-                        gestureEnabled: true,
+                        gestureEnabled: false,
                         cardOverlayEnabled: false,
                         gestureDirection: 'horizontal',
                     })}>
