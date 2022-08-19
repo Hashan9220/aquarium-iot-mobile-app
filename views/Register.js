@@ -239,7 +239,8 @@ export default function Register({navigation}) {
                 <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
             </TouchableOpacity>
         </LinearGradient>
-    </ScrollView>);
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
