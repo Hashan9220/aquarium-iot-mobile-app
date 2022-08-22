@@ -1,11 +1,12 @@
 import React from 'react'
-import {StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, StatusBar} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, StatusBar, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function Welcome({navigation}) {
 
     return (
+        <SafeAreaView style={{flex:1}}>
         <ScrollView style={StyleSheet.swcontainer} >
             <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
@@ -18,7 +19,7 @@ export default function Welcome({navigation}) {
                 </View>
                 {/*----------------Head Title ------------*/}
                 <Text style={styles.headTitle}>
-                    Welcome in {'\n'} Smart Aquarium
+                    Welcome in{'\n'}Smart Aquarium
                 </Text>
                 {/*--------------- Details Title------------*/}
                 <Text style={styles.detailTitle}>
@@ -40,41 +41,44 @@ export default function Welcome({navigation}) {
                     <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
                 </TouchableOpacity>
             </LinearGradient>
-        </ScrollView>)
+        </ScrollView>
+        </SafeAreaView>)
 }
 
 const styles = StyleSheet.create({
     swcontainer: {
         flex: 1,justifyContent: 'center', alignItems: 'center',
     }, linearGradient: {
-     flexDirection: 'column',justifyContent: 'center', alignItems: 'center',
+        flex: 1, justifyContent: 'center', alignItems: 'center',height:hp('100%')
     }, titleName: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+    marginTop:'10%',
+ 
         fontSize: 25, //fontFamily:'Roboto-Bold',
         fontFamily: 'Montserrat-Bold',
         color: '#ffffff',
         marginBottom: '10%',
         paddingTop: StatusBar.currentHeight,
     }, imgCircle: {
-        width: wp('45%'),
-        height: hp('20%'),
+        width: wp('50%'),
+        height: hp('25%'),
         backgroundColor: '#ffffff',
         borderRadius:360,
         elevation: 8,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '10%'
+        marginBottom: '5%'
     }, headTitle: {
-        width: wp('70%'),
-        height: hp('10%'),
-        fontSize: 35,
+        width: wp('80%'),
+        height: hp('15%'),
+        alignItems:'center',
+        justifyContent:'center',
+        fontSize: 30,
         fontFamily: 'Montserrat-Medium',
         color: '#ffffff',
-        marginTop: 20,
-        textAlign: 'center'
+        marginTop: '5%',
+        textAlign: 'center',
+       
     }, detailTitle: {
         fontSize: 18,
         fontFamily: 'Montserrat-Medium',
@@ -86,8 +90,8 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
+
+ 
         marginTop: '5%',
     }, btnSignInTxt: {
         fontSize: 21,
@@ -102,10 +106,8 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: '#ffffff',
         borderRadius: 15,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        marginTop: 20,
-
+        marginTop: '5%',
+       
     }, btnRegisterTxt: {
         fontSize: 20,
         color: '#5FB0FF',

@@ -95,7 +95,7 @@ export default function SignIn({navigation}) {
 
 
                 {/*----------------------------Back Title----------------------------*/}
-                <View style={{width: wp('20%')}}>
+                <View style={{width: wp('100%'),alignItems:'center',justifyContent:'center'}}>
                     <Text style={styles.backTitle}>Sign In</Text>
                 </View>
 
@@ -180,14 +180,14 @@ const styles = StyleSheet.create({
         width: wp('10%'), height: 45,
 
     }, backTitle: {
-        fontSize: 31, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 10
+        fontSize: 25, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 10
 
     }, txtError: {
         color: '#ff2020', fontSize: 15, marginTop: '-2%',
     }, txtPwError: {
         color: '#ff2020', fontSize: 15,  marginTop: '-2%',
     }, signInCircle: {
-        width: wp('40%'),
+        width: wp('35%'),
         height: hp('18%'),
         backgroundColor: '#ffffff',
         borderRadius: 230,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }, signInHeadTitle: {
-        fontSize: 26, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginBottom: 20, textAlign: 'center',
+        fontSize: 20, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginBottom: 20, textAlign: 'center',
     }, //  rdBtn: {
     //     marginLeft: '-17%',
     //     marginTop: '3%',

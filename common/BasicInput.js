@@ -30,21 +30,21 @@ export function BasicInput({
 
 const styles = StyleSheet.create({
     inputView: {
-        paddingVertical: 6,
+        paddingVertical: 5,
     },
     txt: {
         width: wp('65%'),
-        height: hp('5%'),
+        height: hp('6.5%'),
         borderColor: '#ffffff',
         borderWidth: 3,
         borderRadius: 7,
         elevation: 8,
         color: '#ffffff',
         backgroundColor: '#B0D7FD',
-        paddingVertical: 10,
+      
         paddingHorizontal: 10,
         fontSize: 18,
-        marginBottom:10
+       
 
     },
 });

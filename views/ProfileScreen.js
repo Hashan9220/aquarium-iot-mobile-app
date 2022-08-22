@@ -32,7 +32,7 @@ export default function ProfileScreen({navigation}) {
                 setUserAddress(json.address);
                 setUserContact(json.contact);
                 setPic(json.user_image);
-                console.log("json",json.user_image);
+
             })
     }
 

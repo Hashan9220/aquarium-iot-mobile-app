@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {BasicInput} from "../common/BasicInput";
 import Dashboard from "./Dashboard";
@@ -148,99 +148,100 @@ export default function Register({navigation}) {
             * Please enter the text to proceed.
         </Text>) : null
     }
-    return (<ScrollView showsVerticalScrollIndicator={false} style={StyleSheet.container}>
-        <LinearGradient
-            colors={['#a6d4ff', '#1E90FF']}
-            style={styles.linearGradient}>
+    return (<SafeAreaView style={{flex: 1}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={StyleSheet.container}>
+                <LinearGradient
+                    colors={['#a6d4ff', '#1E90FF']}
+                    style={styles.linearGradient}>
 
-            {/*----------------------------Back Button----------------------------*/}
-            <TouchableOpacity
-                style={styles.btnBack}
-                onPress={() => {
-                    navigation.navigate('Welcome');
-                }}>
-                <Image
-                    source={require('../assets/icons/left_arrow.png')}
-                    style={styles.imgBack}
-                />
-            </TouchableOpacity>
+                    {/*----------------------------Back Button----------------------------*/}
+                    <TouchableOpacity
+                        style={styles.btnBack}
+                        onPress={() => {
+                            navigation.navigate('Welcome');
+                        }}>
+                        <Image
+                            source={require('../assets/icons/left_arrow.png')}
+                            style={styles.imgBack}
+                        />
+                    </TouchableOpacity>
 
-            <View style={{width: wp('30%'), alignItems: 'center', justifyContent: 'center',}}>
-                {/*----------------------------Back Title----------------------------*/}
-                <Text style={styles.backTitle}>Register</Text>
-                {/*----------------------------Head Image----------------------------*/}
-            </View>
+                    <View style={{width: wp('40%'), alignItems: 'center', justifyContent: 'center',}}>
+                        {/*----------------------------Back Title----------------------------*/}
+                        <Text style={styles.backTitle}>Register</Text>
+                        {/*----------------------------Head Image----------------------------*/}
+                    </View>
 
-            <View style={styles.registerCircle}>
-                <Image
-                    style={styles.logo}
-                    source={require('../assets/logos/main_logo.png')}
-                />
-            </View>
+                    <View style={styles.registerCircle}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../assets/logos/main_logo.png')}
+                        />
+                    </View>
 
-            <View style={{width: wp('30%')}}>
-                {/*----------------------------Head Title----------------------------*/}
-                <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
-            </View>
-            {/*---------------------------Common --------------------------------*/}
-
-
-            <BasicInput
-                viewLabel="First Name"
-                valuData={firstname}
-                valueSet={text => firstNameValidate(text)}
-                txtEntry={false}
-                autoCorrect={false}
-                autoCap="none"
-            />
-            <BasicInput
-                viewLabel="Last Name"
-                valuData={lastname}
-                valueSet={text => lastNameValidate(text)}
-                txtEntry={false}
-            />
-            <BasicInput
-                viewLabel="Email"
-                valuData={email}
-                valueSet={text => emailValidate(text)}
-                txtEntry={false}
-            />
-            <BasicInput
-                viewLabel="Phone"
-                valuData={contact}
-                valueSet={text => phoneValidate(text)}
-                onChangeText={TextInputValue => onEnterText(TextInputValue)}
-                txtEntry={false}
-            />
-            <BasicInput
-                viewLabel="Address"
-                valuData={address}
-                valueSet={text => addressValidate(text)}
-                txtEntry={false}
-            />
-            <BasicInput
-                viewLabel="Password"
-                valuData={password}
-                valueSet={text => passwordValidate(text)}
-                txtEntry={true}
-            />
-            <BasicInput
-                viewLabel="Confirm Password"
-                valueSet={setConfirmPassword}
-                txtEntry={true}
-            />
-
-            {/*----------------Register Button-----------*/}
+                    <View style={{width: wp('30%')}}>
+                        {/*----------------------------Head Title----------------------------*/}
+                        <Text style={styles.registerHeadTitle}>SMART{'\n'}AQUARIUM</Text>
+                    </View>
+                    {/*---------------------------Common --------------------------------*/}
 
 
-            <TouchableOpacity
-                style={styles.btnRegister}
-                onPress={registerUser}>
-                <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
-            </TouchableOpacity>
-        </LinearGradient>
-    </ScrollView>
-  );
+                    <BasicInput
+                        viewLabel="First Name"
+                        valuData={firstname}
+                        valueSet={text => firstNameValidate(text)}
+                        txtEntry={false}
+                        autoCorrect={false}
+                        autoCap="none"
+                    />
+                    <BasicInput
+                        viewLabel="Last Name"
+                        valuData={lastname}
+                        valueSet={text => lastNameValidate(text)}
+                        txtEntry={false}
+                    />
+                    <BasicInput
+                        viewLabel="Email"
+                        valuData={email}
+                        valueSet={text => emailValidate(text)}
+                        txtEntry={false}
+                    />
+                    <BasicInput
+                        viewLabel="Phone"
+                        valuData={contact}
+                        valueSet={text => phoneValidate(text)}
+                        onChangeText={TextInputValue => onEnterText(TextInputValue)}
+                        txtEntry={false}
+                    />
+                    <BasicInput
+                        viewLabel="Address"
+                        valuData={address}
+                        valueSet={text => addressValidate(text)}
+                        txtEntry={false}
+                    />
+                    <BasicInput
+                        viewLabel="Password"
+                        valuData={password}
+                        valueSet={text => passwordValidate(text)}
+                        txtEntry={true}
+                    />
+                    <BasicInput
+                        viewLabel="Confirm Password"
+                        valueSet={setConfirmPassword}
+                        txtEntry={true}
+                    />
+
+                    {/*----------------Register Button-----------*/}
+
+
+                    <TouchableOpacity
+                        style={styles.btnRegister}
+                        onPress={registerUser}>
+                        <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
+                    </TouchableOpacity>
+                </LinearGradient>
+            </ScrollView>
+        </SafeAreaView>);
 }
 
 const styles = StyleSheet.create({
@@ -251,38 +252,37 @@ const styles = StyleSheet.create({
     }, btnBack: {
         width: wp('10%'), height: hp('5%'), backgroundColor: 'rgba(0,0,0,0)', marginRight: '90%', marginTop: '6%',
     }, imgBack: {
-        width: wp('10%'), height: hp('5%'), marginTop: '-55%', marginLeft: '20%',
+        width: wp('10%'), height: hp('5%'),
     }, txtError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-38%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15,
     }, txtPwError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-31%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15,
     }, txtUserError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-45%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15
     }, txtCPWError: {
-        color: '#ff2020', fontSize: 15, marginLeft: '-40%', marginTop: '-2%',
+        color: '#ff2020', fontSize: 15,
     }, backTitle: {
-        fontSize: 30, fontFamily: 'Montserrat-Regular', color: '#ffffff', marginBottom: 15,
+        fontSize: 20, fontFamily: 'Montserrat-Regular', color: '#ffffff',marginTop:'-12%'
     }, registerCircle: {
-        width: wp('35%'), height: hp('16%'), backgroundColor: '#ffffff', borderRadius: 360, elevation: 8,
+        width: wp('35%'), height: hp('18%'), backgroundColor: '#ffffff', borderRadius: 360, elevation: 8,alignItems:'center',justifyContent:'center'
 
     }, // ridBtn: {
     //     marginLeft: '10%', marginTop: '7%',
     // }, 
     registerHeadTitle: {
-        fontSize: 25, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', marginTop: '5%', textAlign: 'center',
+       width:'100%', fontSize: 20, fontFamily: 'Montserrat-SemiBold', color: '#ffffff', textAlign: 'center',
     }, //rdBtn: {
     //      marginTop: '3%',
     //  },
     btnRegister: {
         width: wp('60%'),
-        height: hp('5%'),
+        height: hp('6%'),
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        marginTop: 15,
-        marginBottom: 15,
+        paddingVertical: 10, // paddingHorizontal: 12,
+        marginTop: '3%',
+        marginBottom: '2%',
 
     }, btnRegisterTxt: {
         fontSize: 25,
@@ -297,6 +297,6 @@ const styles = StyleSheet.create({
     }, spinnerTextStyle: {
         color: '#000000',
     }, errorMessage: {
-        fontSize: 20, color: "red", marginLeft: -80,
+        fontSize: 20, color: "red",
     },
 });

@@ -1,31 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    StatusBar,
-    Image,
-    Alert,
-    LogBox,
-    TouchableOpacity,
-    Appearance,
-    ScrollView
+    View, Text, StyleSheet, StatusBar, Image, Alert, LogBox, TouchableOpacity, Appearance, ScrollView, SafeAreaView
 } from 'react-native';
 import darkMode from "./darkMode";
 import LinearGradient from "react-native-linear-gradient";
 import {Card, Title, Paragraph, Button, Dialog, Portal, Provider} from 'react-native-paper';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {riskyPhValueNotification} from '../services/LocalPushController'
 import {riskyTemperatureNotification} from '../services/LocalPushController'
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import {Pulse} from 'react-native-loader';
 
-export default function Home({onPress,navigation, route }) {
-    console.log("onpress", onPress);
+export default function Home() {
+
     const [visible, setVisible] = React.useState(false);
-    const showDialog = () => setVisible(true);
+    const showDialog = () => setVisible(false);
     const hideDialog = () => setVisible(false);
     const [ph, setPh] = useState(0);
     const [temp, setTemp] = useState(0);
@@ -138,11 +129,12 @@ export default function Home({onPress,navigation, route }) {
         }
     }
     return (<Provider>
-        <LinearGradient
+        <SafeAreaView style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
-            colors={['#a6d4ff', '#1E90FF']}
-            style={styles.container}>
-            <ScrollView style={{width: wp('100%'),}}>
+            <LinearGradient
+                colors={['#a6d4ff', '#1E90FF']}
+                style={styles.lcontainer}>
+
                 {id === "" && <View>
                     <Portal>
                         <Dialog visible={visible}>
@@ -174,9 +166,10 @@ export default function Home({onPress,navigation, route }) {
                                 <Title style={{color: '#1E90FF'}}>pH</Title>
                                 <Paragraph style={{color: '#050505'}}>{ph}</Paragraph>
                             </Card.Content>
-                            <Card style={styles.subCard}>
+                            <Card style={styles.subCard1}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/ph_icon.png')}/>
+                                    <Image style={styles.card_logo}
+                                           source={require('../assets/icons/ph_icon.png')}/>
                                 </Card.Content>
                             </Card>
                         </Card>
@@ -193,13 +186,13 @@ export default function Home({onPress,navigation, route }) {
                                     }}>Normal</Paragraph>
 
                                     <View style={{marginTop: '-18%', marginLeft: '60%'}}>
-                                        <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
+                                        <Pulse size={10} color={indicatorColor}
+                                               opacity={dangerIndicatorOpacity}/>
                                         <View style={{
                                             width: 15,
                                             height: 15,
                                             borderRadius: 50,
                                             backgroundColor: 'green',
-                                            marginTop: '-28%',
                                             opacity: normalIndicatorOpacity
                                         }}></View>
                                     </View>
@@ -207,59 +200,84 @@ export default function Home({onPress,navigation, route }) {
                             </Card.Content>
                             <Card style={styles.subCard}>
                                 <Card.Content style={styles.cardContent}>
-                                    <Image style={styles.card_logo} source={require('../assets/icons/NH3_icon.png')}/>
+                                    <Image style={styles.card_logo}
+                                           source={require('../assets/icons/NH3_icon.png')}/>
                                 </Card.Content>
                             </Card>
                         </Card>
                     </View>
 
                     <View style={styles.tempSection}>
-                        <Text style={{fontSize: 25, color: 'white',}}>
+                        <Text style={{fontSize: 25, color: 'white', marginTop:'-50%'}}>
                             Current Temperature
                         </Text>
-                        <View progressBarContainer>
-                            <Progress.Circle progress={temp / 50}
+                    </View>
+                    <View style={{
+                        width: wp('100%'),
+
+                        flex: 1, alignItems: 'center', justifyContent: 'center'
+                    }}>
+                        <Text style={styles.temperature}> {temp} °C </Text>
+
+                        <View style={styles.midCircle}>
+
+                            <Progress.Circle style={styles.progressCircle} progress={temp / 50}
                                              color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                                             size={250} style={styles.progressCircle} indeterminate={false}>
-                                <View style={styles.midCircle}>
-                                    <Text style={styles.temperature}>
-                                        {temp} °C
-                                    </Text>
-                                </View>
+                                             size={250} indeterminate={false}
+                            >
+
                             </Progress.Circle>
+
+
                         </View>
+
                     </View>
 
                 </View>
-            </ScrollView>
-        </LinearGradient>
+            </LinearGradient>
+
+        </SafeAreaView>
     </Provider>)
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20
+    lcontainer: {
+        flex: 1, alignItems: 'center', justifyContent: 'center'
+    }, scstyle: {
+        flex: 1, alignItems: 'center', justifyContent: 'center',
     }, deviceIdView: {
-        width: wp('95%'), height: "5%", alignItems: "center", justifyContent: "center"
+        width: wp('95%'), height: '5%', alignItems: 'center', justifyContent: 'center'
     }, txtDeviceId: {
-        color: "#ffffff", fontSize: 20, fontWeight: "500"
+        color: "#ffffff", fontSize: 20, fontWeight: '500',
     }, cardSection: {
-        justifyContent: 'flex-end', alignItems: 'flex-start', padding: 5, display: 'flex', marginTop: 10
+        flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start', padding: 5,
+
     }, leftCard: {
-        width: wp('40%'), height: 165, marginLeft: '5%', borderRadius: 30, elevation: 10, shadowColor: 'black'
+        width: '40%', height: '50%', marginLeft: '5%', borderRadius: 30, elevation: 10, shadowColor: 'black'
     }, rightCard: {
-        width: wp('40%'),
-        height: 165,
+        width: '40%',
+        height: '50%',
         borderRadius: 30,
+        marginTop: '-37%',
         marginLeft: '54%',
-        marginTop: -165,
         elevation: 10,
         shadowColor: 'black',
+    }, subCard1: {
+        width: wp('18%'),
+        height: '50%',
+        borderRadius: 20,
+        marginLeft: '45%',
+        marginTop: '-62%',
+        backgroundColor: '#fff',
+        elevation: 20,
+        shadowColor: 'grey',
+        justifyContent: 'center',
+        alignItems: 'center'
     }, subCard: {
         width: wp('18%'),
-        height: 70,
+        height: '50%',
         borderRadius: 20,
-        marginLeft: '50%',
+        marginLeft: '45%',
         marginTop: '-70%',
         backgroundColor: '#fff',
         elevation: 20,
@@ -267,28 +285,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }, cardContent: {
-        marginTop: 65,
+        marginTop: '20%',
     }, card_logo: {
-        width: 50, height: 50, marginTop: -65,
+        width: 50, height: 50, marginTop: '-60%'
     }, tempSection: {
-        padding: 20, justifyContent: 'center', alignItems: 'center',
+        height: '5%', justifyContent: 'center', alignItems: 'center'
     }, progressCircle: {
-        width: wp('80%'), height: 300, marginTop: '10%', justifyContent: 'center', alignItems: 'center',
-
+        width: wp('100%'), height: hp('40%'), alignItems: 'center', justifyContent: 'center',
     }, midCircle: {
         width: wp('50%'),
-        height: 200,
+        height: '70%',
+        marginTop: '-30%',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 200,
         backgroundColor: '#fff',
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 20,
-        shadowColor: 'black',
-        position: 'absolute'
-
+        shadowColor: 'black'
     }, temperature: {
-        fontSize: 30, color: '#000'
+        fontSize: 25, color: '#000', alignItems: 'center', justifyContent: 'center', elevation: 20
     },
 })
