@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         btn:
         {
                 width: wp('32%'),
-                height: hp('15%'),
+                height: hp('17%'),
                 backgroundColor: '#fff',
                 borderRadius: 150,
                 justifyContent: 'center',

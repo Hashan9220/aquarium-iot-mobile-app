@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-    Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions,onPress
+    Linking, StyleSheet, Text, TouchableOpacity, View, Dimensions,
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +19,7 @@ const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = "red";
 
 export default function QrCode({navigation}) {
-console.log("nav",navigation);
+
     const makeSlideOutTranslation = (translationType, fromValue) => {
         return {
             from: {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         color: '#ffffff', fontWeight: '500', fontSize: 25,
     }, btnGoView: {
         width: '50%',
-        height: '15%',
+        height: '20%',
         borderRadius: 10,
         borderColor: '#a6d4ff',
         borderWidth: 2,
