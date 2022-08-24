@@ -75,43 +75,43 @@ export default function SignIn({navigation}) {
         }, 3000);
     };
 
-    return (<ScrollView showsVerticalScrollIndicator={false}  style={StyleSheet.sconterner}>
-            <LinearGradient
-                colors={['#a6d4ff', '#1E90FF']}
-                style={styles.linearGradient}>
-                {/*----------------------------Back Button----------------------------*/}
-                <View style={{marginLeft: 10, width: '100%',}}>
-                    <TouchableOpacity style={styles.btnBack}
-                                      onPress={() => {
-                                          navigation.navigate('Welcome');
-                                      }}
-                    >
-                        <Image
-                            source={require('../assets/icons/left_arrow.png')}
-                            style={styles.imgBack}
-                        />
-                    </TouchableOpacity>
-                </View>
-
-
-                {/*----------------------------Back Title----------------------------*/}
-                <View style={{width: wp('100%'),alignItems:'center',justifyContent:'center'}}>
-                    <Text style={styles.backTitle}>Sign In</Text>
-                </View>
-
-                {/*----------------------------Head Image----------------------------*/}
-                <View style={styles.signInCircle}>
+    return (<ScrollView showsVerticalScrollIndicator={false} style={StyleSheet.sconterner}>
+        <LinearGradient
+            colors={['#a6d4ff', '#1E90FF']}
+            style={styles.linearGradient}>
+            {/*----------------------------Back Button----------------------------*/}
+            <View style={{marginLeft: 10, width: '100%',}}>
+                <TouchableOpacity style={styles.btnBack}
+                                  onPress={() => {
+                                      navigation.navigate('Welcome');
+                                  }}
+                >
                     <Image
-                        style={styles.logo}
-                        source={require('../assets/logos/main_logo.png')}
+                        source={require('../assets/icons/left_arrow.png')}
+                        style={styles.imgBack}
                     />
-                </View>
+                </TouchableOpacity>
+            </View>
 
-                {/*----------------------------Head Title----------------------------*/}
-                <View style={{width: wp('30%')}}>
-                    <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
-                </View>
 
+            {/*----------------------------Back Title----------------------------*/}
+            <View style={{width: wp('100%'), alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={styles.backTitle}>Sign In</Text>
+            </View>
+
+            {/*----------------------------Head Image----------------------------*/}
+            <View style={styles.signInCircle}>
+                <Image
+                    style={styles.logo}
+                    source={require('../assets/logos/main_logo.png')}
+                />
+            </View>
+
+            {/*----------------------------Head Title----------------------------*/}
+            <View style={{width: wp('30%')}}>
+                <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
+            </View>
+            <View>
                 {/*---------------------------Common --------------------------------*/}
                 <BasicInput
                     viewLabel="Email"
@@ -129,8 +129,9 @@ export default function SignIn({navigation}) {
                     autoCorrect={false}
                     autoCap="none"
                 />
-                {/*-------------------------- Radio Button ---------------------------*/}
-                {/* <RadioForm
+            </View>
+            {/*-------------------------- Radio Button ---------------------------*/}
+            {/* <RadioForm
                     style={styles.rdBtn}
                     radio_props={radio_props}
                     initial={0}                         // this code needed
@@ -138,42 +139,41 @@ export default function SignIn({navigation}) {
                     buttonColor="#ffffff"
                     labelStyle={{fontSize: 15, color: '#ffffff'}}
                 /> */}
-                {/*----------------Sign In Button-----------*/}
-                {loading ? (<ActivityIndicator
-                    visible={loading}
-                    textStyle={styles.spinnerTextStyle}
-                />) : (<TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
-                    <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
-                </TouchableOpacity>)}
-                {/*----------------Forgot Password----------------*/}
-                <TouchableOpacity
-                    style={styles.btnForgotPassword}
-                    onPress={() => {
-                        navigation.navigate('ForgotPassword');
-                    }}>
-                    <Text style={styles.btnForgotPasswordTxt}>
-                        {'Forgot Password ?'}
-                    </Text>
-                </TouchableOpacity>
-                <View style={styles.separator}/>
-                {/*----------------Register----------------*/}
-                <TouchableOpacity
-                    style={styles.btnReg}
-                    onPress={() => {
-                        navigation.navigate('Register');
-                    }}>
-                    <Text style={styles.btnRegTxt}>{'Register'}</Text>
-                </TouchableOpacity>
-            </LinearGradient>
-        </ScrollView>);
+            {/*----------------Sign In Button-----------*/}
+            {loading ? (<ActivityIndicator
+                visible={loading}
+                textStyle={styles.spinnerTextStyle}
+            />) : (<TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
+                <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
+            </TouchableOpacity>)}
+            {/*----------------Forgot Password----------------*/}
+            <TouchableOpacity
+                style={styles.btnForgotPassword}
+                onPress={() => {
+                    navigation.navigate('ForgotPassword');
+                }}>
+                <Text style={styles.btnForgotPasswordTxt}>
+                    {'Forgot Password ?'}
+                </Text>
+            </TouchableOpacity>
+            <View style={styles.separator}/>
+            {/*----------------Register----------------*/}
+            <TouchableOpacity
+                style={styles.btnReg}
+                onPress={() => {
+                    navigation.navigate('Register');
+                }}>
+                <Text style={styles.btnRegTxt}>{'Register'}</Text>
+            </TouchableOpacity>
+        </LinearGradient>
+    </ScrollView>);
 }
 
 const styles = StyleSheet.create({
-    sconterner:{
-        flex: 1, justifyContent: 'center', alignItems: 'center',height:hp('100%')
-    },
-    linearGradient: {
-       flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center',height:hp('100%')
+    sconterner: {
+        flex: 1, justifyContent: 'center', alignItems: 'center', height: hp('100%')
+    }, linearGradient: {
+        flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: hp('100%')
     }, btnBack: {
         width: wp('10%'), height: 45,
     }, imgBack: {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     }, txtError: {
         color: '#ff2020', fontSize: 15, marginTop: '-2%',
     }, txtPwError: {
-        color: '#ff2020', fontSize: 15,  marginTop: '-2%',
+        color: '#ff2020', fontSize: 15, marginTop: '-2%',
     }, signInCircle: {
         width: wp('35%'),
         height: hp('18%'),

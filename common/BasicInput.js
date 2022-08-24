@@ -1,7 +1,7 @@
 import * as React from 'react'
-import {View, StyleSheet, TextInput, Dimensions} from 'react-native';
+import {View, StyleSheet, TextInput, } from 'react-native';
 
-const { width: WIDTH, height: height } = Dimensions.get('window');
+
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export function BasicInput({
@@ -34,14 +34,13 @@ const styles = StyleSheet.create({
     },
     txt: {
         width: wp('65%'),
-        height: hp('6.5%'),
+        height: hp('7%'),
         borderColor: '#ffffff',
         borderWidth: 3,
         borderRadius: 7,
         elevation: 8,
         color: '#ffffff',
         backgroundColor: '#B0D7FD',
-      
         paddingHorizontal: 10,
         fontSize: 18,
        

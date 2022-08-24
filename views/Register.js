@@ -285,13 +285,10 @@ const styles = StyleSheet.create({
         marginBottom: '2%',
 
     }, btnRegisterTxt: {
-        fontSize: 25,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        fontSize: 20,
         color: '#ffffff',
         alignSelf: 'center',
-        marginTop: '-1%',
+        marginTop:'-2%'
     }, logo: {
         width: wp('35%'), height: hp('15%'), justifyContent: 'center', alignItems: 'center',
     }, spinnerTextStyle: {

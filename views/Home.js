@@ -134,7 +134,7 @@ export default function Home() {
                 colors={['#a6d4ff', '#1E90FF']}
                 style={styles.container}
             >
-                <ScrollView style={{}}>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
                         <Portal>
                             <Dialog visible={visible} onDismiss={hideDialog}>
@@ -235,18 +235,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, height: '100%', padding: 20
     }, deviceIdView: {
-        width: '100%', height: '5%', alignItems: 'center', justifyContent: 'center'
+        width: '100%', height: '5%', alignItems: 'center', justifyContent: 'center',marginTop:wp('2%')
     }, txtDeviceId: {
-        color: '#ffffff', fontSize: 20, fontWeight: '500'
+        color: '#ffffff', fontSize: 20, fontWeight: '500',
     }, cardSection: {
-       flex:1,alignItems:'center',justifyContent:'center', padding: 5, display: 'flex', marginTop: 10,
+     height:hp('24%'),flex:1,alignItems:'center',justifyContent:'center', padding: 5,
     }, leftCard: {
         flex:1,
         width: wp('40%'),
         height: hp('20%'),
         marginLeft:wp('2%'),
         marginRight:wp('42%'),
-        marginTop:wp('10%'),
+        marginTop:wp('5%'),
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         marginLeft:wp('20%') ,
         marginTop: wp('-30%'),
         backgroundColor: '#fff',
-        elevation: 20,
+        elevation:20,
         shadowColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center'
@@ -288,14 +288,12 @@ const styles = StyleSheet.create({
     }, card_logo: {
         width: wp('6%'), height: hp('6%'), marginTop:wp('-15%'),
     }, tempSection: {
-        // margin:20,
-        padding: 30,
-        backgroundColor: '#d91c1c',
+        padding: 20,
         flex: 1,
         flexDirection: "column",
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:'5%'
+        marginTop:'-2%'
     }, progressCircle: {
         width: '70%', flex: 1, alignItems: 'center', justifyContent: 'center', height: "70%"
     }, midCircle: {
@@ -315,6 +313,6 @@ const styles = StyleSheet.create({
         // flex: 1, justifyContent: 'center', alignItems: 'center', // elevation: 20,
         // shadowColor: 'black',
     }, temperature: {
-        fontSize: 25, color: '#000', alignItems: 'center', justifyContent: 'center', elevation: 20,
+        fontSize: 20, color: '#000', alignItems: 'center', justifyContent: 'center', elevation: 20,
     },
 })
