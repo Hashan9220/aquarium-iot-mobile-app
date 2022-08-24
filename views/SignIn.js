@@ -68,7 +68,8 @@ export default function SignIn({navigation}) {
     };
     //loader-----------------------------------------------------------------------------
     const startLoading = () => {
-        login();
+        navigation.navigate('Dashboard');
+        // login();
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     }, linearGradient: {
         flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: hp('100%')
     }, btnBack: {
-        width: wp('10%'), height: 45,
+        width: wp('10%'), height: 45,marginTop:wp('7%')
     }, imgBack: {
         width: wp('10%'), height: 45,
 

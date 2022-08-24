@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         fontSize: 25, //fontFamily:'Roboto-Bold',
         fontFamily: 'Montserrat-Bold',
         color: '#ffffff',
-        marginBottom: '10%',
+        marginBottom: '5%',
         paddingTop: StatusBar.currentHeight,
     }, imgCircle: {
         width: wp('50%'),
@@ -90,15 +90,13 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: '#A9D4FF',
         borderRadius: 15,
-
- 
         marginTop: '5%',
     }, btnSignInTxt: {
         fontSize: 21,
         color: '#ffffff',
         fontWeight: 'bold',
         alignSelf: 'center',
-        marginTop: '1%',
+        marginTop: '2%',
         fontFamily: 'Montserrat-Medium',
     }, btnRegister: {
         width: wp('60%'),
@@ -106,14 +104,14 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: '#ffffff',
         borderRadius: 15,
-        marginTop: '5%',
+        marginTop: '2%',
        
     }, btnRegisterTxt: {
         fontSize: 20,
         color: '#5FB0FF',
         fontWeight: 'bold',
         alignSelf: 'center',
-        marginTop: '1%',
+        marginTop: '2%',
         fontFamily: 'Montserrat-Medium',
     }, logo: {
         width: '130%', height: '130%',

@@ -1,5 +1,5 @@
     import React, {Component, useState} from 'react'
-    import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image} from 'react-native'
+    import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity, Image,ScrollView} from 'react-native'
     import LinearGradient from "react-native-linear-gradient";
     import {BasicInput} from "../common/BasicInput";
     export default function ForgotPassword ({navigation})  {
@@ -18,7 +18,7 @@
         }
 
         return (
-                <KeyboardAvoidingView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1,backgroundColor:'#000'}}>
                     <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.linearGradient}>
 
                         {/*----------------------------Back Button----------------------------*/}
@@ -61,14 +61,12 @@
                             <Text style={styles.btnForgotPasswordTxt}>Send Email</Text>
                         </TouchableOpacity>
                     </LinearGradient>
-                </KeyboardAvoidingView>
+               </ScrollView>
             )
         }
 
         const styles = StyleSheet.create({
-                container: {
-                    flex: 1
-                },
+              
                 linearGradient: {
                     flex: 1,
                     justifyContent: "center",
@@ -79,19 +77,18 @@
                     height: 45,
                     backgroundColor: "rgba(0,0,0,0)",
                     marginRight: '80%',
-                    top: '-7%',
+                    top:70,
                 },
                 imgBack: {
                     width: 45,
                     height: 45,
-                    marginTop: '-55%',
                     marginLeft: '20%'
                 },
                 backTitle: {
                     fontSize: 30,
                     fontFamily: 'Montserrat-Regular',
                     color: '#ffffff',
-                    marginTop: '-30%'
+                    marginTop: 100
                 },
                 forgotCircle: {
                     width: 160,
@@ -127,7 +124,7 @@
                     paddingVertical: 10,
                     paddingHorizontal: 12,
                     marginTop: '10%',
-                    marginBottom: "40%"
+                    marginBottom:110
                 },
                 btnForgotPasswordTxt: {
                     fontSize: 25,

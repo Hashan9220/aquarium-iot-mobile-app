@@ -24,7 +24,7 @@ export default function Home() {
     const [theme, setTheme] = useState(Appearance.getColorScheme());
     const [dangerNh3, setDangerNh3] = useState(0);
     const [normalNh3, setNormalNh3] = useState(0);
-    const [indicatorColor, setIndicatorColor] = useState("fff")
+    const [indicatorColor, setIndicatorColor] = useState("000")
     const [normalIndicatorOpacity, setNormalIndicatorOpacity] = useState(0)
     const [dangerIndicatorOpacity, setDangerIndicatorOpacity] = useState(0)
     const [count, setCount] = useState(0);
@@ -134,7 +134,7 @@ export default function Home() {
                 colors={['#a6d4ff', '#1E90FF']}
                 style={styles.container}
             >
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
                     <View>
                         <Portal>
                             <Dialog visible={visible} onDismiss={hideDialog}>
@@ -188,7 +188,7 @@ export default function Home() {
                                             opacity: normalNh3
                                         }}>Normal</Paragraph>
 
-                                        <View style={{marginTop: '-18%', marginLeft: '60%'}}>
+                                        <View style={{marginTop:5, marginLeft: '30%'}}>
                                             <Pulse size={10} color={indicatorColor} opacity={dangerIndicatorOpacity}/>
                                             <View style={{
                                                 width: '5%',
@@ -213,12 +213,12 @@ export default function Home() {
                             <Text style={{fontSize: 25, color: '#fff',}}>
                                 Current Temperature
                             </Text>
-                            <View style={{position: 'relative', margin: 20}} progressBarContainer>
+                            <View style={{position: 'relative', margin: 20,marginBottom:50}} progressBarContainer>
                                 <Progress.Circle progress={temp / 50}
                                                  color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                                                 size={235} indeterminate={false}/>
+                                                 size={248} indeterminate={false}/>
                                 <View style={styles.midCircle}>
-                                    <Text style={{width:'30%',height:'15%',textAlign:'center',fontSize:25}}>
+                                    <Text style={{width:'30%',height:'15%',textAlign:'center',fontSize:20}}>
                                         {temp} °C
                                     </Text>
                                 </View>
@@ -233,51 +233,53 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, height: '100%', padding: 20
+        flex: 1, height: '100%'
     }, deviceIdView: {
-        width: '100%', height: '5%', alignItems: 'center', justifyContent: 'center',marginTop:wp('2%')
+        width: '100%', height: '10%', alignItems: 'center', justifyContent: 'center',marginTop:10
     }, txtDeviceId: {
         color: '#ffffff', fontSize: 20, fontWeight: '500',
     }, cardSection: {
-     height:hp('24%'),flex:1,alignItems:'center',justifyContent:'center', padding: 5,
+     height:200,flex:1, padding: 5,
     }, leftCard: {
         flex:1,
-        width: wp('40%'),
-        height: hp('20%'),
-        marginLeft:wp('2%'),
-        marginRight:wp('42%'),
-        marginTop:wp('5%'),
+        alignItems:'center',
+        justifyContent:'center',
+        width: '42%',
+        height: '10%',
+        marginLeft:'2%',
+        marginRight:'45%',
+        marginTop:'2%',
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
         backgroundColor: '#fff'
     }, rightCard: {
         flex:1,
-        width: wp('40%'),
-        height: hp('20%'),
+        width: '40%',
+        height: '10%',
         borderRadius: 30,
-        marginLeft:wp('45%'),
-        marginTop:wp('-38%') ,
+        marginLeft:'55%',
+        marginTop:-185,
         elevation: 10,
         shadowColor: 'black',
         backgroundColor: '#fff'
     }, subCard: {
-        width: wp('16%'),
-        height: hp('8%'),
+        width: 70,
+        height: 70,
         borderRadius: 20,
-        marginLeft:wp('20%') ,
-        marginTop: wp('-30%'),
+        marginLeft:70 ,
+        marginTop:-105,
         backgroundColor: '#fff',
         elevation:20,
         shadowColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center'
     }, rightSubCard: {
-        width: wp('16%'),
-        height: hp('8%'),
+        width: 70,
+        height: 70,
         borderRadius: 20,
-        marginLeft: wp('22%'),
-        marginTop:wp('-30%'),
+        marginLeft:75 ,
+        marginTop:-110,
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -286,33 +288,15 @@ const styles = StyleSheet.create({
     }, cardContent: {
         marginTop: 45,
     }, card_logo: {
-        width: wp('6%'), height: hp('6%'), marginTop:wp('-15%'),
-    }, tempSection: {
-        padding: 20,
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop:'-2%'
-    }, progressCircle: {
-        width: '70%', flex: 1, alignItems: 'center', justifyContent: 'center', height: "70%"
-    }, midCircle: {
-        position: 'absolute',
+        width:50, height:50,marginTop:-47
+    },  midCircle: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft:wp('8%'),
-        marginTop:wp('8%'),
-        width: wp('50%'),
-        height: hp('25%'),
+        marginLeft:24,
+        marginTop:-222,
+        width: 200,
+        height: 200,
         borderRadius: 360,
         backgroundColor: '#fff',
-        // width:wp('58%'),
-        // height:hp('27.5%'),
-        // borderRadius: 360, backgroundColor: '#fff', // marginTop: '-81%',
-        // marginLeft: '8%',
-        // flex: 1, justifyContent: 'center', alignItems: 'center', // elevation: 20,
-        // shadowColor: 'black',
-    }, temperature: {
-        fontSize: 20, color: '#000', alignItems: 'center', justifyContent: 'center', elevation: 20,
     },
 })

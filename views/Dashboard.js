@@ -12,46 +12,24 @@ import register from './Register';
 import FeedScreen from './FeedScreen';
 import QrCode from './QrCode';
 import Home from "./Home";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
 
 export default function Dashboard() {
-    function HomeStack() {
-        return (
-            <Stack.Navigator
-                initialRouteName="Home">
-                <Stack.Screen
-                    name="Home"
-                    component={Home}
-                    options={{ title: 'Home Page' }}
-                />
-            </Stack.Navigator>
-        );
-    }
-    function QrCodeStack() {
-        return (
-            <Stack.Navigator
-                initialRouteName="QrCode">
-                <Stack.Screen
-                    name="QrCode"
-                    component={QrCode}
-                    options={{ title: 'QrCode Page' }}
-                />
-            </Stack.Navigator>
-        );
-    }
-    
+
     return (<NavigationContainer independent={true}>
         <Drawer.Navigator initialRouteName="" drawerContent={props => <DrawerContent {...props} onPress={props} />}>
             <Drawer.Screen
                 options={{
                     headerTintColor: '#fff', title: '', headerTitleStyle: {color: '#fff'}, drawerStyle: {
-                        width: 320,
-                        height: 580,
-                        marginTop: 60,
+                        flex:1,
+                        width:wp('80%'),
+                        height:hp('70%'),
+                        marginTop:wp('12%'),
                         borderTopRightRadius: 40,
-                        borderBottomRightRadius: 40
-                    }, headerStyle: {backgroundColor: '#a6d4ff'},
+                        borderBottomRightRadius: 40,
+                    }, headerStyle: {backgroundColor: '#a6d4ff',},
                     drawerIcon: ({focused, size}) => (
                         <Image source={require('../assets/logos/notification_icon.png')} />),
                 }}
@@ -68,7 +46,7 @@ export default function Dashboard() {
 
 
         </Drawer.Navigator>
-    </NavigationContainer>)
+    </NavigationContainer>);
 }
 const styles = StyleSheet.create({
     container: {

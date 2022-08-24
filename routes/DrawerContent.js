@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Animated, Image, Linking, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Animated, Image, Linking, Modal, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Drawer, Text} from 'react-native-paper';
 import baseURL from '../services/baseURL';
 import SignIn from "../views/SignIn";
+import { widthPercentageToDP as wp,heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 const ModelPoup = ({visible, children}) => {
@@ -50,7 +51,8 @@ export default function DrawerContent({navigation, onPress}) {
             await AsyncStorage.removeItem('alreadyLaunched');
             await AsyncStorage.removeItem('@device_id');
             await AsyncStorage.removeItem('token');
-            navigation.navigate('StackNav');
+            navigation.navigate('Welcome');
+
 
         } catch (e) {
         }
@@ -112,7 +114,8 @@ export default function DrawerContent({navigation, onPress}) {
                         style={styles.dummyPic}
                     />
                 </View>
-                <Text style={{marginLeft: 100, marginTop: -65, fontSize: 20, color: '#000'}}>
+                <Text style={{width:wp('25%'),marginLeft:wp('30%'), marginTop:wp('-15%'), fontSize: 20, color: '#000'
+                }}>
                     {name}
                 </Text>
             </View>
@@ -127,24 +130,28 @@ export default function DrawerContent({navigation, onPress}) {
                     active={active === 'third'}
                     onPress={() => setVisible(true)}
                 />
+
                 <ModelPoup visible={visible}>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.header}>
                             <TouchableOpacity onPress={() => setVisible(false)}>
                                 <Image source={require('../assets/icons/close.png')}
-                                       style={{height: 20, width: 20}}/>
+                                       style={{height: 20, width:wp('5%'),marginTop:wp('10%')}}/>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{alignItems: 'center'}}>
-                        <Image source={require('../assets/icons/fish-food.png')}
-                               style={{height: 100, width: 100, marginVertical: 10}}/>
+                        <Image source={require('../assets/logos/slide1_logo.png')}
+                               style={{height:hp('15%'), width:wp('35%'), }}/>
                     </View>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.modelText}>hello text</Text>
                     <Text style={styles.modelText}>use feed tab for your fish</Text>
                     <Text style={styles.modelText}>use feed tab for your fish</Text>
                     <Text style={styles.modelText}>use feed tab for your fish</Text>
-                </ModelPoup>
+                    </ScrollView>
+                    </ModelPoup>
+
             </Drawer.Section>
             <Drawer.Section title=" ">
                 <Drawer.Item
@@ -166,7 +173,7 @@ const styles = StyleSheet.create({
     drawerContainer: {
         flex: 1, padding: 10, justifyContent: 'space-between',
     }, userInfoSection: {
-        padding: 10, height: 100,
+        padding: 10, height:hp('10%'),
     }, profilePicSection: {
         width: 80,
         height: 80,
@@ -179,7 +186,7 @@ const styles = StyleSheet.create({
     }, dummyPic: {
         width: 80, height: 80, borderRadius: 50
     }, signOutSection: {
-        marginTop: 150,
+        marginTop:wp('10%'),
     }, edit_icon: {
         marginTop: '10%', marginLeft: '15%',
     }, modalBackGround: {
@@ -192,7 +199,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 20,
     }, header: {
-        width: '100%', alignItems: 'flex-end', justifyContent: 'center', height: 40,
+        width: '100%', alignItems: 'flex-end', justifyContent: 'center', height: 10,
     }, modelText: {
         marginVertical: 30, fontSize: 20, textAlign: 'center',
     }
