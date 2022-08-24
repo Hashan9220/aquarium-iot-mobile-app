@@ -209,16 +209,16 @@ export default function Home() {
                                 </Card>
                             </Card>
                         </View>
-                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',marginTop:wp('5%'),marginBottom:wp('5%')}}>
                             <Text style={{fontSize: 25, color: '#fff',}}>
                                 Current Temperature
                             </Text>
                             <View style={{position: 'relative', margin: 20}} progressBarContainer>
                                 <Progress.Circle progress={temp / 50}
                                                  color={temp >= 32 ? 'red' : temp >= 24 ? 'yellow' : temp <= 23 ? 'green' : '#fff'}
-                                                 size={300} indeterminate={false}/>
+                                                 size={235} indeterminate={false}/>
                                 <View style={styles.midCircle}>
-                                    <Text style={{width:'25%',height:'10%',textAlign:'center',fontSize:25}}>
+                                    <Text style={{width:'30%',height:'15%',textAlign:'center',fontSize:25}}>
                                         {temp} °C
                                     </Text>
                                 </View>
@@ -235,17 +235,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, height: '100%', padding: 20
     }, deviceIdView: {
-        width: "100%", height: "5%", alignItems: "center", justifyContent: "center"
+        width: '100%', height: '5%', alignItems: 'center', justifyContent: 'center'
     }, txtDeviceId: {
-        color: "#ffffff", fontSize: 20, fontWeight: "500"
+        color: '#ffffff', fontSize: 20, fontWeight: '500'
     }, cardSection: {
        flex:1,alignItems:'center',justifyContent:'center', padding: 5, display: 'flex', marginTop: 10,
     }, leftCard: {
         flex:1,
         width: wp('40%'),
-        height: hp('18%'),
+        height: hp('20%'),
         marginLeft:wp('2%'),
         marginRight:wp('42%'),
+        marginTop:wp('10%'),
         borderRadius: 30,
         elevation: 10,
         shadowColor: 'black',
@@ -253,10 +254,8 @@ const styles = StyleSheet.create({
     }, rightCard: {
         flex:1,
         width: wp('40%'),
-        height: hp('18%'),
+        height: hp('20%'),
         borderRadius: 30,
-
-
         marginLeft:wp('45%'),
         marginTop:wp('-38%') ,
         elevation: 10,
@@ -267,7 +266,7 @@ const styles = StyleSheet.create({
         height: hp('8%'),
         borderRadius: 20,
         marginLeft:wp('20%') ,
-        marginTop: wp('-32%'),
+        marginTop: wp('-30%'),
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
@@ -277,17 +276,17 @@ const styles = StyleSheet.create({
         width: wp('16%'),
         height: hp('8%'),
         borderRadius: 20,
-        marginLeft: wp('20%'),
-        marginTop:wp('-31%'),
+        marginLeft: wp('22%'),
+        marginTop:wp('-30%'),
         backgroundColor: '#fff',
         elevation: 20,
         shadowColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center'
     }, cardContent: {
-        marginTop: 80,
+        marginTop: 45,
     }, card_logo: {
-        width: wp('6%'), height: hp('6%'), marginTop:wp('-20%'),
+        width: wp('6%'), height: hp('6%'), marginTop:wp('-15%'),
     }, tempSection: {
         // margin:20,
         padding: 30,
@@ -296,15 +295,16 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop:'5%'
     }, progressCircle: {
-        width: '100%', flex: 1, alignItems: 'center', justifyContent: 'center', height: "100%"
+        width: '70%', flex: 1, alignItems: 'center', justifyContent: 'center', height: "70%"
     }, midCircle: {
         position: 'absolute',
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft:wp('8%'),
         marginTop:wp('8%'),
-        width: wp('55%'),
+        width: wp('50%'),
         height: hp('25%'),
         borderRadius: 360,
         backgroundColor: '#fff',
