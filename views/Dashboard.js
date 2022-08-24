@@ -24,9 +24,9 @@ export default function Dashboard() {
                 options={{
                     headerTintColor: '#fff', title: '', headerTitleStyle: {color: '#fff'}, drawerStyle: {
                         flex:1,
-                        width:wp('80%'),
-                        height:hp('70%'),
-                        marginTop:wp('12%'),
+                        width:'50%',
+                        height:'100%',
+
                         borderTopRightRadius: 40,
                         borderBottomRightRadius: 40,
                     }, headerStyle: {backgroundColor: '#a6d4ff',},
