@@ -20,6 +20,7 @@ target 'smart_aqua' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+
   target 'smart_aquaTests' do
     inherit! :complete
     # Pods for testing
