@@ -1,21 +1,13 @@
 import React from 'react';
-import {Image, StyleSheet, onPress} from 'react-native';
+import {Image, onPress} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerContent from '../routes/DrawerContent';
-import BottomTab from '../routes/BottomTab';
 import {NavigationContainer} from '@react-navigation/native';
-import StackNav from '../routes/StackNav';
+import BottomTab from '../routes/BottomTab';
+import Welcome from './Welcome';
+import SignIn from './SignIn';
+import Register from './Register';
 import ForgotPassword from './ForgotPassword';
-import signIn from './SignIn';
-import welcome from './Welcome';
-import register from './Register';
-import FeedScreen from './FeedScreen';
-import QrCode from './QrCode';
-import Home from './Home';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,8 +15,8 @@ export default function Dashboard() {
   return (
     <NavigationContainer independent={true}>
       <Drawer.Navigator
-        initialRouteName=""
-        drawerContent={props => <DrawerContent {...props} onPress={props} />}>
+        initialRouteName="Home"
+        drawerContent={props => <DrawerContent {...props} props={onPress} />}>
         <Drawer.Screen
           options={{
             headerTintColor: '#fff',
@@ -34,7 +26,6 @@ export default function Dashboard() {
               flex: 1,
               width: '70%',
               height: '100%',
-
               borderTopRightRadius: 40,
               borderBottomRightRadius: 40,
             },
@@ -45,18 +36,23 @@ export default function Dashboard() {
               />
             ),
           }}
-          name="Bottom Tab"
+          name="BottomTab"
           component={BottomTab}
         />
         <Drawer.Screen
           options={{headerShown: null}}
-          name={'StackNav'}
-          component={StackNav}
+          name={'Welcome'}
+          component={Welcome}
         />
         <Drawer.Screen
           options={{headerShown: null}}
-          name={'Welcome'}
-          component={welcome}
+          name={'SignIn'}
+          component={SignIn}
+        />
+        <Drawer.Screen
+          options={{headerShown: null}}
+          name={'Register'}
+          component={Register}
         />
         <Drawer.Screen
           options={{headerShown: null}}
@@ -65,47 +61,10 @@ export default function Dashboard() {
         />
         <Drawer.Screen
           options={{headerShown: null}}
-          name={'Register'}
-          component={register}
-        />
-        <Drawer.Screen
-          options={{headerShown: null}}
-          name={'SignIn'}
-          component={signIn}
-        />
-        <Drawer.Screen
-          options={{headerShown: null}}
           name={'Dashboard'}
           component={Dashboard}
-        />
-        <Drawer.Screen
-          options={{headerShown: null}}
-          name={'QrCode'}
-          component={QrCode}
-        />
-        <Drawer.Screen
-          options={{headerShown: true}}
-          name={'Home'}
-          component={Home}
-        />
-        <Drawer.Screen
-          options={{headerShown: true}}
-          name={'FeedScreen'}
-          component={FeedScreen}
         />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  drawerStyle: {
-    borderWidth: 0.5,
-    borderColor: 'black',
-    margin: 10,
-  },
-});

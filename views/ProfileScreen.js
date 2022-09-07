@@ -11,13 +11,15 @@ import {ActivityIndicator, Divider, Text} from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseURL from '../services/baseURL';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Orientation from 'react-native-orientation';
+import Orientation, {unlockAllOrientations} from 'react-native-orientation';
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen() {
+
   const [id, setId] = useState(null);
   const [token, setToken] = useState(null);
   const [userEmail, setUserEmail] = useState('');
@@ -26,6 +28,7 @@ export default function ProfileScreen({navigation}) {
   const [name, setUserName] = useState('');
   const [address, setUserAddress] = useState('');
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState('');
   const formdata = new FormData();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,16 +52,11 @@ export default function ProfileScreen({navigation}) {
   useEffect(() => {
     Orientation.getOrientation((err, orientation) => {
       console.log(`Current Device Orientation: ${orientation}`);
-      if (orientation === 'PORTRAIT') {
-        Orientation.unlockAllOrientations();
-      } else {
-      }
     });
-
+    unlockAllOrientations();
     getId();
     getToken();
-    defaultImage();
-  }, [navigation]);
+  }, []);
 
   useEffect(() => {
     if (id && token) {
@@ -66,7 +64,7 @@ export default function ProfileScreen({navigation}) {
     }
   }, [getUserData, id, token]);
 
-  const defaultImage = () => {};
+  const a = 0;
 
   const getId = async () => {
     let value = await AsyncStorage.getItem('id');
@@ -91,9 +89,7 @@ export default function ProfileScreen({navigation}) {
 
     launchImageLibrary(options, response => {
       if (response.didCancel === true) {
-        // eslint-disable-next-line radix
       } else if (response.errorCode && parseInt(response.errorCode)) {
-        // eslint-disable-next-line no-alert
         alert('error image upload');
       } else if (response.assets[0].fileSize > 1000000) {
         // eslint-disable-next-line no-alert

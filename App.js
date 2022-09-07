@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer, CommonActions} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const [token, setToken] = useState(null);
-
+  console.log('App.js');
   useEffect(() => {
     const init = async () => {
       let token = null;
@@ -30,7 +30,7 @@ const App = () => {
       }
     };
     init().finally(async () => {
-      await RNBootSplash({fade: true});
+      await SplashScreen({fade: true});
     });
   }, []);
 
@@ -43,7 +43,7 @@ const App = () => {
     return (
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          shifting="true"
+          shifting="false"
           screenOptions={() => ({
             headerShown: false,
             gestureEnabled: false,
@@ -55,23 +55,19 @@ const App = () => {
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name={'Dashboard'} component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   } else {
     return (
       <NavigationContainer independent={true}>
-        <Stack.Navigator
-          shifting="true"
-          screenOptions={() => ({
-            headerShown: false,
-            gestureEnabled: false,
-            cardOverlayEnabled: false,
-            gestureDirection: 'horizontal',
-          })}>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name={'Dashboard'} component={Dashboard} />
+
+
         </Stack.Navigator>
+
       </NavigationContainer>
     );
   }

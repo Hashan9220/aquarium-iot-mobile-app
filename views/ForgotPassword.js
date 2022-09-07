@@ -12,7 +12,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {BasicInput} from '../common/BasicInput';
 
 export default function ForgotPassword({navigation}) {
-  const [email, setEmail] = useState('');
   const sendEmail = () => {};
   const emailValidate = text => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;

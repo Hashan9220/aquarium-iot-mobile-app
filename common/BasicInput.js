@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

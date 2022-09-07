@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Image,
   StatusBar,
@@ -11,6 +11,7 @@ import ViewPager from '@react-native-community/viewpager';
 import Page from '../components/Page';
 import Footer from '../components/Footer';
 import {Card} from 'react-native-paper';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function OnBoarding({navigation}) {
   const pagerRef = useRef(null);
@@ -64,6 +65,7 @@ export default function OnBoarding({navigation}) {
         rightButtonPress={() => {
           if (pageNo === 3) {
             navigation.navigate('Welcome');
+
           }
           handlePageChange(pageNo);
           pageNo++;

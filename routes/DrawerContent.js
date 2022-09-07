@@ -59,7 +59,7 @@ const ModelPoup = ({visible, children}) => {
   );
 };
 
-export default function DrawerContent({navigation, onPress}) {
+export default function DrawerContent({navigation}) {
   const signOut = async () => {
     try {
       await AsyncStorage.removeItem('alreadyLaunched');
@@ -85,7 +85,7 @@ export default function DrawerContent({navigation, onPress}) {
     if (id && token) {
       imageSet();
     }
-  }, [id, token, onPress]);
+  }, [id, token, navigation]);
 
   const imageSet = () => {
     fetch(baseURL + 'user/' + id, {
@@ -98,6 +98,7 @@ export default function DrawerContent({navigation, onPress}) {
       .then(json => {
         setImage(json.user_image);
         setUserName(json.name);
+        console.log('image :- ', json.user_image);
       });
   };
 

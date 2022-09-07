@@ -59,9 +59,8 @@ export const checkOnce = () => {
   PushNotification.requestPermissions().then((response: any) => {
     if (response && response.alert !== 0) {
       riskyTemperatureNotification();
-      console.log('Notification showed');
+
       return;
     }
-    console.log('Notification already shown');
   });
 };

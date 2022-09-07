@@ -4,7 +4,6 @@ import database from '@react-native-firebase/database';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
-import {Bubbles} from 'react-native-loader';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -40,7 +39,6 @@ export default function FeedScreen() {
       alert('Device Id Not Found');
     }
   };
-
   const gift = () => {
     setTimeout(() => {
       setVisible(false);
@@ -72,11 +70,6 @@ export default function FeedScreen() {
           />
         ) : null}
       </View>
-      {/* <View style={{
-                 width: '50%',  opacity: lottieOpacity,backgroundColor:'#000'
-    }}>
-                <Bubbles size={10} color="#FFF"/>
-    </View> */}
       <LottieView
         style={styles.lottie_view}
         source={require('../assets/animations/82892-wave.json')}

@@ -7,10 +7,9 @@ import {
   Image,
   Alert,
   LogBox,
-  TouchableOpacity,
   Appearance,
   ScrollView,
-  SafeAreaView,
+  BackHandler,
 } from 'react-native';
 import darkMode from './darkMode';
 import LinearGradient from 'react-native-linear-gradient';
@@ -30,11 +29,14 @@ import {
 import * as Progress from 'react-native-progress';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {riskyPhValueNotification} from '../services/LocalPushController';
-import {riskyTemperatureNotification} from '../services/LocalPushController';
+import {
+  riskyPhValueNotification,
+  riskyTemperatureNotification,
+} from '../services/LocalPushController';
 import {Pulse} from 'react-native-loader';
+import WToast from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 
-export default function Home() {
+export default function Home(props) {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(false);
   const hideDialog = () => setVisible(false);
@@ -52,16 +54,39 @@ export default function Home() {
   Appearance.addChangeListener(scheme => {
     setTheme(scheme.colorScheme);
   });
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const getData = async () => {
     const value = await AsyncStorage.getItem('@device_id');
     if (value !== null) {
       setId(value);
     }
   };
+
   useEffect(() => {
     getData();
     if (id !== '') {
-      const onValueChange = database()
+      const onChangeValue = database()
         .ref('/' + id + '/')
         .on('value', snapshot => {
           setPh(snapshot.val().PH_Value.toFixed(2));
@@ -70,14 +95,15 @@ export default function Home() {
     } else if (id === '') {
       showDialog();
     }
-  }, [id]);
+  }, [id, props]);
+
   useEffect(() => {
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }, []);
   useEffect(() => {
     checkNh3();
-    // scanIdPopUp()
-  });
+    scanIdPopUp();
+  }, []);
   useEffect(() => {
     ph >= 7.5 && ph <= 30.5 ? checkHighPH() : reset();
     ph <= 6.5 && ph > 0 ? checkLowPH() : reset();
@@ -100,12 +126,12 @@ export default function Home() {
     riskyTemperatureNotification();
   };
   const reset = () => {
-    if (count != 0) {
+    if (count !== 0) {
       setCount(0);
     }
   };
   const checkHighPH = () => {
-    if (ph >= 7.5 && ph <= 6.5 && count == 0) {
+    if (ph >= 7.5 && ph <= 6.5 && count === 0) {
       setCount(1);
       riskyPH();
     }
@@ -128,9 +154,7 @@ export default function Home() {
       riskyTemp();
     }
   };
-  const Clickdone = () => {
-    hideDialog();
-  };
+
   const checkNh3 = () => {
     if (ph <= 7.5 && ph >= 6.5 && temp >= 23 && temp <= 32) {
       setNormalNh3(1);
@@ -148,6 +172,9 @@ export default function Home() {
       setDangerIndicatorOpacity(1);
     }
   };
+  const Clickdone = () => {
+    hideDialog();
+  };
   return (
     <Provider>
       <LinearGradient colors={['#a6d4ff', '#1E90FF']} style={styles.container}>
@@ -160,7 +187,7 @@ export default function Home() {
                   <Paragraph>Please scan your device</Paragraph>
                 </Dialog.Content>
                 <Dialog.Actions>
-                  <Button onPress={hideDialog}>OK</Button>
+                  <Button onPress={Clickdone}>OK</Button>
                 </Dialog.Actions>
               </Dialog>
             </Portal>
@@ -285,7 +312,7 @@ export default function Home() {
                   <Text
                     style={{
                       width: '30%',
-                      height: '15%',
+                      height: '20%',
                       textAlign: 'center',
                       fontSize: 20,
                     }}>
@@ -364,7 +391,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 20,
-    marginLeft: 75,
+    marginLeft: 70,
     marginTop: -110,
     backgroundColor: '#fff',
     elevation: 20,

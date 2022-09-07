@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // import RadioForm from 'react-native-simple-radio-button';
@@ -27,6 +26,7 @@ export default function SignIn({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   //User Login -----------------------------------------------------------------------------
   const login = async () => {
     fetch(baseURL + 'login', {
@@ -46,6 +46,7 @@ export default function SignIn({navigation}) {
             id: json.user.id,
             image: json.user.images,
           };
+
           navigation.navigate('Dashboard');
           storeData(json);
         } else {
@@ -140,6 +141,7 @@ export default function SignIn({navigation}) {
             valueSet={text => emailValidate(text)}
             autoCorrect={false}
             autoCap="none"
+
           />
           <BasicInput
             viewLabel="Password"
@@ -166,7 +168,9 @@ export default function SignIn({navigation}) {
             textStyle={styles.spinnerTextStyle}
           />
         ) : (
-          <TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
+          <TouchableOpacity
+            style={styles.btnSignIn}
+            onPress={startLoading}>
             <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
           </TouchableOpacity>
         )}
@@ -182,6 +186,7 @@ export default function SignIn({navigation}) {
         {/*----------------Register----------------*/}
         <TouchableOpacity
           style={styles.btnReg}
+
           onPress={() => {
             navigation.navigate('Register');
           }}>

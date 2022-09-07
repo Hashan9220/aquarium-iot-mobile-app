@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  alert,
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,13 +25,6 @@ const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = 'red';
 
 export default function QrCode({navigation}) {
-  useEffect(() => {
-    const initial = Orientation.getInitialOrientation();
-    if (initial === 'PORTRAIT') {
-      Orientation.lockToPortrait();
-    }
-  }, [navigation]);
-
   const makeSlideOutTranslation = (translationType, fromValue) => {
     return {
       from: {
@@ -54,12 +46,9 @@ export default function QrCode({navigation}) {
       await AsyncStorage.setItem('@device_id', state.data);
       if (state.data) {
         navigation.navigate('Dashboard');
+
       }
     } catch (e) {}
-  };
-
-  const goDashabord = () => {
-    getId();
   };
 
   return (
@@ -95,8 +84,7 @@ export default function QrCode({navigation}) {
           </View>
 
           <View style={styles.bottomOverlay}>
-            {/* eslint-disable-next-line no-undef */}
-            <TouchableOpacity style={styles.btnGoView} onPress={goDashabord}>
+            <TouchableOpacity style={styles.btnGoView} onPress={getId}>
               <Text style={styles.txtGo}>Go</Text>
             </TouchableOpacity>
           </View>
