@@ -19,7 +19,6 @@ import {
 import Orientation, {unlockAllOrientations} from 'react-native-orientation';
 
 export default function ProfileScreen() {
-
   const [id, setId] = useState(null);
   const [token, setToken] = useState(null);
   const [userEmail, setUserEmail] = useState('');
@@ -31,7 +30,6 @@ export default function ProfileScreen() {
   const [value, setValue] = useState('');
   const formdata = new FormData();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUserData = useCallback(() => {
     fetch(baseURL + 'user/' + id, {
       headers: {
@@ -50,10 +48,6 @@ export default function ProfileScreen() {
   });
 
   useEffect(() => {
-    Orientation.getOrientation((err, orientation) => {
-      console.log(`Current Device Orientation: ${orientation}`);
-    });
-    unlockAllOrientations();
     getId();
     getToken();
   }, []);
