@@ -14,13 +14,11 @@ import {BasicInput} from '../common/BasicInput';
 import Dashboard from './Dashboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseURL from '../services/baseURL';
-// import RadioForm from 'react-native-simple-radio-button';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-
-// const radio_props = [{ label: 'Agree to Terms & Conditions', value: 0 }];
+import {Checkbox} from 'react-native-paper';
 
 export default function Register({navigation}) {
   const [firstname, setFirstname] = useState('');
@@ -33,6 +31,7 @@ export default function Register({navigation}) {
   const [loading, setLoading] = useState(false);
   const [errorState, setErrorState] = useState(true);
   const [token, setToken] = useState('');
+  const [checked, setChecked] = React.useState(false);
 
   //Validation---------------------------------------------------
   const firstNameValidate = text => {
@@ -131,8 +130,8 @@ export default function Register({navigation}) {
           } else {
             Alert.alert('please fill input field..!', 'Please try again');
           }
-          // eslint-disable-next-line no-undef
         })
+        // eslint-disable-next-line no-undef
         .catch(error);
 
       Alert.alert('User Registered', 'Successfully registered as new user ');
@@ -140,6 +139,7 @@ export default function Register({navigation}) {
       Alert.alert('Password Not Match ');
     }
   };
+
   const storeData = async (value, token) => {
     try {
       const jsonValue = JSON.stringify(value);
@@ -155,7 +155,7 @@ export default function Register({navigation}) {
     }, 3000);
   };
   const onEnterText = TextInputValue => {
-    if (TextInputValue.trim() != 0) {
+    if (TextInputValue.trim() !== 0) {
       this.setState({TextInputValue: TextInputValue, ErrorStatus: true});
     } else {
       this.setState({TextInputValue: TextInputValue, ErrorStatus: false});
@@ -168,6 +168,7 @@ export default function Register({navigation}) {
       </Text>
     ) : null;
   }
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView
@@ -256,9 +257,20 @@ export default function Register({navigation}) {
             valueSet={setConfirmPassword}
             txtEntry={true}
           />
+          {/*----------------Redio Button-----------*/}
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Checkbox
+              status={checked ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setChecked(!checked);
+              }}
+            />
+            <Text style={{fontWeight: 'bold'}}>
+              I agree therm and condition
+            </Text>
+          </View>
 
           {/*----------------Register Button-----------*/}
-
           <TouchableOpacity style={styles.btnRegister} onPress={registerUser}>
             <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
           </TouchableOpacity>
@@ -339,7 +351,7 @@ const styles = StyleSheet.create({
     elevation: 8,
     backgroundColor: '#A9D4FF',
     borderRadius: 15,
-    paddingVertical: 10, // paddingHorizontal: 12,
+    paddingVertical: 10,
     marginTop: '3%',
     marginBottom: '2%',
   },

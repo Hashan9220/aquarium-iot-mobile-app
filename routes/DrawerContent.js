@@ -169,10 +169,24 @@ export default function DrawerContent({navigation}) {
               />
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={styles.modelText}>hello text</Text>
-              <Text style={styles.modelText}>use feed tab for your fish</Text>
-              <Text style={styles.modelText}>use feed tab for your fish</Text>
-              <Text style={styles.modelText}>use feed tab for your fish</Text>
+              <Text style={styles.modelText}>Hi! Welcome</Text>
+              <Text style={styles.modelText}>
+                Fist Scan On Your Device QrCode
+              </Text>
+              <Text style={styles.modelText}>
+                QrCode Scan After Go Home Page
+              </Text>
+              <Text style={styles.modelText}>
+                Now You Can Device Setup to Your Tank{' '}
+              </Text>
+              <Text style={styles.modelText}>
+                Now You Can See The Value Of PH and Temp in Tank Water In Your
+                App
+              </Text>
+              <Text style={styles.modelText}>
+                You can Feed to Your Fish Go to App Feed Page And Click The Feed
+                Button
+              </Text>
             </ScrollView>
           </ModelPoup>
         </Drawer.Section>

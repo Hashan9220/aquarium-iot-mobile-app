@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-// import RadioForm from 'react-native-simple-radio-button';
+
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Common---------------------------------------------------
 import {BasicInput} from '../common/BasicInput';
@@ -20,13 +22,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {Checkbox} from 'react-native-paper';
 
-// const radio_props = [{label: 'Remember the account ?', value: 0,value: 1 }];
 export default function SignIn({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [checked, setChecked] = React.useState(false);
+
   //User Login -----------------------------------------------------------------------------
   const login = async () => {
     fetch(baseURL + 'login', {
@@ -109,7 +112,6 @@ export default function SignIn({navigation}) {
             />
           </TouchableOpacity>
         </View>
-
         {/*----------------------------Back Title----------------------------*/}
         <View
           style={{
@@ -119,7 +121,6 @@ export default function SignIn({navigation}) {
           }}>
           <Text style={styles.backTitle}>Sign In</Text>
         </View>
-
         {/*----------------------------Head Image----------------------------*/}
         <View style={styles.signInCircle}>
           <Image
@@ -127,7 +128,6 @@ export default function SignIn({navigation}) {
             source={require('../assets/logos/main_logo.png')}
           />
         </View>
-
         {/*----------------------------Head Title----------------------------*/}
         <View style={{width: wp('30%')}}>
           <Text style={styles.signInHeadTitle}> SMART {'\n'}AQUARIUM</Text>
@@ -141,7 +141,6 @@ export default function SignIn({navigation}) {
             valueSet={text => emailValidate(text)}
             autoCorrect={false}
             autoCap="none"
-
           />
           <BasicInput
             viewLabel="Password"
@@ -153,14 +152,19 @@ export default function SignIn({navigation}) {
           />
         </View>
         {/*-------------------------- Radio Button ---------------------------*/}
-        {/* <RadioForm
-                    style={styles.rdBtn}
-                    radio_props={radio_props}
-                    initial={0}                         // this code needed
-                    animation={true}
-                    buttonColor="#ffffff"
-                    labelStyle={{fontSize: 15, color: '#ffffff'}}
-                /> */}
+        <View />
+
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Checkbox
+              status={checked ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setChecked(!checked);
+              }}
+          />
+          <Text style={{fontWeight: 'bold'}}>
+           Keep Login
+          </Text>
+        </View>
         {/*----------------Sign In Button-----------*/}
         {loading ? (
           <ActivityIndicator
@@ -168,9 +172,7 @@ export default function SignIn({navigation}) {
             textStyle={styles.spinnerTextStyle}
           />
         ) : (
-          <TouchableOpacity
-            style={styles.btnSignIn}
-            onPress={startLoading}>
+          <TouchableOpacity style={styles.btnSignIn} onPress={startLoading}>
             <Text style={styles.btnSignInTxt}>{'Sign In'}</Text>
           </TouchableOpacity>
         )}
@@ -186,7 +188,6 @@ export default function SignIn({navigation}) {
         {/*----------------Register----------------*/}
         <TouchableOpacity
           style={styles.btnReg}
-
           onPress={() => {
             navigation.navigate('Register');
           }}>
@@ -314,5 +315,8 @@ const styles = StyleSheet.create({
   },
   spinnerTextStyle: {
     color: '#000000',
+  },
+  label: {
+    margin: 8,
   },
 });
