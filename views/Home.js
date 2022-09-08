@@ -137,19 +137,19 @@ export default function Home(props) {
     }
   };
   const checkLowPH = () => {
-    if (ph <= 6.5 && ph > 0 && count == 0) {
+    if (ph <= 6.5 && ph > 0 && count === 0) {
       setCount(1);
       riskyPH();
     }
   };
   const checkHighTemp = () => {
-    if (temp >= 32 && temp <= 100 && count == 0) {
+    if (temp >= 32 && temp <= 100 && count === 0) {
       setCount(1);
       riskyTemp();
     }
   };
   const checkLowTemp = () => {
-    if (temp <= 23 && temp >= 1 && count == 0) {
+    if (temp <= 23 && temp >= 1 && count === 0) {
       setCount(1);
       riskyTemp();
     }

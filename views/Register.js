@@ -32,6 +32,7 @@ export default function Register({navigation}) {
   const [errorState, setErrorState] = useState(true);
   const [token, setToken] = useState('');
   const [checked, setChecked] = React.useState(false);
+  const [disable, setDisable] = React.useState(true);
 
   //Validation---------------------------------------------------
   const firstNameValidate = text => {
@@ -266,12 +267,12 @@ export default function Register({navigation}) {
               }}
             />
             <Text style={{fontWeight: 'bold'}}>
-              I agree therm and condition
+              I Agree to Terms & Conditions
             </Text>
           </View>
 
           {/*----------------Register Button-----------*/}
-          <TouchableOpacity style={styles.btnRegister} onPress={registerUser}>
+          <TouchableOpacity disabled={!checked ? true : false} style={styles.btnRegister} onPress={registerUser}>
             <Text style={styles.btnRegisterTxt}>{'Register'}</Text>
           </TouchableOpacity>
         </LinearGradient>

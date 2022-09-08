@@ -17,7 +17,6 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const [token, setToken] = useState(null);
-  console.log('App.js');
   useEffect(() => {
     const init = async () => {
       let token = null;

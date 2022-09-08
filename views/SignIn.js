@@ -8,10 +8,8 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Common---------------------------------------------------
@@ -59,9 +57,11 @@ export default function SignIn({navigation}) {
   };
 
   const storeData = async val => {
-    AsyncStorage.setItem('alreadyLaunched', JSON.stringify(true));
-    AsyncStorage.setItem('token', val.token);
-    AsyncStorage.setItem('id', JSON.stringify(val.user.id));
+    if (checked) {
+      AsyncStorage.setItem('alreadyLaunched', JSON.stringify(true));
+      AsyncStorage.setItem('token', val.token);
+      AsyncStorage.setItem('id', JSON.stringify(val.user.id));
+    }
   };
   //Validate -----------------------------------------------------------------------------------
   const emailValidate = text => {
@@ -156,14 +156,12 @@ export default function SignIn({navigation}) {
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Checkbox
-              status={checked ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setChecked(!checked);
-              }}
+            status={checked ? 'checked' : 'unchecked'}
+            onPress={() => {
+              setChecked(!checked);
+            }}
           />
-          <Text style={{fontWeight: 'bold'}}>
-           Keep Login
-          </Text>
+          <Text style={{fontWeight: 'bold'}}>Keep Login</Text>
         </View>
         {/*----------------Sign In Button-----------*/}
         {loading ? (
