@@ -109,6 +109,8 @@ export default function Home() {
       checkHighPH();
     } else if (ph < 6.5) {
       checkLowPH();
+    }else {
+      reset();
     }
     // ph >= 7.5 && ph <= 8.2 ? checkHighPH():reset; //this is need
     // ph <= 6.5 && ph > 0 ? checkLowPH():reset;
@@ -118,7 +120,10 @@ export default function Home() {
       checkHighTemp();
     } else if (temp < 23) {
       checkLowTemp();
+    } else {
+      reset();
     }
+
     // temp >= 27 && temp <= 35 ? checkHighTemp() : reset();// this is need
     // temp <= 23 && temp >= 1 ? checkLowTemp() : reset();
   }, [id, ph, temp]);
@@ -142,18 +147,18 @@ export default function Home() {
   };
   const checkHighPH = () => {
 
-    if (ph >= 8.00) {
+    if (ph >= 8.00 && count === 0) {
       riskyPH();
     }
   };
   const checkLowPH = () => {
-    if (ph <= 6.5) {
+    if (ph <= 6.5 && count === 0) {
       setCount(1);
       riskyPH();
     }
   };
   const checkHighTemp = () => {
-    if (temp >= 32 && temp <= 100 && count === 0) {
+    if (temp >= 30 && temp <= 35 && count === 0) {
       setCount(1);
       riskyTemp();
     }
