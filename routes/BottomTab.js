@@ -6,7 +6,7 @@ import FeedScreen from '../views/FeedScreen';
 import ProfileScreen from '../views/ProfileScreen';
 
 export default function BottomTab() {
-  const HomeRoute = () => <Home />;
+  const HomeRoute = () => <Home navigation={Home} />;
   const QrCodeRoute = () => <QrCode navigation={QrCode} />;
   const FeedRoute = () => <FeedScreen />;
 

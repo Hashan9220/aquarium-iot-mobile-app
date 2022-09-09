@@ -34,9 +34,8 @@ import {
   riskyTemperatureNotification,
 } from '../services/LocalPushController';
 import {Pulse} from 'react-native-loader';
-import WToast from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 
-export default function Home(props) {
+export default function Home() {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(false);
   const hideDialog = () => setVisible(false);
@@ -95,7 +94,7 @@ export default function Home(props) {
     } else if (id === '') {
       showDialog();
     }
-  }, [id, props]);
+  }, [id, ph, temp]);
 
   useEffect(() => {
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -105,13 +104,24 @@ export default function Home(props) {
     scanIdPopUp();
   }, []);
   useEffect(() => {
-    ph >= 7.5 && ph <= 30.5 ? checkHighPH() : reset();
-    ph <= 6.5 && ph > 0 ? checkLowPH() : reset();
-  }, [ph]);
+
+    if (ph > 8.00 ){
+      checkHighPH();
+    } else if (ph < 6.5) {
+      checkLowPH();
+    }
+    // ph >= 7.5 && ph <= 8.2 ? checkHighPH():reset; //this is need
+    // ph <= 6.5 && ph > 0 ? checkLowPH():reset;
+  }, [id, ph, temp]);
   useEffect(() => {
-    temp >= 27 && temp <= 100 ? checkHighTemp() : reset();
-    temp <= 23 && temp >= 1 ? checkLowTemp() : reset();
-  }, [temp]);
+    if (temp > 35) {
+      checkHighTemp();
+    } else if (temp < 23) {
+      checkLowTemp();
+    }
+    // temp >= 27 && temp <= 35 ? checkHighTemp() : reset();// this is need
+    // temp <= 23 && temp >= 1 ? checkLowTemp() : reset();
+  }, [id, ph, temp]);
   const scanIdPopUp = () => {
     if (id !== null) {
       showDialog();
@@ -131,13 +141,13 @@ export default function Home(props) {
     }
   };
   const checkHighPH = () => {
-    if (ph >= 7.5 && ph <= 6.5 && count === 0) {
-      setCount(1);
+
+    if (ph >= 8.00) {
       riskyPH();
     }
   };
   const checkLowPH = () => {
-    if (ph <= 6.5 && ph > 0 && count === 0) {
+    if (ph <= 6.5) {
       setCount(1);
       riskyPH();
     }
@@ -361,7 +371,7 @@ const styles = StyleSheet.create({
     marginTop: '2%',
     borderRadius: 30,
     elevation: 10,
-    shadowColor: 'black',
+    shadowColor: '#fff',
     backgroundColor: '#fff',
   },
   rightCard: {
@@ -372,7 +382,7 @@ const styles = StyleSheet.create({
     marginLeft: '55%',
     marginTop: -185,
     elevation: 10,
-    shadowColor: 'black',
+    shadowColor: '#fff',
     backgroundColor: '#fff',
   },
   subCard: {
