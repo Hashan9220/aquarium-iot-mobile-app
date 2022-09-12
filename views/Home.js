@@ -331,7 +331,7 @@ export default function Home() {
                 <View style={styles.midCircle}>
                   <Text
                     style={{
-                      width: '50%',
+                      width: '40%',
                       height: '30%',
                       textAlign: 'center',
                       fontSize: 20,
