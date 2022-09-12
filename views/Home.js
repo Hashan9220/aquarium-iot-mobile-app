@@ -105,28 +105,21 @@ export default function Home() {
   }, []);
   useEffect(() => {
 
-    if (ph > 8.00 ){
+    if (ph > 8.00){
       checkHighPH();
     } else if (ph < 6.5) {
       checkLowPH();
     }else {
-      reset();
+      // reset();
     }
-    // ph >= 7.5 && ph <= 8.2 ? checkHighPH():reset; //this is need
-    // ph <= 6.5 && ph > 0 ? checkLowPH():reset;
-  }, [id, ph, temp]);
+  }, []);
   useEffect(() => {
     if (temp > 35) {
       checkHighTemp();
     } else if (temp < 23) {
       checkLowTemp();
-    } else {
-      reset();
-    }
-
-    // temp >= 27 && temp <= 35 ? checkHighTemp() : reset();// this is need
-    // temp <= 23 && temp >= 1 ? checkLowTemp() : reset();
-  }, [id, ph, temp]);
+    } 
+  }, []);
   const scanIdPopUp = () => {
     if (id !== null) {
       showDialog();
@@ -140,32 +133,44 @@ export default function Home() {
   const riskyTemp = () => {
     riskyTemperatureNotification();
   };
-  const reset = () => {
-    if (count !== 0) {
-      setCount(0);
-    }
-  };
+  // const reset = () => {
+  //   if (count !== 0) {
+  //     setCount(0);
+  //   }
+  // };
   const checkHighPH = () => {
 
-    if (ph >= 8.00 && count === 0) {
+    if ( count === 0) {
+      setCount(1);
+      console.log(" ph high",count);
       riskyPH();
+      
+    }else {
+      console.log("reset ph high");
+      // reset();
     }
   };
   const checkLowPH = () => {
-    if (ph <= 6.5 && count === 0) {
-      setCount(1);
+    if ( count === 0) {
+      
       riskyPH();
+    }else {
+      console.log("reset ph low");
+      // reset();
     }
   };
   const checkHighTemp = () => {
     if (temp >= 30 && temp <= 35 && count === 0) {
-      setCount(1);
+      console.log("resky temp");
       riskyTemp();
+    }else {
+      console.log("reset temp");
+      // reset();
     }
   };
   const checkLowTemp = () => {
     if (temp <= 23 && temp >= 1 && count === 0) {
-      setCount(1);
+    
       riskyTemp();
     }
   };
@@ -326,10 +331,11 @@ export default function Home() {
                 <View style={styles.midCircle}>
                   <Text
                     style={{
-                      width: '30%',
-                      height: '20%',
+                      width: '50%',
+                      height: '30%',
                       textAlign: 'center',
                       fontSize: 20,
+                      fontStyle:'bold'
                     }}>
                     {temp} °C
                   </Text>

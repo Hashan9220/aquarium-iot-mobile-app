@@ -5,9 +5,10 @@ import QrCode from '../views/QrCode';
 import FeedScreen from '../views/FeedScreen';
 import ProfileScreen from '../views/ProfileScreen';
 
-export default function BottomTab() {
-  const HomeRoute = () => <Home navigation={Home} />;
-  const QrCodeRoute = () => <QrCode navigation={QrCode} />;
+export default function BottomTab({navigation}) {
+ 
+  const HomeRoute = () => <Home navigation={navigation} />;
+  const QrCodeRoute = () => <QrCode navigation={navigation} />;
   const FeedRoute = () => <FeedScreen />;
 
   const [index, setIndex] = React.useState(0);

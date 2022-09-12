@@ -25,6 +25,7 @@ const scanBarHeight = SCREEN_WIDTH * 0.0025;
 const scanBarColor = 'red';
 
 export default function QrCode({navigation}) {
+  
   const makeSlideOutTranslation = (translationType, fromValue) => {
     return {
       from: {

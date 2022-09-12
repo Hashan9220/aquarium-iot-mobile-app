@@ -8,6 +8,7 @@ import Welcome from './Welcome';
 import SignIn from './SignIn';
 import Register from './Register';
 import ForgotPassword from './ForgotPassword';
+import QrCode from './QrCode';
 
 const Drawer = createDrawerNavigator();
 
@@ -63,6 +64,11 @@ export default function Dashboard() {
           options={{headerShown: null}}
           name={'Dashboard'}
           component={Dashboard}
+        />
+          <Drawer.Screen
+          options={{headerShown: null}}
+          name={'QrCode'}
+          component={QrCode}
         />
       </Drawer.Navigator>
     </NavigationContainer>
