@@ -65,7 +65,7 @@ export default function Dashboard() {
           name={'Dashboard'}
           component={Dashboard}
         />
-          <Drawer.Screen
+        <Drawer.Screen
           options={{headerShown: null}}
           name={'QrCode'}
           component={QrCode}

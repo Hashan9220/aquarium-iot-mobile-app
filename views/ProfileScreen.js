@@ -16,7 +16,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Orientation, {unlockAllOrientations} from 'react-native-orientation';
 
 export default function ProfileScreen() {
   const [id, setId] = useState(null);
@@ -27,7 +26,7 @@ export default function ProfileScreen() {
   const [name, setUserName] = useState('');
   const [address, setUserAddress] = useState('');
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState('');
+
   const formdata = new FormData();
 
   const getUserData = useCallback(() => {

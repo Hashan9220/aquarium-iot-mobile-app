@@ -16,6 +16,7 @@ import Dashboard from './views/Dashboard';
 const Stack = createStackNavigator();
 
 const App = () => {
+
   const [token, setToken] = useState(null);
   useEffect(() => {
     const init = async () => {
@@ -54,7 +55,7 @@ const App = () => {
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name={'Dashboard'} component={Dashboard} />
+          <Stack.Screen name='Dashboard' component={Dashboard} />
         </Stack.Navigator>
       </NavigationContainer>
     );

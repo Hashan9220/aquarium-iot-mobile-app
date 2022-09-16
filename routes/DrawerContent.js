@@ -59,7 +59,7 @@ const ModelPoup = ({visible, children}) => {
   );
 };
 
-export default function DrawerContent({navigation}) {
+export default function DrawerContent({navigation, props}) {
   const signOut = async () => {
     try {
       await AsyncStorage.removeItem('alreadyLaunched');
@@ -85,7 +85,7 @@ export default function DrawerContent({navigation}) {
     if (id && token) {
       imageSet();
     }
-  }, [id, token, navigation]);
+  }, [id, token, props]);
 
   const imageSet = () => {
     fetch(baseURL + 'user/' + id, {
@@ -123,7 +123,7 @@ export default function DrawerContent({navigation}) {
           <View style={styles.profilePicSection}>
             <Image
               source={{
-                uri: 'http://54.245.177.239/storage/user_images/' + images,
+                uri: 'http://54.245.177.239:8060/storage/user_images/' + images,
               }}
               style={styles.dummyPic}
             />

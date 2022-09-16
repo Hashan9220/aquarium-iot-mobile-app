@@ -66,12 +66,10 @@ export default function Home() {
       ]);
       return true;
     };
-
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction,
     );
-
     return () => backHandler.remove();
   }, []);
 
@@ -103,74 +101,52 @@ export default function Home() {
     checkNh3();
     scanIdPopUp();
   }, []);
-  useEffect(() => {
 
-    if (ph > 8.00){
-      checkHighPH();
-    } else if (ph < 6.5) {
-      checkLowPH();
-    }else {
-      // reset();
-    }
-  }, []);
   useEffect(() => {
-    if (temp > 35) {
-      checkHighTemp();
-    } else if (temp < 23) {
-      checkLowTemp();
-    } 
-  }, []);
-  const scanIdPopUp = () => {
-    if (id !== null) {
-      showDialog();
-    } else {
-      hideDialog();
-    }
-  };
+    ph >= 7.5 && ph <= 15 ? checkHighPH() : reset();
+    ph <= 6.5 && ph > 0 ? checkLowPH() : reset();
+  }, [ph]);
+
+  useEffect(() => {
+    temp >= 28 && temp <= 35 ? checkHighTemp() : reset();
+    temp <= 23 && temp >= 1 ? checkLowTemp() : reset();
+  }, [temp]);
+
   const riskyPH = () => {
     riskyPhValueNotification();
   };
   const riskyTemp = () => {
     riskyTemperatureNotification();
   };
-  // const reset = () => {
-  //   if (count !== 0) {
-  //     setCount(0);
-  //   }
-  // };
+  const reset = () => {
+    if (count !== 0) {
+      setCount(0);
+    }
+  };
   const checkHighPH = () => {
-
-    if ( count === 0) {
+    if (ph >= 8.5 && count === 0) {
       setCount(1);
-      console.log(" ph high",count);
       riskyPH();
-      
-    }else {
-      console.log("reset ph high");
-      // reset();
     }
   };
+
   const checkLowPH = () => {
-    if ( count === 0) {
-      
+    if (ph <= 6.5 && count === 0) {
+      setCount(1);
       riskyPH();
-    }else {
-      console.log("reset ph low");
-      // reset();
     }
   };
+
   const checkHighTemp = () => {
-    if (temp >= 30 && temp <= 35 && count === 0) {
-      console.log("resky temp");
+    if (temp >= 28 && count === 0) {
+      setCount(1);
       riskyTemp();
-    }else {
-      console.log("reset temp");
-      // reset();
     }
   };
+
   const checkLowTemp = () => {
-    if (temp <= 23 && temp >= 1 && count === 0) {
-    
+    if (temp <= 23 && count === 0) {
+      setCount(1);
       riskyTemp();
     }
   };
@@ -190,6 +166,13 @@ export default function Home() {
       setIndicatorColor('red');
       setNormalIndicatorOpacity(0);
       setDangerIndicatorOpacity(1);
+    }
+  };
+  const scanIdPopUp = () => {
+    if (id !== null) {
+      showDialog();
+    } else {
+      hideDialog();
     }
   };
   const Clickdone = () => {
@@ -223,7 +206,7 @@ export default function Home() {
             <View style={styles.cardSection}>
               <Card
                 style={{
-                  ...styles.leftCard,
+                  ...(theme === 'light' ? styles.leftCard : darkMode.leftCard),
                   borderColor:
                     ph >= 7.5
                       ? 'red'
@@ -247,7 +230,7 @@ export default function Home() {
                   </Card.Content>
                 </Card>
               </Card>
-              <Card style={styles.rightCard}>
+              <Card style={theme === 'light' ? styles.rightCard : darkMode.rightCard}>
                 <Card.Content style={styles.cardContent}>
                   <Title style={{color: '#1E90FF'}}>NH3</Title>
 
@@ -331,11 +314,13 @@ export default function Home() {
                 <View style={styles.midCircle}>
                   <Text
                     style={{
+                      marginTop: 30,
                       width: '40%',
                       height: '30%',
                       textAlign: 'center',
                       fontSize: 20,
-                      fontStyle:'bold'
+                      fontStyle: 'bold',
+                      color:'#000'
                     }}>
                     {temp} °C
                   </Text>
